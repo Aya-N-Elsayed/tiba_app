@@ -1,13 +1,308 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+:root {
+  --bg-color: rgba(248, 248, 248, 1);
+  --btn-lightness: 0px 8px 24px 0px rgba(50, 139, 205, 0.6);
+  --card-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.1);
+  --dark-bg: rgba(0, 18, 17, 1);
+  --light-effect: 0px 5px 20px 0px rgba(0, 178, 169, 0.3);
+  --light-white: rgba(235, 235, 235, 1);
+  --lightness-g: rgba(200, 200, 200, 0.3);
+  --lightness-g2: rgba(200, 200, 200, 0.1);
+  --logo-colortypap-color: rgba(0, 75, 125, 1);
+  --logo-colortypap-darkcolor: rgba(0, 13, 22, 1);
+  --logo-colortypap-lightnesscolor: rgba(50, 139, 205, 1);
+  --logo-colortypas-color: rgba(241, 233, 65, 1);
+  --logo-greylogo-grey100: rgba(253, 253, 253, 1);
+  --logo-greylogo-grey1000: rgba(44, 55, 62, 1);
+  --logo-greylogo-grey1100: rgba(22, 34, 42, 1);
+  --logo-greylogo-grey1200: rgba(0, 13, 22, 1);
+  --logo-greylogo-grey200: rgba(219, 219, 219, 1);
+  --logo-greylogo-grey300: rgba(200, 200, 200, 1);
+  --logo-greylogo-grey400: rgba(178, 179, 180, 1);
+  --logo-greylogo-grey500: rgba(156, 158, 160, 1);
+  --logo-greylogo-grey600: rgba(133, 138, 141, 1);
+  --logo-greylogo-grey700: rgba(111, 117, 121, 1);
+  --logo-greylogo-grey800: rgba(89, 96, 101, 1);
+  --logo-greylogo-grey900: rgba(67, 75, 81, 1);
+  --m-16-font-family: "NotoNaskh Arabic-Medium", Helvetica;
+  --m-16-font-size: 16px;
+  --m-16-font-style: normal;
+  --m-16-font-weight: 500;
+  --m-16-letter-spacing: 0px;
+  --m-16-line-height: 100%;
+  --m-20-font-family: "NotoNaskh Arabic-Medium", Helvetica;
+  --m-20-font-size: 16px;
+  --m-20-font-style: normal;
+  --m-20-font-weight: 500;
+  --m-20-letter-spacing: 0px;
+  --m-20-line-height: 100%;
+  --m-28-font-family: "NotoNaskh Arabic-Medium", Helvetica;
+  --m-28-font-size: 28px;
+  --m-28-font-style: normal;
+  --m-28-font-weight: 500;
+  --m-28-letter-spacing: 0px;
+  --m-28-line-height: 100%;
+  --primary-colorbase: rgba(0, 178, 169, 1);
+  --primary-greygreyscale100: rgba(200, 200, 200, 1);
+  --primary-greygreyscale1000: rgba(0, 18, 17, 1);
+  --primary-greygreyscale200: rgba(229, 229, 229, 1);
+  --primary-greygreyscale300: rgba(156, 160, 159, 1);
+  --primary-greygreyscale400main: rgba(133, 139, 139, 1);
+  --primary-greygreyscale500: rgba(111, 119, 119, 1);
+  --primary-greygreyscale600: rgba(89, 99, 98, 1);
+  --primary-greygreyscale700: rgba(67, 79, 78, 1);
+  --primary-greygreyscale800: rgba(44, 58, 58, 1);
+  --primary-greygreyscale900: rgba(22, 38, 37, 1);
+  --r-14-font-family: "NotoNaskh Arabic-Regular", Helvetica;
+  --r-14-font-size: 14px;
+  --r-14-font-style: normal;
+  --r-14-font-weight: 400;
+  --r-14-letter-spacing: 0px;
+  --r-14-line-height: 100%;
+  --secondary-bg: rgba(0, 25, 24, 1);
+  --sutz-semibold-semi-bold-40-font-family: "SukhumvitSet-SemiBold", Helvetica;
+  --sutz-semibold-semi-bold-40-font-size: 40px;
+  --sutz-semibold-semi-bold-40-font-style: normal;
+  --sutz-semibold-semi-bold-40-font-weight: 600;
+  --sutz-semibold-semi-bold-40-letter-spacing: 0.12000000476837158px;
+  --sutz-semibold-semi-bold-40-line-height: 120.00000476837158%;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body{
+  font-family: "Noto Naskh Arabic", Helvetica;
+}
+
+a{
+  color: inherit !important;
+  text-decoration: none;
+}
+
+/* ? login form style */
+.signForm{
+  background-color: var(--bg-color);
+  border: 1px none;
+  height: 100vh;
+  text-align: end;
+  
+  
+}
+
+.formTitle{
+  color: var(--logo-colortypap-darkcolor);
+  font-family: var(--sutz-semibold-semi-bold-40-font-family);
+  font-size: var(--sutz-semibold-semi-bold-40-font-size);
+  font-style: var(--sutz-semibold-semi-bold-40-font-style);
+  font-weight: var(--sutz-semibold-semi-bold-40-font-weight);
+  letter-spacing: var(--sutz-semibold-semi-bold-40-letter-spacing);
+  line-height: var(--sutz-semibold-semi-bold-40-line-height);
+  margin-bottom: 102px;
+}
+
+.signForm ::placeholder{
+/* color: rgb(159, 153, 153) !important; */
+text-align: end;
+font-family: "Noto Naskh Arabic", Helvetica;
+font-size: 16px;
+font-weight: 400;
+letter-spacing: 0;
+line-height: 16px;
+color: var(--logo-greylogo-grey800);
+
+}
+
+/*? sign in btn */
+.signBtn{
+
+  background-color: var(--logo-colortypap-color);
+  border-radius: 24px;
+  box-shadow: var(--btn-lightness);
+  padding: 28px 16px;
+  border: none;
+  color: white;
+  margin-top: 60px;
+
+  
+}
+
+.signForm label{
+  color: var(--logo-colortypap-darkcolor);
+  font-family: "Noto Naskh Arabic", Helvetica;
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 24px;
+  white-space: nowrap;
+  margin-bottom: 29px;
+  
+}
+
+.signForm input{
+  border: 1px solid;
+    border-color: var(--primary-greygreyscale400main);
+    border-radius: 16px;
+    padding: 24px 16px;
+    margin-bottom: 32px;
+
+}
+
+.formInputs{
+
+  margin: 100px 78px 267px;
+}
+
+/* ? arrow icon */
+.arrow-left{
+ margin-right: 8px;
+ /* font-size: 20px; */
+}
+
+.signBtn h6{
+  font-family: "Noto Naskh Arabic", Helvetica;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 20px;
+
+}
+
+/* * logo part in login form styling */
+
+.logoDiv{
+  background-color: var(--logo-colortypap-lightnesscolor);
+  border: 1px none;
+  background-image: url(../public/images/ellipse-7.svg);
+  background-size: 100% 100%;
+
+  
+}
+
+/* .logoDiv img{
+  margin: 345px 172px 344px;
+
+} */
+
+/*  ************************************************ Home page styling ***************** */
+
+header{
+  /* background-color: var(--logo-colortypap-lightnesscolor) ; */
+
+  background-color: var(--bg-color);
+  border: 0.75px none;
+}
+
+/*? navbar  */
+.search input{
+  /* align-items: flex-end; */
+    border: 0.75px solid;
+    border-color: var(--logo-greylogo-grey500);
+    border-radius: 18.03px;
+    padding: 12.02px;
+    width: 100%;    font-family: "Noto Naskh Arabic", Helvetica;
+    font-size: 10.5px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 10.5px;
+
+}
+
+/* # search input */
+
+.search{
+  position: relative;
+}
+
+.search img{
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  cursor: pointer;
+  padding: 12px;
+  /* margin-left: 13.5px; */
+}
+
+.search ::placeholder{
+  font-family: "Noto Naskh Arabic", Helvetica;
+  font-size: 10.5px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 10.5px;
+  text-align: end;
+  margin-right: 13.5px;
+}
+
+nav{
+    background-color: var(--logo-greylogo-grey100);
+    box-shadow: 0px 3px 6.01px #0000000d;
+    /* height: 78px; */
+    padding: 17.3px 18px 18px 71.4px;
+
+}
+
+.navbar{
+  padding: 17.3px 18px 18px 71.4px;
+  /* margin-bottom: 1061px; */
+}
+
+/* # notification button */
+
+.notification{
+  background-color: #328bcd;
+  border-radius: 21.41px;
+  box-shadow: 0px 6.01px 18.03px #328bcd99;
+  height: 42.82px;
+  width: 42.82px;
+  /* border: 0; */
+
+}
+
+
+/* # user button */
+
+.user img{
+  border-radius: 21.41px;
+  height: 42.82px;
+  width: 42.82px;
+
+}
+
+
+
+/* ? side bar */
+
+.sidebar{
+    background-color: var(--logo-colortypap-lightnesscolor) ;
+    width: 13%;
+
+    
+}
+
+.sidebar li{
+  color: var(--light-white);
+  font-family: "Noto Naskh Arabic", Helvetica;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 16px;
+  margin-left: -5.01px;
+  padding: 16px 32px;
+  margin-bottom: 2px;
+}
+
+
+
+.sidebar .logoimg{
+  margin: 25px 42px 25px 43px;
+  width: 50%;
+}
+
+.sidebar .icons{
+  width: 20px;
+  height: 20px;
+  margin-left: 6.01px;
+}
+
+/* ? left section */
+
+.leftSection{
+  width: 87%;
+  
 }
