@@ -77,13 +77,17 @@ a{
 }
 
 /* ? login form style */
+.login{
+   background-color: var(--bg-color);
+   padding-top: 161px ;
+}
+
 .signForm{
-  background-color: var(--bg-color);
+
   border: 1px none;
-  height: 100vh;
+
   text-align: end;
-  
-  
+
 }
 
 .formTitle{
@@ -118,7 +122,7 @@ color: var(--logo-greylogo-grey800);
   padding: 28px 16px;
   border: none;
   color: white;
-  margin-top: 60px;
+  margin-top: 92px;
 
   
 }
@@ -146,7 +150,8 @@ color: var(--logo-greylogo-grey800);
 
 .formInputs{
 
-  margin: 100px 78px 267px;
+  margin-inline: 78px ;
+  margin-bottom: 267px;
 }
 
 /* ? arrow icon */
@@ -164,6 +169,12 @@ color: var(--logo-greylogo-grey800);
 
 }
 
+.signBtn:hover{
+  background-color: var(--logo-colortypap-lightnesscolor);
+  color: white;
+
+}
+
 /* * logo part in login form styling */
 
 .logoDiv{
@@ -175,10 +186,10 @@ color: var(--logo-greylogo-grey800);
   
 }
 
-/* .logoDiv img{
-  margin: 345px 172px 344px;
+.logoDiv img{
+  /* margin: 345px 172px 344px; */
 
-} */
+}
 
 /*  ************************************************ Home page styling ***************** */
 
@@ -206,16 +217,25 @@ header{
 
 /* # search input */
 
-.search{
+.search , .password{
   position: relative;
 }
 
-.search img{
+.search img {
   position: absolute;
   top: 0px;
   right: 0px;
   cursor: pointer;
   padding: 12px;
+  /* margin-left: 13.5px; */
+}
+
+.password img{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  cursor: pointer;
+  padding: 24px 8px 24px 16px;
   /* margin-left: 13.5px; */
 }
 
@@ -261,6 +281,7 @@ nav{
   border-radius: 21.41px;
   height: 42.82px;
   width: 42.82px;
+  /* margin-right: 26.65px; */
 
 }
 
@@ -290,14 +311,18 @@ nav{
 
 
 .sidebar .logoimg{
-  margin: 25px 42px 25px 43px;
+  margin-block: 25px 25px ;
   width: 50%;
+  display: block;
+  margin-inline: auto;
+
 }
 
 .sidebar .icons{
   width: 20px;
   height: 20px;
-  margin-left: 6.01px;
+  margin-left: 10px;
+  margin-bottom: 0;
 }
 
 /* ? left section */
@@ -305,4 +330,183 @@ nav{
 .leftSection{
   width: 87%;
   
+  
+}
+
+/* # card styling */
+
+.card{
+  padding: 13.87px 12px 12.5px ;
+  border: 1px  ;
+  box-shadow: 0px 3px 9.01px #0000001a !important;
+  border-radius: 8px;
+
+
+}
+
+
+
+.card button{
+  padding: 12px;
+  border-radius: 18px;
+
+}
+
+.card button img{
+  margin-left: 8px;
+}
+
+.detailsBtn{
+  color: var(--logo-colortypap-color);
+  font-family: "Noto Naskh Arabic", Helvetica;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 16px;
+  border: 0.75px solid;
+
+}
+
+.detailsBtn:hover{
+  background-color: var(--bg-color);
+  color: var(--logo-colortypap-color);
+}
+
+.detailsBtn p{
+  font-family: "Noto Naskh Arabic", Helvetica;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 16px;
+  word-wrap: break-word;
+  margin: 0px;
+
+}
+
+.bookBtn{
+  background-color: var(--logo-colortypap-lightnesscolor);
+  font-family: "Noto Naskh Arabic", Helvetica;
+  font-size: 16px;
+  font-weight: 500;
+  /* letter-spacing: 0; */
+  line-height: 16px;
+  word-wrap: break-word;
+  color: white;
+  margin-top: 9px;
+  
+}
+
+.bookBtn:hover{
+  background-color: var(--logo-colortypap-lightnesscolor);
+  color:white;
+
+}
+
+.cardText p{
+  font-family: "Noto Naskh Arabic", Helvetica;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--logo-greylogo-grey600);
+  line-height: 14px;
+  word-wrap: break-word;
+  margin: 0px;
+  margin-bottom: 12px;
+}
+
+.cardText .numbers {
+  color: var(--logo-greylogo-grey1200);
+  font-family: "Noto Naskh Arabic-Medium", Helvetica;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 16px;
+  word-wrap: break-word;
+}
+
+.icons{
+  margin-bottom: 12px;
+}
+
+.date{
+  margin-bottom: 28px;
+}
+
+.month{
+  margin: 0;
+  color: var(--primary-greygreyscale1000);
+  font-family: "Noto Naskh Arabic-Medium", Helvetica;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 16px;
+  word-wrap: break-word;
+}
+
+.weekday{
+  margin-bottom: 12px;
+  color: var(--logo-greylogo-grey600);
+  font-family: "Noto Naskh Arabic-Medium", Helvetica;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 14px;
+  word-wrap: break-word;
+}
+
+.calender .row{
+  row-gap:18.03px;
+  /* column-gap:15.02px; */
+}
+
+.detailsBtn .btnicons{
+  /* width: 100%; */
+  /* width: 14px; */
+  max-height: 16px;
+
+  /* display: none; */
+}
+
+/* # dates controller */
+.datesControler {
+  margin-block: 50px;
+  margin-inline: auto;
+}
+
+.prev button, .next button{
+
+  padding: 9px;
+  border-radius: 6px;
+  border: 0.75px solid var(--logo-greylogo-grey400);
+  background-color: transparent;
+
+
+}
+
+.datesControler p{
+  color: var(--logo-colortypap-lightnesscolor);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 12px;
+  word-wrap: break-word;
+  margin-block: 0;
+  
+}
+
+.prev p{
+  margin-right: 5.26px;
+}
+
+.next p{
+  margin-left: 5.26px;
+}
+
+.currentMonth button{
+  padding: 18px;
+  border-radius: 18px;
+  border: 0.75px solid var(--logo-greylogo-grey700);
+  background-color: transparent;
+  color: var(--logo-colortypap-darkcolor);
+  font-size: 21.03px;
+  font-weight: 500;
+  word-wrap: break-word;
+}
+
+.dropdown-toggle::after {
+  vertical-align: 0;
+  border-top: 0.3em solid var(--logo-greylogo-grey700) ;
 }

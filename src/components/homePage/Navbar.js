@@ -9,13 +9,13 @@ export const Navbar = () => {
       </button>
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         
-         <ul className="navbar-nav mb-2 mb-lg-0 d-flex me-auto">
+         <ul className="navbar-nav  d-flex align-items-center  me-auto">
             
-           <li className="nav-item">
+           <li className="nav-item me-3">
             <button type="button" className="btn user d-flex justify-content-center align-items-center"><img classNameName="w-100 " src="../../images/userimage.jpeg" alt="user image"/></button>
             </li>  
           <li className="nav-item">
-            <a className="nav-link" href="#"><button type="button" className="btn notification d-flex justify-content-center align-items-center"><img classNameName="w-100 " src="../../images/notification.svg" alt="notifications"/></button></a>
+            <button type="button" className="btn notification d-flex justify-content-center align-items-center"><img classNameName="w-100 " src="../../images/notification.svg" alt="notifications"/></button>
           </li>
 
 
