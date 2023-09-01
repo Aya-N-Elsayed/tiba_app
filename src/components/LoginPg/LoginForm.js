@@ -1,9 +1,12 @@
+
+import styles from './LoginForm.module.css'
+
 export const LoginForm = () => {
   return (
-    <div className="login h-100">
-      <form className=" signForm h-100">
+    <div className= {`${styles.login}  h-100` }  >
+      <form className=  {`${styles.signForm}  ` } >
         <div className="formInputs">
-          <div className="formTitle text-end "> تسجيل الدخول</div>
+            <div className={`${styles.formTitle }  text-end` }  > تسجيل الدخول</div>
 
           <label for="email">البريد الألكتروني</label>
           <input
@@ -30,12 +33,12 @@ export const LoginForm = () => {
           </div>
           <button
             type="button"
-            className="btn signBtn d-flex justify-content-center w-100"
+            className= {`btn ${styles.signBtn }  d-flex justify-content-center w-100` }
             id="Btn"
             onclick="pageName()"
           >
             <img
-              className="arrow-left"
+              className={styles.arrowLeft}
               alt="Arrow left"
               src="https://generation-sessions.s3.amazonaws.com/403c9c6b737d47e39182424d0db66bcc/img/arrow-left.svg"
             />
