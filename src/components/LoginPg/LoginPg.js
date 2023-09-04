@@ -9,12 +9,14 @@ export const LoginPg = () => {
     <div className="container-fluid row vh-100 p-0 g-0">
      
     
-        <div className="col-md-6 ">
-          <Logo/>   
+      <div className="col-md-6 ">
+      <LoginForm  />
+          
         </div>
 
-        <div className="col-md-6  " >
-          <LoginForm  />
+      <div className="col-md-6  " >
+      <Logo/>   
+          
 
         </div>
         

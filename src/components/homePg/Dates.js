@@ -2,11 +2,11 @@
 
 export const Dates = () => {
   return (
-    <div className="datesControler d-flex flex-row-reverse justify-content-evenly align-items-center">
+    <div className="datesControler d-flex  justify-content-evenly align-items-center">
       <div className="prev">
         <button
           type="button"
-                  className="  d-flex flex-row-reverse  align-items-center "
+                  className="  d-flex   align-items-center "
         >
           <img
             className="btnicons "
@@ -34,13 +34,15 @@ export const Dates = () => {
           type="button"
           className="  d-flex align-items-center "
         >
+
+          <p className="month">سبتمبر</p>
+          <p className="date">9/2023</p>
           <img
             className="btnicons "
             alt="Image"
             src="./images/arrow-left.svg"
           />
-          <p className="date">9/2023</p>
-          <p className="month">سبتمبر</p>
+          
         </button>
       </div>
     </div>

@@ -1,0 +1,31 @@
+
+/* .aya>:not(caption)>*>* {
+    padding: 0.5rem 0.5rem;
+    color: var(--bs-table-color-state,var(--bs-table-color-type,var(--bs-table-color)));
+    background-color: var(--bs-table-bg);
+    border-bottom-width: var(--bs-border-width);
+    box-shadow: inset 0 0 0 9999px var(--bs-table-bg-state,var(--bs-table-bg-type,var(--bs-table-accent-bg)));
+} */
+
+.mytable th{
+    color: var(--logo-greylogo-grey400);
+    font-size: 13px;
+    word-wrap: break-word;
+    text-align: center;
+}
+
+.mytable td{
+    color: var(--logo-colortypap-darkcolor);
+    font-size: 13px;
+    word-wrap: break-word;
+    text-align: center;
+    font-weight: 400;
+}
+
+.mytable thead{
+    background-color: aqua;
+}
+
+.mytable tr{
+    margin-bottom: 23px;
+}

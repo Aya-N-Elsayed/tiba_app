@@ -7,7 +7,7 @@ export const HomePg = () => {
   return (
       <header className="container-fluid d-flex px-0 m-0 ">
 
-        
+        <Sidebar/>
         <section className="leftSection">
             {/* navbar  */}
             <Navbar/>
@@ -15,7 +15,7 @@ export const HomePg = () => {
             
             
         </section>
-        <Sidebar/>
+        
 
           
     </header>
