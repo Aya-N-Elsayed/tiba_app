@@ -1,6 +1,6 @@
-import { Sidebar } from "./Sidebar"
-import { Navbar } from "./Navbar"
-import { Filter } from "./filter/Filter"
+import { Sidebar } from "../Sidebar/Sidebar"
+import { Navbar } from "../Navbar/Navbar"
+import { Filter } from "./Filter/Filter"
 import { Table } from "./Table/Table"
 
 export const OperationPg = () => {

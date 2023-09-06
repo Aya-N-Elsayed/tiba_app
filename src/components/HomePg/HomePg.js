@@ -1,6 +1,5 @@
-import { Calender } from "./Calender"
-import { Navbar } from "./Navbar"
-import { Sidebar } from "./Sidebar"
+import { Navbar } from "../Navbar/Navbar"
+import { Sidebar } from "../Sidebar/Sidebar"
 import { MonthCalender } from "./Calender"
 
 export const HomePg = () => {
@@ -19,5 +18,20 @@ export const HomePg = () => {
 
           
     </header>
+
+    //       <header className="container-fluid d-flex px-0 m-0 ">
+
+        
+    //     <section className="leftSection">
+    //         {/* navbar  */}
+            
+    //         <MonthCalender/>
+            
+            
+    //     </section>
+        
+
+          
+    // </header>
   )
 }

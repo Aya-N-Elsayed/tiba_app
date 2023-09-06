@@ -1,5 +1,5 @@
 
-
+import { Link } from "react-router-dom"
 export const Sidebar = () => {
   return (
     <div className="sidebar  ">
@@ -9,15 +9,15 @@ export const Sidebar = () => {
         
               <li class="nav-item d-flex  align-items-center ">
                   <img className="icons" alt="Image" src="./images/home-trend-up.svg"/>
-                  <a class=" active" aria-current="page" href="#">الرئيسة</a>
+                  <Link class=" active" aria-current="page" to='/home'>الرئيسة</Link>
             </li>
               <li class="nav-item d-flex  align-items-center ">
                   <img className="icons" alt="Image" src="./images/receipt-2.svg"/>
-                  <a class="" href="#">حجوزات</a>
+                  <Link class="" to='/operations'>حجوزات</Link>
             </li>
               <li class="nav-item d-flex  align-items-center ">
                 <img className="icons" alt="Image" src="./images/profile-2user.svg"/>
-                <a class="" href="#">الأطباء</a>
+                <Link class="" to='/login'>الأطباء</Link>
             </li>
 
          </ul>
