@@ -17,7 +17,7 @@ export const Sidebar = () => {
             </li>
               <li class="nav-item d-flex  align-items-center ">
                 <img className="icons" alt="Image" src="./images/profile-2user.svg"/>
-                <Link class="" to='/login'>الأطباء</Link>
+                <Link class="" to='/operations'>الأطباء</Link>
             </li>
 
          </ul>

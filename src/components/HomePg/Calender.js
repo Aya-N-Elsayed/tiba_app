@@ -7,115 +7,115 @@ export const MonthCalender = () => {
       <div>
         <Dates/>
       </div>
-      <div className="row gx-3 row-cols-7 ">
-        <div className=" col ">
+      <div className="row gx-3  ">
+        <div className=" col-xl-2 ">
           <Card/>
         </div>
 
-        <div className=" col ">
+        <div className=" col-xl-2 ">
           <Card/>
         </div>
 
-        <div className=" col ">
+        <div className=" col-xl-2 ">
           <Card/>
         </div>
 
-        <div className=" col ">
+        <div className=" col-xl-2 ">
           <Card/>
         </div>
 
-        <div className=" col ">
+        <div className=" col-xl-2 ">
           <Card/>
         </div>
 
-        <div className=" col ">
+        <div className=" col-xl-2 ">
           <Card/>
         </div>
 
 
-        <div className=" col ">
+        <div className=" col-xl-2 ">
           <Card/>
         </div>
 
-        <div className=" col ">
+        <div className=" col-xl-2 ">
           <Card/>
         </div>
 
-        <div className=" col ">
+        <div className=" col-xl-2 ">
           <Card/>
         </div>
 
-        <div className=" col ">
+        <div className=" col-xl-2 ">
           <Card/>
         </div>
-        <div className=" col ">
+        <div className=" col-xl-2 ">
           <Card/>
         </div>
-        <div className=" col ">
-          <Card/>
-        </div>
-
-        <div className=" col ">
+        <div className=" col-xl-2 ">
           <Card/>
         </div>
 
-        <div className=" col ">
+        <div className=" col-xl-2 ">
           <Card/>
         </div>
 
-        <div className=" col ">
+        <div className=" col-xl-2 ">
           <Card/>
         </div>
 
-        <div className=" col ">
+        <div className=" col-xl-2 ">
           <Card/>
         </div>
 
-        <div className=" col ">
-          <Card/>
-        </div>
-        <div className=" col ">
+        <div className=" col-xl-2 ">
           <Card/>
         </div>
 
-        <div className=" col ">
+        <div className=" col-xl-2 ">
           <Card/>
         </div>
-        <div className=" col ">
-          <Card/>
-        </div>
-        <div className=" col ">
-          <Card/>
-        </div>
-        <div className=" col ">
-          <Card/>
-        </div>
-        <div className=" col ">
-          <Card/>
-        </div>
-        <div className=" col ">
+        <div className=" col-xl-2 ">
           <Card/>
         </div>
 
-        <div className=" col ">
+        <div className=" col-xl-2 ">
+          <Card/>
+        </div>
+        <div className=" col-xl-2 ">
+          <Card/>
+        </div>
+        <div className=" col-xl-2 ">
+          <Card/>
+        </div>
+        <div className=" col-xl-2 ">
+          <Card/>
+        </div>
+        <div className=" col-xl-2 ">
+          <Card/>
+        </div>
+        <div className=" col-xl-2 ">
           <Card/>
         </div>
 
-        <div className=" col ">
-          <Card/>
-        </div>
-        <div className=" col ">
+        <div className=" col-xl-2 ">
           <Card/>
         </div>
 
-        <div className=" col ">
+        <div className=" col-xl-2 ">
+          <Card/>
+        </div>
+        <div className=" col-xl-2 ">
           <Card/>
         </div>
 
-        <div className=" col ">
+        <div className=" col-xl-2 ">
           <Card/>
         </div>
-        <div className=" col ">
+
+        <div className=" col-xl-2 ">
+          <Card/>
+        </div>
+        <div className=" col-xl-2 ">
           <Card/>
         </div>
 
