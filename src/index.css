@@ -77,6 +77,18 @@ a{
 }
 
 
+/* classes  */
+
+.bgNew{
+  background-color: #328bcd1a;
+
+}
+
+.bgDoctor{
+  background-color: rgba(241, 233, 65,0.2) ;
+  
+  /* opacity: 20%; */
+}
 /*  ************************************************ Home page styling ***************** */
 
 header{
@@ -178,6 +190,7 @@ nav{
 .sidebar{
     background-color: var(--logo-colortypap-lightnesscolor) ;
     width: 13%;
+    /* height: 100%; */
 
     
 }
@@ -215,6 +228,7 @@ nav{
 
 .leftSection{
   width: 87%;
+  height: 100%;
   
   
 }.mytable th{
@@ -403,4 +417,9 @@ nav{
 .dropdown-toggle::after {
   vertical-align: 0;
   border-top: 0.3em solid var(--logo-greylogo-grey700) ;
+}
+
+.main{
+ min-height: 100vh;
+ height: 100%;
 }

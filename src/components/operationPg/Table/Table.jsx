@@ -1,11 +1,12 @@
 import style from "./Table.module.css";
+import { Switch } from "./Switch/Switch";
 
 export const Table = () => {
   return (
-    <div className="container rounded-4">
-          <table class={`${style.mytable} table rounded-3`}>
-        <thead>
-          <tr className="table-secondary">
+    <div className="">
+      <table class={`${style.mytable} table align-middle`}>
+        <thead className="">
+          <tr className="">
             <th scope="col">الاسم</th>
             <th scope="col">العمر</th>
             <th scope="col">التليفون</th>
@@ -19,7 +20,7 @@ export const Table = () => {
           </tr>
         </thead>
         <tbody>
-          <tr className="table-primary">
+          <tr className="bgNew  ">
             <td>أحمد سعد</td>
             <td>24</td>
             <td>01001016080</td>
@@ -27,11 +28,22 @@ export const Table = () => {
             <td>مياة بيضة</td>
             <td>سامح السيد</td>
             <td>عمرو السباعى</td>
-            <td>9:30 ص</td>
+            <td className="">
+              <div className="d-flex">
+              <p className="m-0  ">9:30 ص</p>
+              <Switch />
+              </div>
+
+            </td>
+
             <td>سكيرتير 1</td>
-            <td>مجانى الدكتور عبد الرحمن</td>
+            <td className="d-flex justify-content-around">
+
+              <p className={`${style.note} m-0`}>مجانى الدكتور عبدالرحمن</p>
+              <img role='button' img  src="./images/vector.svg" alt="" />
+            </td>
           </tr>
-          <tr className="table-warning">
+          <tr className="bgDoctor">
             <td>أحمد سعد</td>
             <td>24</td>
             <td>01001016080</td>
@@ -39,11 +51,21 @@ export const Table = () => {
             <td>مياة بيضة</td>
             <td>سامح السيد</td>
             <td>عمرو السباعى</td>
-            <td>9:30 ص</td>
+            <td className="">
+              <div className="d-flex">
+              <p className="m-0  ">9:30 ص</p>
+              <Switch />
+              </div>
+
+            </td>
             <td>سكيرتير 1</td>
-            <td>مجانى الدكتور عبد الرحمن</td>
+            <td className="d-flex justify-content-around">
+
+              <p className={`${style.note} m-0`}>مجانى الدكتور عبدالرحمن</p>
+              <img role='button' src="./images/vector.svg" alt="" />
+            </td>
           </tr>
-          <tr className="table-primary">
+          <tr className="bgNew">
             <td>أحمد سعد</td>
             <td>24</td>
             <td>01001016080</td>
@@ -51,9 +73,19 @@ export const Table = () => {
             <td>مياة بيضة</td>
             <td>سامح السيد</td>
             <td>عمرو السباعى</td>
-            <td>9:30 ص</td>
+            <td className="">
+              <div className="d-flex">
+              <p className="m-0  ">9:30 ص</p>
+              <Switch />
+              </div>
+
+            </td>
             <td>سكيرتير 1</td>
-            <td>مجانى الدكتور عبد الرحمن</td>
+            <td className="d-flex justify-content-around">
+
+              <p className={`${style.note} m-0`}>مجانى الدكتور عبدالرحمن</p>
+              <img role='button' src="./images/vector.svg" alt="" />
+            </td>
           </tr>
           <tr>
             <td>أحمد سعد</td>
@@ -63,9 +95,19 @@ export const Table = () => {
             <td>مياة بيضة</td>
             <td>سامح السيد</td>
             <td>عمرو السباعى</td>
-            <td>9:30 ص</td>
+            <td className="">
+              <div className="d-flex">
+              <p className="m-0  ">9:30 ص</p>
+              <Switch />
+              </div>
+
+            </td>
             <td>سكيرتير 1</td>
-            <td>مجانى الدكتور عبد الرحمن</td>
+            <td className="d-flex justify-content-around">
+
+              <p className={`${style.note} m-0`}>مجانى الدكتور عبدالرحمن</p>
+              <img role='button' src="./images/vector.svg" alt="" />
+            </td>
           </tr>
           <tr>
             <td>أحمد سعد</td>
@@ -75,11 +117,21 @@ export const Table = () => {
             <td>مياة بيضة</td>
             <td>سامح السيد</td>
             <td>عمرو السباعى</td>
-            <td>9:30 ص</td>
+            <td className="">
+              <div className="d-flex">
+              <p className="m-0  ">9:30 ص</p>
+              <Switch />
+              </div>
+
+            </td>
             <td>سكيرتير 1</td>
-            <td>مجانى الدكتور عبد الرحمن</td>
+            <td className="d-flex justify-content-around">
+
+              <p className={`${style.note} m-0`}>مجانى الدكتور عبدالرحمن</p>
+              <img role='button' src="./images/vector.svg" alt="" />
+            </td>
           </tr>
-          <tr className="table-warning">
+          <tr className="bgDoctor">
             <td>أحمد سعد</td>
             <td>24</td>
             <td>01001016080</td>
@@ -87,9 +139,19 @@ export const Table = () => {
             <td>مياة بيضة</td>
             <td>سامح السيد</td>
             <td>عمرو السباعى</td>
-            <td>9:30 ص</td>
+            <td className="">
+              <div className="d-flex">
+              <p className="m-0  ">9:30 ص</p>
+              <Switch />
+              </div>
+
+            </td>
             <td>سكيرتير 1</td>
-            <td>مجانى الدكتور عبد الرحمن</td>
+
+            <td className="d-flex justify-content-around">
+              <p className={`${style.note} m-0`}>مجانى الدكتور عبدالرحمن</p>
+              <img role='button' src="./images/vector.svg" alt="" />
+            </td>
           </tr>
         </tbody>
       </table>

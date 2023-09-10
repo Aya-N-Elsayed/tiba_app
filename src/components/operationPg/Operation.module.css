@@ -1,0 +1,31 @@
+
+h3{
+    font-size: 22.15px;
+    font-weight: 500;
+}
+
+.booking{
+    margin-top: 44px;
+
+}
+
+.booking button {
+    background-color: var(--logo-colortypap-lightnesscolor);
+    font-family: "Noto Naskh Arabic", Helvetica;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 14px 11.2px;
+    border-radius: 16.8px;
+    /* letter-spacing: 0; */
+    line-height: 16px;
+    word-wrap: break-word;
+    color: white;
+    /* margin-top: 9px; */
+}
+
+.booking button:hover{
+    /* background-color: var(--logo-colortypap-lightnesscolor); */
+    background-color: rgb(101, 179, 225);
+    color:white;
+  
+  }

@@ -1,17 +1,16 @@
-
-/* .aya>:not(caption)>*>* {
-    padding: 0.5rem 0.5rem;
-    color: var(--bs-table-color-state,var(--bs-table-color-type,var(--bs-table-color)));
-    background-color: var(--bs-table-bg);
-    border-bottom-width: var(--bs-border-width);
-    box-shadow: inset 0 0 0 9999px var(--bs-table-bg-state,var(--bs-table-bg-type,var(--bs-table-accent-bg)));
-} */
+.mytable>tbody>tr>td, .mytable>tbody>tr>th, .mytable>tfoot>tr>td, .mytable>tfoot>tr>th, .mytable>thead>tr>td, .mytable>thead>tr>th {
+    padding: 13px;
+}
 
 .mytable th{
-    color: var(--logo-greylogo-grey400);
+    color: var(--logo-greylogo-grey800);
     font-size: 13px;
     word-wrap: break-word;
     text-align: center;
+    background-color: #00000008;
+    padding-block: 20px;
+    margin-top: 10px;
+    
 }
 
 .mytable td{
@@ -20,12 +19,51 @@
     word-wrap: break-word;
     text-align: center;
     font-weight: 400;
+    background-color: inherit;
+    /* border-spacing: 10px; */
+
+   
+    /* margin-bottom: 20px; */
 }
 
-.mytable thead{
-    background-color: aqua;
+.mytable thead {
+    background-color: #34ed2e08;
+    /* border-radius: 16.8px; */
+    padding-block: 50px ;
+    margin-top: -23px;
+    
 }
 
-.mytable tr{
+.mytable {
     margin-bottom: 23px;
+    border:  transparent;
+    border-radius: 16.8px;
+    overflow: hidden;
+    border-spacing: 0  23px ;
+    border-collapse: separate;
+    box-shadow:  0px 3px 12px 0px rgba(0, 0, 0, 0.1);
+
+
+    /* margin-block: -10px; */
+
 }
+
+
+
+ .note{
+    border-radius: 5.61px;
+    padding: 11px 8px 11px 21px ;
+    background-color: var(--lightness-g);
+    border: 0.7px solid var(--logo-colortypap-darkcolor);
+    color: var(--logo-colortypap-darkcolor);
+    /* color: aquamarine; */
+    font-size: 9.82px;
+    font-weight: 600;
+    word-wrap: break-word;
+    line-height: 9.82px;
+    /* white-space: nowrap; */
+
+    
+
+}
+

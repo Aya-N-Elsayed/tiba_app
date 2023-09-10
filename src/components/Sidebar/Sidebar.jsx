@@ -2,7 +2,7 @@
 import { Link } from "react-router-dom"
 export const Sidebar = () => {
   return (
-    <div className="sidebar  ">
+    <div className="sidebar   ">
       
         <img className=" logoimg" alt="tiba logo" src="./images/image-1.png"/>
       <ul class="nav flex-column text-end p-0">
@@ -17,10 +17,12 @@ export const Sidebar = () => {
             </li>
               <li class="nav-item d-flex  align-items-center ">
                 <img className="icons" alt="Image" src="./images/profile-2user.svg"/>
-                <Link class="" to='/operations'>الأطباء</Link>
+                <Link class="" to='/doctors'>الأطباء</Link>
             </li>
 
-         </ul>
+      </ul>
+      
+      {/* <img className="w-100" src="./images/frame.svg" alt="" /> */}
     </div>   
   )
 }

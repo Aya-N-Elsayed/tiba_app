@@ -1,4 +1,4 @@
-
+import { BookBtn } from "../BookBtn/BookBtn";
 
 export const Card = () => {
   return (
@@ -41,14 +41,7 @@ export const Card = () => {
           <img className="btnicons " alt="Image" src="./images/eye.svg" />
           
         </button>
-        <button
-          type="button"
-          className="btn bookBtn d-flex flex-row-reverse justify-content-center w-100"
-        >
-          
-          حجز عملية
-          <img className="btnicons" alt="Image" src="./images/add.svg" />
-        </button>
+            <BookBtn/>
       </div>
     </div>
   );

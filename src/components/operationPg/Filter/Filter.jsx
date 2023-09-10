@@ -4,6 +4,8 @@ import style from './Filter.module.css'
 
 export const Filter = () => {
     return (
+        <>
+           
       
         <div className={`${style.filterPg}  container bg-white `}>
             <div className={`${style.filter}   `}>
@@ -93,6 +95,6 @@ export const Filter = () => {
             </div>
             
         </div>
-    
+    </>
   )
 }
