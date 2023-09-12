@@ -26,7 +26,7 @@ export const Table = () => {
             <td>01001016080</td>
             <td>شارع الجلاء -أمام حتحوت
             </td>
-            <td className="d-flex  justify-content-evenly align-items-center">
+            <td className="d-flex  justify-content-around align-items-center">
 
               <p className={` m-0`}>7727</p>
               <img role='button' img  src="./images/vector.svg" alt="" />
@@ -39,7 +39,7 @@ export const Table = () => {
             <td>01001016080</td>
             <td>شارع الجلاء -أمام حتحوت
             </td>
-            <td className="d-flex justify-content-evenly align-items-center">
+            <td className="d-flex justify-content-around align-items-center">
 
               <p className={` m-0`}>7727</p>
               <img role='button' img  src="./images/vector.svg" alt="" />
@@ -52,7 +52,7 @@ export const Table = () => {
             <td>01001016080</td>
             <td>شارع الجلاء -أمام حتحوت
             </td>
-            <td className="d-flex justify-content-evenly align-items-center">
+            <td className="d-flex justify-content-around align-items-center">
 
               <p className={` m-0`}>7727</p>
               <img role='button' img  src="./images/vector.svg" alt="" />
@@ -66,7 +66,7 @@ export const Table = () => {
             <td>01001016080</td>
             <td>شارع الجلاء -أمام حتحوت
             </td>
-            <td className="d-flex justify-content-evenly align-items-center">
+            <td className="d-flex justify-content-around align-items-center">
 
               <p className={` m-0`}>7727</p>
               <img role='button' img  src="./images/vector.svg" alt="" />
@@ -79,7 +79,7 @@ export const Table = () => {
             <td>01001016080</td>
             <td>شارع الجلاء -أمام حتحوت
             </td>
-            <td className="d-flex justify-content-evenly align-items-center">
+            <td className="d-flex justify-content-around align-items-center">
 
               <p className={` m-0`}>7727</p>
               <img role='button' img  src="./images/vector.svg" alt="" />

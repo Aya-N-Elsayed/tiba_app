@@ -65,6 +65,7 @@
   --sutz-semibold-semi-bold-40-font-weight: 600;
   --sutz-semibold-semi-bold-40-letter-spacing: 0.12000000476837158px;
   --sutz-semibold-semi-bold-40-line-height: 120.00000476837158%;
+  --bs-nav-tabs-link-active-bg: red;
 }
 
 body{
@@ -158,6 +159,7 @@ nav{
 .navbar{
   padding: 17.3px 18px 18px 71.4px;
   /* margin-bottom: 1061px; */
+  --bs-navbar-brand-hover-color: red;
 }
 
 /* # notification button */
@@ -169,6 +171,11 @@ nav{
   height: 42.82px;
   width: 42.82px;
   /* border: 0; */
+
+}
+
+.notification:hover{
+  background-color: rgb(101, 179, 225);
 
 }
 
@@ -205,6 +212,11 @@ nav{
   margin-right: -5.01px;
   padding: 16px 32px;
   margin-bottom: 2px;
+}
+
+li.active {
+  /* color: blueviolet !important; */
+  background-color: #FFFFFF1A
 }
 
 
@@ -428,3 +440,4 @@ nav{
  min-height: 100vh;
  height: 100%;
 }
+

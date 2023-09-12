@@ -6,40 +6,46 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Main } from "./components/Main/Main";
 import { Doctors } from "./components/DoctorsPg/Doctors";
 
+import react,{ useState } from "react";
+
+
+
 const router = createBrowserRouter([
-
   {
-    path: '', element: <Main />, children: [
+    
+    path: '/', element: <Main />, children: [
       
-
-      { path: '/home', element: <HomePg /> },
-      { path: '/login', element: <LoginPg /> },
-      { path: '/operations', element: <OperationPg /> },
-      { path:'/doctors', element:<Doctors/>}
+      { index: true, element: <HomePg /> },
+      { path: 'home', element: <HomePg /> },
+      { path: 'login', element: <LoginPg /> },
+      { path: 'operations', element: <OperationPg /> },
+      { path:'doctors', element:<Doctors/>}
     ]
-  
-  
-  
-  
   },
 ]
 
 )
 
-
-
 function App() {
+
+
+  const [flag, setflag] = useState(true);
+  function toggleFlag() {
+    console.log(flag);
+    setflag(!flag);
+
+  };
+
+
+
   return (
     <div className="App">
-      {/* <LoginPg /> */}
-      {/* <HomePg/> */}
+      {/* {console.log(flag)} */}
+      {flag ? <LoginPg toggleFlag={ toggleFlag} />:<RouterProvider router={router} />} 
 
-      {/* <OperationPg/> */}
-      <RouterProvider router={router}/>
-
-      {/* <Main/> */}
     </div>
   );
 }
 
 export default App;
+// export setflag;
