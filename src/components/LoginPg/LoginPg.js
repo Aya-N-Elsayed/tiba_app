@@ -1,5 +1,5 @@
 
-import { LoginForm } from "./LoginForm"
+import { LoginForm } from "./LoginForm.jsx"
 import { Logo } from "./Logo"
 
 

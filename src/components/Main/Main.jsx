@@ -11,7 +11,12 @@ export const Main = () => {
               <section className="leftSection">
                   <Navbar />
 
-                  <Outlet/>
+          
+
+          <div className='mx-4'>
+          <Outlet/>
+          </div>
+                
                   
                 </section>
               </header>

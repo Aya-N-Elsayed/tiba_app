@@ -1,14 +1,20 @@
 
 import styles from './LoginForm.module.css'
+import React, { useContext } from 'react';
 
-export const LoginForm = () => {
+
+export const LoginForm = ({toggleFlag}) => {
+
+  function auth(){
+
+  };
   return (
     <div className= {`${styles.login}  h-100` }  >
       <form className=  {`${styles.signForm}  ` } >
         <div className="formInputs ">
             <div className={`${styles.formTitle }  ` }  > تسجيل الدخول</div>
 
-          <label for="email">البريد الألكتروني</label>
+          <label htmlFor="email">البريد الألكتروني</label>
           <input
             type="email"
             className="form-control"
@@ -19,7 +25,7 @@ export const LoginForm = () => {
           />
 
           
-          <label for="password">كلمة المرور</label>
+          <label htmlFor="password">كلمة المرور</label>
           <div className="password">
             <input
               type="password"
@@ -33,11 +39,11 @@ export const LoginForm = () => {
           </div>
 
           
-          <button
+          <button onClick={toggleFlag}
             type="button"
             className= {`btn ${styles.signBtn }  d-flex justify-content-center w-100` }
             id="Btn"
-            onclick="pageName()"
+            
           >
             <h6>تسجيل دخول</h6>
             <img
