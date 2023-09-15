@@ -210,11 +210,11 @@ nav{
   letter-spacing: 0;
   line-height: 16px;
   margin-right: -5.01px;
-  padding: 16px 32px;
+  padding: 12px 32px;
   margin-bottom: 2px;
 }
 
-li.active {
+.navbar-nav .nav-item.active {
   /* color: blueviolet !important; */
   background-color: #FFFFFF1A
 }
