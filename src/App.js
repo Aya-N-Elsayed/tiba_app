@@ -7,6 +7,7 @@ import { Main } from "./components/Main/Main";
 import { Doctors } from "./components/DoctorsPg/Doctors";
 
 import react,{ useState } from "react";
+import { DashBoard } from "./components/Dashboard/DashBoard";
 
 
 
@@ -15,7 +16,7 @@ const router = createBrowserRouter([
     
     path: '/', element: <Main />, children: [
       
-      { index: true, element: <HomePg /> },
+      { index: true, element: <DashBoard/> },
       { path: 'home', element: <HomePg /> },
       { path: 'login', element: <LoginPg /> },
       { path: 'operations', element: <OperationPg /> },
