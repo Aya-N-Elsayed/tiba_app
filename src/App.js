@@ -7,27 +7,38 @@ import { Main } from "./components/Main/Main";
 import { Doctors } from "./components/DoctorsPg/Doctors";
 
 import react,{ useState } from "react";
-import { DashBoard } from "./components/Dashboard/DashBoard";
+import { Dashboard } from "./components/Dashboard/Dashboard";
 
 
 
-const router = createBrowserRouter([
-  {
-    
-    path: '/', element: <Main />, children: [
-      
-      { index: true, element: <DashBoard/> },
-      { path: 'home', element: <HomePg /> },
-      { path: 'login', element: <LoginPg /> },
-      { path: 'operations', element: <OperationPg /> },
-      { path:'doctors', element:<Doctors/>}
-    ]
-  },
-]
 
-)
+
 
 function App() {
+
+
+  const [showPopup, setShowPopup] = useState(false);
+
+  const router = createBrowserRouter([
+    {
+      
+  
+  
+      path: '/', element: <Main setShowPopup={setShowPopup} showPopup={showPopup} />
+      , children: [
+        
+        { index: true, element: <Dashboard /> },
+        { path: '/dashboard', element: <Dashboard/> },
+        { path: '/home', element: <HomePg /> },
+        { path: '/login', element: <LoginPg /> },
+        { path: 'operations', element: <OperationPg /> },
+        { path: '/doctors', element: <Doctors setShowPopup={ setShowPopup} />}
+      ]
+    },
+  ]
+  
+  )
+
 
 
   const [flag, setflag] = useState(true);

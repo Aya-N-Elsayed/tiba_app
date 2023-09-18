@@ -1,0 +1,24 @@
+.signBtn{
+ 
+    background-color: var(--logo-colortypap-lightnesscolor);
+    border-radius: 12.5px;
+    /* box-shadow: var(--btn-lightness); */
+    padding: 10px 8px;
+    border: none;
+    color: white;
+    margin-top: 60px;
+    width: 40%;
+    margin-inline: auto;
+  
+    
+  }
+
+  .signBtn:hover{
+    background-color: rgb(79, 163, 227);
+    color: white;
+  
+  }
+  .arrowLeft{
+    margin-right: 4px;
+    /* font-size: 20px; */
+   }

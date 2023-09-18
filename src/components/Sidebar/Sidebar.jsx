@@ -19,7 +19,7 @@ export const Sidebar = () => {
             onClick={function () {
               activeLink("home");
             }}
-            to="home"
+            to="dashboard"
           >
             الرئيسة
           </Link>
@@ -31,7 +31,7 @@ export const Sidebar = () => {
             onClick={function () {
               activeLink("operations");
             }}
-            to="operations"
+            to="home"
           >
             حجوزات
           </Link>
