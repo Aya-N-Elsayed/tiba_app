@@ -1,6 +1,8 @@
-import { BookBtn } from "../BookBtn/BookBtn";
+import { BookBtn } from "../Btns/BookBtn";
+import { useNavigate } from 'react-router-dom';
 
 export const Card = () => {
+  const navigation = useNavigate();
   return (
     <div className="card ">
       <div className="card-body text-end p-0">
@@ -34,14 +36,16 @@ export const Card = () => {
         </div>
         {/* buttons */}
         <button
-          type="button"
+          type="button" onClick={() =>
+          navigation('/operations')
+          }
           className="btn detailsBtn d-flex flex-row-reverse justify-content-center w-100 align-items-center "
         >
           <p>عرض التفاصيل</p>
           <img className="btnicons " alt="Image" src="./images/eye.svg" />
           
         </button>
-            <BookBtn/>
+        <BookBtn />
       </div>
     </div>
   );

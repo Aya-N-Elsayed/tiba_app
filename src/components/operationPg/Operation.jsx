@@ -1,11 +1,15 @@
 import style from './Operation.module.css'
 import { Filter } from "./Filter/Filter"
 import { Table } from "./Table/Table"
-import { BookBtn } from "../BookBtn/BookBtn"
+import { BookBtn } from "../Btns/BookBtn"
+import { PopUp } from '../PopUp/PopUp'
 
 export const OperationPg = () => {
-    return (
-      <section className="container">
+  return (
+    <div className={`${style.OperationPg} container`}>
+      
+  
+      
         <div
           className={`${style.booking} d-flex justify-content-between align-items-center`}
         >
@@ -21,7 +25,9 @@ export const OperationPg = () => {
 
         <Filter />
 
-        <Table />
-      </section>
+      <Table />
+      
+      
+      </div>
     );
   }

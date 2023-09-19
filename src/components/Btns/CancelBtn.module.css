@@ -1,0 +1,29 @@
+.signBtn{
+ 
+    background-color: #F5040440;
+    border-radius: 12.5px;
+    box-shadow: #f1bebe40;
+    padding: 10px 8px;
+    border: none;
+    color: white;
+    margin-top: 13px;
+    margin-bottom: 27px;
+    width: 40%;
+    margin-inline: auto;
+  
+    
+  }
+
+  .signBtn:hover{
+    background-color: #9e5d5d40;
+    color: white;
+  
+  }
+  .arrowLeft{
+    margin-right: 4px;
+    /* font-size: 20px; */
+   }
+
+   .signBtn h6{
+    color: #F50404;
+   }
