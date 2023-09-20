@@ -1,8 +1,18 @@
+import { useContext } from "react";
 import { BookBtn } from "../Btns/BookBtn";
 import { useNavigate } from 'react-router-dom';
+import { PopupContext } from "../../context/PopUpContext";
 
 export const Card = () => {
   const navigation = useNavigate();
+  
+  const {setShowPopup } = useContext(PopupContext);
+  function handleClick() {
+    setShowPopup('o');
+   
+    
+  }
+
   return (
     <div className="card ">
       <div className="card-body text-end p-0">
@@ -45,7 +55,7 @@ export const Card = () => {
           <img className="btnicons " alt="Image" src="./images/eye.svg" />
           
         </button>
-        <BookBtn />
+        <BookBtn handleClick={handleClick} />
       </div>
     </div>
   );

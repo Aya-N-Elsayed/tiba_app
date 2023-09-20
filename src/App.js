@@ -6,8 +6,10 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Main } from "./components/Main/Main";
 import { Doctors } from "./components/DoctorsPg/Doctors";
 
-import react,{ useState } from "react";
+import react,{ useContext, useState } from "react";
 import { Dashboard } from "./components/Dashboard/Dashboard";
+import { PopupProvider, PopupContext } from "./context/PopUpContext";
+
 
 
 
@@ -17,14 +19,14 @@ import { Dashboard } from "./components/Dashboard/Dashboard";
 function App() {
 
 
-  const [showPopup, setShowPopup] = useState(false);
+
 
   const router = createBrowserRouter([
     {
       
   
   
-      path: '/', element: <Main setShowPopup={setShowPopup} showPopup={showPopup} />
+      path: '/', element: <PopupProvider><Main/></PopupProvider> 
       , children: [
         
         { index: true, element: <Dashboard /> },
@@ -32,7 +34,7 @@ function App() {
         { path: '/home', element: <HomePg /> },
         { path: '/login', element: <LoginPg /> },
         { path: 'operations', element: <OperationPg /> },
-        { path: '/doctors', element: <Doctors setShowPopup={ setShowPopup} />}
+        { path: '/doctors', element: <Doctors />}
       ]
     },
   ]

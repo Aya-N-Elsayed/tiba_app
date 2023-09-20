@@ -5,7 +5,7 @@ export const CancelBtn = () => {
     return (
         <div className=''>
             <button
-                type="button"
+                type="submit"
                 className={`btn ${styles.signBtn}  d-flex justify-content-center  align-items-center `}
                 id="Btn"
 

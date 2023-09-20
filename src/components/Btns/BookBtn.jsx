@@ -1,9 +1,9 @@
 import React from 'react'
 
-export const BookBtn = () => {
+export const BookBtn = ( {handleClick}) => {
   return (
     <button
-    type="button"
+    type="button" onClick={handleClick}
     className="btn bookBtn d-flex flex-row-reverse justify-content-center w-100"
   >
     
