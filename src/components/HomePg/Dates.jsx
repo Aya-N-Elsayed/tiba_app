@@ -1,10 +1,16 @@
 import { useState } from "react";
 
 
-export const Dates = () => {
+
+export const monthArr = [
+  '', 'يناير', 'فبراير', 'مارس', 'إبريل', 'مايو', 'يونيو',
+  'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'
+];
+
+export const Dates = ({month, setmonth}) => {
 
 
-  const [month, setmonth] = useState(8);
+  // const [month, setmonth] = useState(8);
   const [year, setyear] = useState(2023);
 
   function handlePre() {
@@ -33,10 +39,7 @@ export const Dates = () => {
   }
 
 
-  const monthArr = [
-    '', 'يناير', 'فبراير', 'مارس', 'إبريل', 'مايو', 'يونيو',
-    'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'
-  ];
+
 
 
   return (

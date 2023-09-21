@@ -3,7 +3,7 @@ import { BookBtn } from "../Btns/BookBtn";
 import { useNavigate } from 'react-router-dom';
 import { PopupContext } from "../../context/PopUpContext";
 
-export const Card = () => {
+export const Card = ({month , day}) => {
   const navigation = useNavigate();
   
   const {setShowPopup } = useContext(PopupContext);
@@ -18,9 +18,9 @@ export const Card = () => {
       <div className="card-body text-end p-0">
         <h6 className="weekday text-center">السبت</h6>
         <div className="date text-center d-flex justify-content-center">
-        <h5 className="day ms-1"> 1 </h5>
+        <h5 className="day ms-1"> {day} </h5>
 
-          <h5 className="month">أغسطس</h5>
+          <h5 className="month">{month}</h5>
         </div>
         <div className="cardText">
           <p>جميع العمليات</p>
