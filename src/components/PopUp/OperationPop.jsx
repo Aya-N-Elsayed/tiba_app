@@ -77,7 +77,7 @@ export const OperationPop = () => {
 
 
             </div>
-            handleClick
+
 
             <div className="d-flex flex-column">
                 <label> اسم المريض </label>
