@@ -1,11 +1,42 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { BookBtn } from '../Btns/BookOBtn'
 import styles from '../Btns/BookBtn.module.css'
 import { PopupContext } from '../../context/PopUpContext';
+import timeStyle from './OperationPop.module.css';
+
 
 export const OperationPop = () => {
 
-   const {setShowPopup} =useContext(PopupContext);
+    const { setShowPopup } = useContext(PopupContext);
+
+    const [hour, sethour] = useState(10);
+    const [min, setmin] = useState(59);
+    const [period, setperiod] = useState("صباحا")
+
+
+    function handlePeriodClick() {
+        setperiod(period === 'صباحا'? "مساءا" :"صباحا")
+
+    }
+
+    function handleMinPre() {
+        setmin(min === 0 ? 59 : min - 1);
+    }
+
+    function handleMinPost() {
+        setmin(min === 59 ? 0 : min+1)
+    }
+
+
+    function handleHourPre() {
+        sethour(hour === 0 ? 12 : hour - 1);
+    }
+
+    function handleHourPost() {
+        sethour(hour === 12 ? 0 : hour+1)
+    }
+
+    // const periodArr = ["صباحا","مساءا"]
     return (
         <div>
             <div className="row pt-5">
@@ -91,6 +122,32 @@ export const OperationPop = () => {
             </div>
 
 
+            <h4>حدد الوقت المناسب</h4>
+
+            <div className={`${timeStyle.time} d-flex align-items-center justify-content-evenly my-5`}>
+
+                <div className="text-center">
+                    <h6 className='mb-3'>ساعات</h6>
+                    <h3 onClick={handleHourPre} className={`${timeStyle.pre}`}>{hour === 0 ? 12: hour - 1}</h3>
+                    <h3 className={`${timeStyle.current}`}>{hour}</h3>
+                    <h3 onClick={handleHourPost} className={`${timeStyle.post}`}>{hour ===12 ? 0:hour + 1} </h3>
+                </div>
+
+                <div className="text-center">
+                    <h6 className='mb-3'>دقائق</h6>
+                    <h3 onClick={handleMinPre} className={`${timeStyle.pre}`}>{min === 0? 59 :min-1}</h3>
+                    <h3 className={`${timeStyle.current}`}>{min}</h3>
+                    <h3  onClick={handleMinPost}  className={`${timeStyle.post}`}>{min === 59? 0 : min + 1}</h3>
+                </div>
+
+                <div className="text-center">
+                    <h3 onClick={handlePeriodClick} className={`${timeStyle.pre}`}>{period === 'صباحا' ? "مساءا": "صباحا"}</h3>
+                    <h3 onClick={handlePeriodClick} className={`${timeStyle.current}`}>{period}</h3>
+
+                </div>
+
+            </div>
+
             <BookBtn txt={"حجز"} />
 
             <button
@@ -101,12 +158,12 @@ export const OperationPop = () => {
                     color: 'var(--logo-colortypap-lightnesscolor)',
                     backgroundColor: 'transparent',
                     borderColor: 'var(--logo-colortypap-lightnesscolor)'
-                  }}
+                }}
                 onClick={() => {
                     setShowPopup('p');
-                      
-                  }}
-         
+
+                }}
+
             >
 
                 <h6 className='m-0 p-0'>اضافة مريض جديد
