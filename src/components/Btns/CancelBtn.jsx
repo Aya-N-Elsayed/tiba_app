@@ -1,13 +1,20 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styles from './CancelBtn.module.css'
+import { PopupContext } from '../../context/PopUpContext';
 
 export const CancelBtn = () => {
+
+    const {setShowPopup}  = useContext(PopupContext);
     return (
         <div className=''>
             <button
                 type="button"
                 className={`btn ${styles.signBtn}  d-flex justify-content-center  align-items-center `}
                 id="Btn"
+                onClick={()=>{ setShowPopup(null)}
+                    
+                    
+                   }
 
             >
 
