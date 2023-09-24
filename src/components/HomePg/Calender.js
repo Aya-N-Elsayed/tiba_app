@@ -6,10 +6,14 @@ import { monthArr } from "./Dates";
 
 
 export const MonthCalender = () => {
-  const maxDays = 31;  // Maximum days in the month
+  let maxDays = 31;  // Maximum days in the month
   let dayCount = 0;  // Counter for days
 
   const [month, setmonth] = useState(new Date().getMonth() + 1);
+
+  if (month == 2) { maxDays = 28; }
+
+  else if (month == 4 || month == 6 || month == 9 || month == 11) { maxDays = 30; }
 
   return (
     <div className="calender container">
@@ -20,6 +24,7 @@ export const MonthCalender = () => {
         <div key={rowIndex} className="row gx-3 gy-6 col-md-auto">
           {Array.from({ length: 7 }, (_, colIndex) => {
             dayCount++;
+            
             if (dayCount <= maxDays) {
               return (
                 <div key={rowIndex * 7 + colIndex} className="col gy-3 col-auto">
