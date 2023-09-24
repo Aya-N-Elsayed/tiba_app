@@ -9,8 +9,6 @@ export const monthArr = [
 
 export const Dates = ({month, setmonth}) => {
 
-
-  // const [month, setmonth] = useState(8);
   const [year, setyear] = useState(2023);
 
   function handlePre() {
@@ -68,9 +66,7 @@ export const Dates = ({month, setmonth}) => {
           {monthArr.map((mnth, indx)=>(
             <li class="dropdown-item" onClick={() => { setmonth(indx) }}>{mnth}</li>
           ))}
-          {/* <li><a class="dropdown-item" href="#">{month+1}</a></li>
-          <li><a class="dropdown-item" href="#">Another action</a></li>
-          <li><a class="dropdown-item" href="#">Something else here</a></li> */}
+
         </ul>
       </div>
 

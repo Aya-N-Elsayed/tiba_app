@@ -6,8 +6,6 @@ import { PopupContext } from "../../context/PopUpContext";
 
 
 export const Doctors = () => {
-  // console.log(showPopup);
-
   const {setShowPopup}  = useContext(PopupContext);
 
   return (
@@ -21,7 +19,7 @@ export const Doctors = () => {
           type="button" onClick={()=>
             setShowPopup('d')
           }
-        className="btn  d-flex flex-row-reverse justify-content-center align-items-center "
+        className={`${style.bookBtn} btn  d-flex flex-row-reverse justify-content-center align-items-center `}
       >
         <p className='m-0'>   إضافة طبيب</p>
         <img className="ms-2" alt="Image" src="./images/add-circle.svg" />

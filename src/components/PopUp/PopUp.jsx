@@ -19,7 +19,7 @@ export const PopUp = ({
         setShowPopup(null);
         // Handle form submission logic Api call later
     };
-    // let doct = true;
+
     return (
         <>
 
