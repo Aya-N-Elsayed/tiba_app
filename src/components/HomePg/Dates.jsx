@@ -9,7 +9,7 @@ export const monthArr = [
 
 export const Dates = ({month, setmonth}) => {
 
-  const [year, setyear] = useState(2023);
+  const [year, setyear] = useState(new Date().getFullYear());
 
   function handlePre() {
     if (month === 1) {

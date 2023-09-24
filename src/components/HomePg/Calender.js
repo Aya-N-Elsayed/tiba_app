@@ -9,7 +9,7 @@ export const MonthCalender = () => {
   const maxDays = 31;  // Maximum days in the month
   let dayCount = 0;  // Counter for days
 
-  const [month, setmonth] = useState(8);
+  const [month, setmonth] = useState(new Date().getMonth() + 1);
 
   return (
     <div className="calender container">
