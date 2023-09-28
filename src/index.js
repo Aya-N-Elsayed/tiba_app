@@ -7,7 +7,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 import reportWebVitals from './reportWebVitals';
 import './index.css';
 import App from './App';
-import axios from 'axios';
+
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
