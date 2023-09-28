@@ -6,10 +6,12 @@ import { PopUp } from '../PopUp/PopUp'
 
 export const Main = () => {
 
+  
+
   return (
     <div className='position-relative'>
 
-       <PopUp   /> 
+      <PopUp  /> 
       
            <header className="container-fluid d-flex main h-100 justify-content-stretch px-0 m-0 ">
               <Sidebar />

@@ -1,10 +1,10 @@
 import React from 'react'
 import styles from './BookBtn.module.css'
 
-export const BookBtn = ({txt}) => {
+export const BookBtn = ({txt ,handleSubmit}) => {
   return (
     <button
-    type="submit"
+    type="button" onClick={handleSubmit}
     className= {`btn ${styles.signBtn }  d-flex justify-content-center  align-items-center` }
     id="Btn"
     

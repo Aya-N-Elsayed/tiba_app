@@ -50,3 +50,42 @@
 
 
 
+.editBtn{
+    color: var(--logo-greylogo-grey800) ;
+    background-color: var(--logo-greylogo-grey200);
+    font-size: 11px;
+    font-weight: 400;
+    border-radius: 3.5px;
+    border: 1px solid transparent;
+    padding: 5.61px 8.42px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.deleteBtn{
+    color: #F50404;
+    background-color: var(--logo-greylogo-grey200);
+    font-size: 11px;
+    font-weight: 400;
+    border-radius: 3.5px;
+    border: 1px solid transparent;
+    padding: 5.61px 8.42px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.options{
+    /* left: 0px; */
+
+    width: fit-content ;
+    padding: 5px 8.42px;
+    border-radius: 7px;
+    border: 1px solid transparent;
+    box-shadow: 1px 1px 16px 10px #0000000d !important;
+    position:absolute;
+    left: 60px;
+    top: 28.6px;
+}
