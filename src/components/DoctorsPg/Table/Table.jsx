@@ -14,8 +14,10 @@ import { Button } from 'bootstrap';
 export const Table = () => {
 
   const { refetchDoctors } = useContext(DoctorsContext);
+ 
   
 
+  // # Functions Using Axios to call APIs //
   function getAllDoctors() {
     return axios.get(`${baseURL}doctors/`);
   }
@@ -24,42 +26,49 @@ export const Table = () => {
     return axios.delete(`${baseURL}doctors/${id}`);
   }
 
+  // # query for getAllDoctors 
   const { isError, isFetching, isLoading, data, refetch } = useQuery("allDoctors", getAllDoctors, {
   });
+
+  if (refetchDoctors) { refetch(); } // refetching data whenever save doctor btn is clicked
+
+
+  // # query for Deleting Doctor
 
   const x = useQuery('deleteDoc', (id) => { deleteDoctor(id) },
     {
       enabled:false,
-  });
-
-  function handlingDelete(id) {
-    x.refetch(id);
- }
-
-
-
-  if (refetchDoctors) { refetch(); }
+    });
+    
+  
 
 
 
   const [showOptions, setshowOptions] = useState(new Array(data?.data.length).fill(false));
 
-
-  if (isLoading) {
-    return <div className=' d-flex justify-content-center'>
-      <ThreeDots color="var(--logo-colortypap-lightnesscolor)" />
-    </div>
-  }
-
   
-
-  function optionsHandleClick(idx) {
-
+  // # Handling onclicking buttons
+  
+  function optionsHandleClick(idx) { //Handling showing the option lists
+     
     const tempArr = [...showOptions];
     tempArr[idx] = !tempArr[idx];
 
     setshowOptions(tempArr);
 
+  }     
+
+  function handlingDelete(id) { //Handling delete click button 
+    x.refetch(id);
+ }
+
+
+  // # Loading screen 
+
+  if (isLoading) {
+    return <div className=' d-flex justify-content-center'>
+      <ThreeDots color="var(--logo-colortypap-lightnesscolor)" />
+    </div>
   }
 
   return (
