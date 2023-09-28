@@ -58,13 +58,13 @@ export const Dates = ({month, setmonth}) => {
       </div>
 
       <div className="currentMonth dropdown ">
-        <button class=" dropdown-toggle " type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+        <button className=" dropdown-toggle " type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
          <span className="ms-2"> {monthArr[month]} {month}/{year}</span>
         </button>
-        <ul class="dropdown-menu me-3 overflow-scroll text-center " style={{ height: '200%' }} aria-labelledby="dropdownMenuButton1">
+        <ul className="dropdown-menu me-3 overflow-scroll text-center " style={{ height: '200%' }} aria-labelledby="dropdownMenuButton1">
 
           {monthArr.map((mnth, indx)=>(
-            <li class="dropdown-item" onClick={() => { setmonth(indx) }}>{mnth}</li>
+            <li className="dropdown-item" onClick={() => { setmonth(indx) }}>{mnth}</li>
           ))}
 
         </ul>

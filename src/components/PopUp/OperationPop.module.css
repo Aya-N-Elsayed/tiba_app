@@ -21,3 +21,8 @@
     color: var(--logo-greylogo-grey400);
     cursor: pointer;
 }
+
+.myselect::after{
+    margin-inline: 10px;
+    color: #F50404;
+  }

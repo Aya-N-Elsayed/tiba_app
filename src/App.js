@@ -10,7 +10,6 @@ import react,{ useContext, useState } from "react";
 import { Dashboard } from "./components/Dashboard/Dashboard";
 import { PopupProvider, PopupContext } from "./context/PopUpContext";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { ToastContainer } from "react-toastify";
 import { Toaster } from "react-hot-toast";
 import { DoctorsProvider } from "./context/DoctorsContext";
 

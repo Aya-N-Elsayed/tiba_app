@@ -15,7 +15,7 @@ export const OperationPop = () => {
 
 
     function handlePeriodClick() {
-        setperiod(period === 'صباحا'? "مساءا" :"صباحا")
+        setperiod(period === 'صباحا' ? "مساءا" : "صباحا")
 
     }
 
@@ -24,7 +24,7 @@ export const OperationPop = () => {
     }
 
     function handleMinPost() {
-        setmin(min === 59 ? 0 : min+1)
+        setmin(min === 59 ? 0 : min + 1)
     }
 
 
@@ -33,7 +33,7 @@ export const OperationPop = () => {
     }
 
     function handleHourPost() {
-        sethour(hour === 12 ? 0 : hour+1)
+        sethour(hour === 12 ? 0 : hour + 1)
     }
 
     // const periodArr = ["صباحا","مساءا"]
@@ -112,7 +112,14 @@ export const OperationPop = () => {
 
             <div className="d-flex flex-column">
                 <label> اسم المريض </label>
-                <input className="w-100" type="text" placeholder="ادخل اسم المريض" />
+                {/* <input className="w-100" type="text" placeholder="ادخل اسم المريض" /> */}
+                <select className={`${timeStyle.myselect} w-100`} >
+                    <option selected disabled>
+                        ادخل اسم المريض</option>
+                    <option value="1">Patient 1</option>
+                    <option value="2">Patient 2</option>
+                    <option value="3">Patient 3</option>
+                </select>
             </div>
 
 
@@ -128,20 +135,20 @@ export const OperationPop = () => {
 
                 <div className="text-center">
                     <h6 className='mb-3'>ساعات</h6>
-                    <h3 onClick={handleHourPre} className={`${timeStyle.pre}`}>{hour === 0 ? 12: hour - 1}</h3>
+                    <h3 onClick={handleHourPre} className={`${timeStyle.pre}`}>{hour === 0 ? 12 : hour - 1}</h3>
                     <h3 className={`${timeStyle.current}`}>{hour}</h3>
-                    <h3 onClick={handleHourPost} className={`${timeStyle.post}`}>{hour ===12 ? 0:hour + 1} </h3>
+                    <h3 onClick={handleHourPost} className={`${timeStyle.post}`}>{hour === 12 ? 0 : hour + 1} </h3>
                 </div>
 
                 <div className="text-center">
                     <h6 className='mb-3'>دقائق</h6>
-                    <h3 onClick={handleMinPre} className={`${timeStyle.pre}`}>{min === 0? 59 :min-1}</h3>
+                    <h3 onClick={handleMinPre} className={`${timeStyle.pre}`}>{min === 0 ? 59 : min - 1}</h3>
                     <h3 className={`${timeStyle.current}`}>{min}</h3>
-                    <h3  onClick={handleMinPost}  className={`${timeStyle.post}`}>{min === 59? 0 : min + 1}</h3>
+                    <h3 onClick={handleMinPost} className={`${timeStyle.post}`}>{min === 59 ? 0 : min + 1}</h3>
                 </div>
 
                 <div className="text-center">
-                    <h3 onClick={handlePeriodClick} className={`${timeStyle.pre}`}>{period === 'صباحا' ? "مساءا": "صباحا"}</h3>
+                    <h3 onClick={handlePeriodClick} className={`${timeStyle.pre}`}>{period === 'صباحا' ? "مساءا" : "صباحا"}</h3>
                     <h3 onClick={handlePeriodClick} className={`${timeStyle.current}`}>{period}</h3>
 
                 </div>
