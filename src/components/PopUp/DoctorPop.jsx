@@ -27,7 +27,7 @@ export const DoctorPop = (doctor) => {
             "phone": showPopup.doctor?.phone,
             "phone2": showPopup.doctor?.phone2,
             "address": showPopup.doctor?.address,
-            "clinicPhone": showPopup.doctor?.clinicphone
+            "clinicphone": showPopup.doctor?.clinicphone
 
             
     }
@@ -91,7 +91,7 @@ export const DoctorPop = (doctor) => {
             </div>
             <div className="d-flex flex-column">
                 <label>رقم العيادة </label>
-                <input className="w-100" type="number" value={formData.clinicPhone}  placeholder="ادخل رقم العيادة " name="clinicPhone" onChange={handleChange}  />
+                <input className="w-100" type="number" value={formData.clinicphone}  placeholder="ادخل رقم العيادة " name="clinicphone" onChange={handleChange}  />
             </div>
             <BookBtn txt={"حفظ طبيب"} handleSubmit={handleSubmit}/>
             <CancelBtn />

@@ -6,6 +6,11 @@ import timeStyle from './OperationPop.module.css';
 import selectStyle from './PopUp.module.css'
 
 
+import { baseURL } from "../../App";
+import { useQuery } from "react-query";
+import axios from "axios";
+
+
 export const OperationPop = () => {
 
     const { setShowPopup } = useContext(PopupContext);
@@ -15,6 +20,8 @@ export const OperationPop = () => {
     const [period, setperiod] = useState("صباحا")
 
 
+
+    // ? Functions Handling time period selection 
     function handlePeriodClick() {
         setperiod(period === 'صباحا' ? "مساءا" : "صباحا")
 
@@ -36,8 +43,17 @@ export const OperationPop = () => {
     function handleHourPost() {
         sethour(hour === 12 ? 0 : hour + 1)
     }
+    // ? //
 
-    // const periodArr = ["صباحا","مساءا"]
+    // ? Get patients Api
+
+    function getAllPatients() {
+        return axios.get(`${baseURL}patients/`);
+    }
+
+    const patients = useQuery("getAllPatients", getAllPatients );
+    console.log(patients);
+
     return (
         <div>
             <div className="row pt-5">

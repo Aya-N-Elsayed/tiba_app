@@ -38,10 +38,12 @@ export const Table = () => {
 
   // # query for Deleting Doctor
 
-  const x = useMutation('deleteDoc', (id) => { deleteDoctor(id) },
-    {
-      enabled: false,
-    });
+  const x = useMutation('deleteDoc', (id) => { deleteDoctor(id) }, {
+    onSuccess: () => {
+      refetch();
+    }
+  });
+  
 
 
 
@@ -71,6 +73,7 @@ export const Table = () => {
     tempArr[idx] = false;
 
     setshowOptions(tempArr);
+    refetch();
   }
 
 
@@ -93,15 +96,15 @@ export const Table = () => {
       enabled: false,
     });
   
-  console.log("update doctor",y);
+  // console.log("update doctor",y);
 
     // # Handling onclicking buttons
   function handlingUpdate(doctor) {
-    const { id, name, phone2, phone, address, clinicPhone,notes } = doctor;
+    const { id, name, phone2, phone, address, clinicphone,notes } = doctor;
     setShowPopup({ "option":'d',doctor})
 
   
-      console.log(doctor);
+      // console.log(doctor);
       y.mutate(id)
   
     }
@@ -148,7 +151,7 @@ export const Table = () => {
                 </td>
                 <td className="d-flex  justify-content-around align-items-center ">
 
-                  <p className={` m-0`}>{doctor.clinicPhone}</p>
+                  <p className={` m-0`}>{doctor.clinicphone}</p>
                   <img role='button' img src="./images/vector.svg" alt="" onClick={() => { optionsHandleClick(idx) }} />
                 </td>
 
