@@ -1,56 +1,32 @@
+import { NavLink, useLocation } from "react-router-dom";
 
-import { Link } from "react-router-dom"
 export const Sidebar = () => {
+  const location = useLocation();
 
-  function activeLink(link) {
-    document.querySelector(".active").classList.remove("active");
-    document.querySelector(`.${link}`).classList.add("active");
-    console.log(`${link}`);
-  }
   return (
-    <div className="sidebar  ">
-      <img className=" logoimg" alt="tiba logo" src="./images/image-1.png" />
+    <div className="sidebar">
+      <img className="logoimg" alt="tiba logo" src="./images/image-1.png" />
       <ul className="nav navbar-nav flex-column text-end p-0">
-        <li className="nav-item home active d-flex  align-items-center ">
+        <li className={`nav-item home d-flex align-items-center ${location.pathname === '/' ? 'activeLink' : ''} ${location.pathname === '/dashboard' ? 'activeLink' : ''}`}>
           <img className="icons" alt="Image" src="./images/home-trend-up.svg" />
-          <Link
-            className="nav-link "
-            aria-current="page"
-            onClick={function () {
-              activeLink("home");
-            }}
-            to="dashboard"
-          >
+          <NavLink exact activeClassName="active" to="/dashboard">
             الرئيسة
-          </Link>
+          </NavLink>
         </li>
-        <li className="nav-item  operations d-flex  align-items-center ">
+        <li className={`nav-item operations d-flex align-items-center ${location.pathname === '/home' ? 'activeLink' : ''}`}>
           <img className="icons" alt="Image" src="./images/receipt-2.svg" />
-          <Link
-            className="nav-link "
-            onClick={function () {
-              activeLink("operations");
-            }}
-            to="home"
-          >
+          <NavLink exact activeClassName="active" to="/home">
             حجوزات
-          </Link>
+          </NavLink>
         </li>
-        <li className="nav-item doctors d-flex  align-items-center ">
+        <li className={`nav-item doctors d-flex align-items-center ${location.pathname === '/doctors' ? 'activeLink' : ''}`}>
           <img className="icons" alt="Image" src="./images/profile-2user.svg" />
-          <Link
-            className="nav-link "
-            onClick={function () {
-              activeLink("doctors");
-            }}
-            to="doctors"
-          >
+          <NavLink exact activeClassName="active" to="/doctors">
             الأطباء
-          </Link>
+          </NavLink>
         </li>
       </ul>
 
-      {/* <img className="w-100" src="./images/frame.svg" alt="" /> */}
     </div>
   );
-}
+};

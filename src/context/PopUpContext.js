@@ -5,7 +5,7 @@ export const PopupContext = createContext();
 
 
 export function PopupProvider({ children }) {
-    const [showPopup, setShowPopup] = useState(null);
+    const [showPopup, setShowPopup] = useState({"option":null,"data":null});
     
 
     return (

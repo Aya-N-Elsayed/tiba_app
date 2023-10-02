@@ -18,7 +18,7 @@ export const PatientPop = () => {
             <button className='btn btn-outline-primary h-25'
                 type='button'
                 onClick={() => {
-                    setShowPopup('o');
+                    setShowPopup({ "option": 'o' })
                 }}
             > 
                 رجوع

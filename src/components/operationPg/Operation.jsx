@@ -24,7 +24,7 @@ export const OperationPg = () => {
           <button
           type="button" onClick={() => {
             
-            setShowPopup('o')
+              setShowPopup({ "option": 'o' })
             }}
             className={`${style.bookBtn}  me-2  d-flex flex-row-reverse justify-content-center align-items-center `}
           >

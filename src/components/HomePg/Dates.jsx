@@ -7,9 +7,9 @@ export const monthArr = [
   'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'
 ];
 
-export const Dates = ({month, setmonth}) => {
+export const Dates = ({month, setmonth, year, setyear}) => {
 
-  const [year, setyear] = useState(new Date().getFullYear());
+  // const [year, setyear] = useState(new Date().getFullYear());
 
   function handlePre() {
     if (month === 1) {
@@ -58,7 +58,8 @@ export const Dates = ({month, setmonth}) => {
       </div>
 
       <div className="currentMonth dropdown ">
-        <button className=" dropdown-toggle " type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+        <button className=" dropdown-toggle " type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="true
+        ">
          <span className="ms-2"> {monthArr[month]} {month}/{year}</span>
         </button>
         <ul className="dropdown-menu me-3 overflow-scroll text-center " style={{ height: '200%' }} aria-labelledby="dropdownMenuButton1">
@@ -66,6 +67,8 @@ export const Dates = ({month, setmonth}) => {
           {monthArr.map((mnth, indx)=>(
             <li className="dropdown-item" onClick={() => { setmonth(indx) }}>{mnth}</li>
           ))}
+
+ 
 
         </ul>
       </div>

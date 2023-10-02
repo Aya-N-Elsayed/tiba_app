@@ -213,8 +213,7 @@ nav{
   padding: 12px 32px;
   margin-bottom: 2px;
 }
-
-.navbar-nav .nav-item.active {
+.activeLink {
   /* color: blueviolet !important; */
   background-color: #FFFFFF1A
 }

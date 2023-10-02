@@ -17,7 +17,7 @@ export const Doctors = () => {
       <h3>اﻷطباء</h3>
       <button
           type="button" onClick={()=>
-            setShowPopup('d')
+            setShowPopup({"option":'d'})
           }
         className={`${style.bookBtn} btn  d-flex flex-row-reverse justify-content-center align-items-center `}
       >

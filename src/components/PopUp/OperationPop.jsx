@@ -3,6 +3,7 @@ import { BookBtn } from '../Btns/BookOBtn'
 import styles from '../Btns/BookBtn.module.css'
 import { PopupContext } from '../../context/PopUpContext';
 import timeStyle from './OperationPop.module.css';
+import selectStyle from './PopUp.module.css'
 
 
 export const OperationPop = () => {
@@ -110,16 +111,20 @@ export const OperationPop = () => {
             </div>
 
 
-            <div className="d-flex flex-column">
-                <label> اسم المريض </label>
-                {/* <input className="w-100" type="text" placeholder="ادخل اسم المريض" /> */}
-                <select className={`${timeStyle.myselect} w-100`} >
-                    <option selected disabled>
+            <div className={`d-flex flex-column  position-relative  ${selectStyle.myselect}`}>
+                <label> اسم المريض   </label>
+                <img src="./images/arrow-downGray.svg" alt="" className="position-absolute" />
+                
+                <select className=" w-100 " >
+                
+                    <option selected disabled> 
                         ادخل اسم المريض</option>
                     <option value="1">Patient 1</option>
                     <option value="2">Patient 2</option>
                     <option value="3">Patient 3</option>
+                   
                 </select>
+           
             </div>
 
 
@@ -167,7 +172,7 @@ export const OperationPop = () => {
                     borderColor: 'var(--logo-colortypap-lightnesscolor)'
                 }}
                 onClick={() => {
-                    setShowPopup('p');
+                    setShowPopup({ "option": 'p' });
 
                 }}
 
