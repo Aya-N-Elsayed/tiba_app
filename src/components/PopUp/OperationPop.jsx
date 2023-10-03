@@ -3,6 +3,15 @@ import { BookBtn } from '../Btns/BookOBtn'
 import styles from '../Btns/BookBtn.module.css'
 import { PopupContext } from '../../context/PopUpContext';
 import timeStyle from './OperationPop.module.css';
+import selectStyle from './PopUp.module.css'
+
+
+import { baseURL } from "../../App";
+import { useQuery } from "react-query";
+import axios from "axios";
+
+import { MySelect } from './MySelect'
+import { CancelBtn } from '../Btns/CancelBtn';
 
 
 export const OperationPop = () => {
@@ -14,8 +23,10 @@ export const OperationPop = () => {
     const [period, setperiod] = useState("صباحا")
 
 
+
+    // ? Functions Handling time period selection 
     function handlePeriodClick() {
-        setperiod(period === 'صباحا'? "مساءا" :"صباحا")
+        setperiod(period === 'صباحا' ? "مساءا" : "صباحا")
 
     }
 
@@ -24,7 +35,7 @@ export const OperationPop = () => {
     }
 
     function handleMinPost() {
-        setmin(min === 59 ? 0 : min+1)
+        setmin(min === 59 ? 0 : min + 1)
     }
 
 
@@ -33,10 +44,75 @@ export const OperationPop = () => {
     }
 
     function handleHourPost() {
-        sethour(hour === 12 ? 0 : hour+1)
+        sethour(hour === 12 ? 0 : hour + 1)
+    }
+    // ? //
+
+    // ? Get patients Api
+
+    function getAllPatients() {
+        return axios.get(`${baseURL}patients/`);
     }
 
-    // const periodArr = ["صباحا","مساءا"]
+    const { data: { data: patients } = {} } = useQuery("getAllPatients", getAllPatients, { // nested destruction
+
+    });
+    console.log(patients);
+
+    // ?
+
+    // ? Post reservation
+
+    function postReservation() {
+        return axios.post(`${baseURL}patients/`);
+    }
+
+    // ?  //
+
+
+    function handleSelectPatient() {
+        // patients.refetch();
+        // console.log(patients.data.data[0].name)
+
+    }
+
+    function handleSubmitOperation() {
+
+    }
+
+
+    // ? Get doctors Api
+    function getAllDoctors() {
+        return axios.get(`${baseURL}doctors/`);
+    }
+
+    const { data: { data: doctors } = {} } = useQuery("getAllDoctors", getAllDoctors, { // nested destruction
+
+    });
+    console.log(doctors);
+
+
+    // # operations type 
+    const operationTypes = [
+        { value: "مياه بيضا", label: "مياه بيضا" },
+        { value: "تصحيح نظر", label: "تصحيح نظر" }
+    ];
+
+    // # case type 
+    const caseTypes = [
+        { value: " قديم", label: "قديم" },
+        { value: "جديد", label: "جديد" },
+        { value: "حالة طبيب", label: "حالة طبيب" }
+
+    ];
+
+        // # receiptionists
+        const receiptionists = [
+            { value: "employee", label: "Mazen Yasser" },
+    
+        ];
+    
+
     return (
         <div>
             <div className="row pt-5">
@@ -58,63 +134,72 @@ export const OperationPop = () => {
 
 
                 <div className="col-md-6">
-
-
-                    <div className="d-flex flex-column">
-                        <label>نوع العملية</label>
-                        <select className="" placeholder="اختر نوع العملية" >
-                            <option value="None"></option>
-                            <option value="Some">بعض</option>
-                        </select>
-                    </div>
+                    <MySelect
+                        label="نوع العملية"
+                        options={operationTypes}
+                        placeholder="اختر نوع العملية"
+                    />
                 </div>
 
 
                 <div className="col-md-6">
 
-                    <div className="d-flex flex-column">
-                        <label>نوع الحالة</label>
-                        <select className="" placeholder="اختر نوع الحالة" >
-                            <option value="None"></option>
-                            <option value="Some">بعض</option>
-                        </select>
-                    </div>
+
+
+                    <MySelect
+                        label="نوع الحالة"
+                        options={caseTypes}
+                        placeholder="اختر نوع الحالة"
+                    />
+
                 </div>
 
 
 
                 <div className="col-md-6">
 
-                    <div className="d-flex flex-column">
-                        <label>اسم الطبيب المحول</label>
-                        <select className="" placeholder="اختر الطبيب المحول" >
-                            <option value="None"></option>
-                            <option value="Some">بعض</option>
-                        </select>
-                    </div>
+
+
+
+                    <MySelect
+                        label="اسم الطبيب المحول  "
+                        placeholder="اختر الطبيب المحول"
+                        options={doctors?.map(doctor => ({ value: doctor.id, label: doctor.name }))}
+                    />
+
+
                 </div>
 
 
                 <div className="col-md-6">
 
-                    <div className="d-flex flex-column">
-                        <label>اسم الجراح</label>
-                        <select className="" placeholder="اختر اسم الجراح" >
-                            <option value="None"></option>
-                            <option value="Some">بعض</option>
-                        </select>
-                    </div>
+
+                    <MySelect
+                        label="اسم الجراح"
+                        placeholder="اختار اسم الجراح"
+                        options={doctors?.map(doctor => ({ value: doctor.id, label: doctor.name }))}
+                    />
                 </div>
 
 
             </div>
 
 
-            <div className="d-flex flex-column">
-                <label> اسم المريض </label>
-                <input className="w-100" type="text" placeholder="ادخل اسم المريض" />
-            </div>
 
+
+            <MySelect
+                label="اسم المريض"
+                placeholder="اختار اسم المريض"
+                options={patients?.map(patient => ({ value: patient.id, label: patient.name }))}
+            />
+
+
+
+            <MySelect
+                label="موظف الاستقبال"
+                options={receiptionists}
+                placeholder="اختار موظف الاستقبال "
+            />
 
             <div className="d-flex flex-column">
                 <label>ملاحظات </label>
@@ -128,20 +213,20 @@ export const OperationPop = () => {
 
                 <div className="text-center">
                     <h6 className='mb-3'>ساعات</h6>
-                    <h3 onClick={handleHourPre} className={`${timeStyle.pre}`}>{hour === 0 ? 12: hour - 1}</h3>
+                    <h3 onClick={handleHourPre} className={`${timeStyle.pre}`}>{hour === 0 ? 12 : hour - 1}</h3>
                     <h3 className={`${timeStyle.current}`}>{hour}</h3>
-                    <h3 onClick={handleHourPost} className={`${timeStyle.post}`}>{hour ===12 ? 0:hour + 1} </h3>
+                    <h3 onClick={handleHourPost} className={`${timeStyle.post}`}>{hour === 12 ? 0 : hour + 1} </h3>
                 </div>
 
                 <div className="text-center">
                     <h6 className='mb-3'>دقائق</h6>
-                    <h3 onClick={handleMinPre} className={`${timeStyle.pre}`}>{min === 0? 59 :min-1}</h3>
+                    <h3 onClick={handleMinPre} className={`${timeStyle.pre}`}>{min === 0 ? 59 : min - 1}</h3>
                     <h3 className={`${timeStyle.current}`}>{min}</h3>
-                    <h3  onClick={handleMinPost}  className={`${timeStyle.post}`}>{min === 59? 0 : min + 1}</h3>
+                    <h3 onClick={handleMinPost} className={`${timeStyle.post}`}>{min === 59 ? 0 : min + 1}</h3>
                 </div>
 
                 <div className="text-center">
-                    <h3 onClick={handlePeriodClick} className={`${timeStyle.pre}`}>{period === 'صباحا' ? "مساءا": "صباحا"}</h3>
+                    <h3 onClick={handlePeriodClick} className={`${timeStyle.pre}`}>{period === 'صباحا' ? "مساءا" : "صباحا"}</h3>
                     <h3 onClick={handlePeriodClick} className={`${timeStyle.current}`}>{period}</h3>
 
                 </div>
@@ -160,7 +245,7 @@ export const OperationPop = () => {
                     borderColor: 'var(--logo-colortypap-lightnesscolor)'
                 }}
                 onClick={() => {
-                    setShowPopup('p');
+                    setShowPopup({ "option": 'p' });
 
                 }}
 
@@ -171,6 +256,8 @@ export const OperationPop = () => {
                 </h6>
 
             </button>
+
+            <CancelBtn />
 
 
         </div>

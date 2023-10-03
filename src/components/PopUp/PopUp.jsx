@@ -16,26 +16,26 @@ export const PopUp = ({
     const handleSubmit = (e) => {
         // e.preventDefault();
         console.log("submitted");
-        setShowPopup(null);
+        setShowPopup({"option":null});
         // Handle form submission logic Api call later
     };
 
     return (
         <>
 
-            {showPopup === null ? null : <div className={style.layer}>
+            {showPopup.option === null ? null : <div className={style.layer}>
                 <div className="w-50 mx-auto  ">
                     
 
-                    {showPopup === 'd' && <h2 className="text-center">إضافة طبيب</h2>}
-                    {showPopup === 'p' && <h2 className="text-center">إضافة مريض</h2>}
-                    {showPopup === 'o' && <h2 className="text-center">إضافة عملية</h2>}
+                    {showPopup.option === 'd' && <h2 className="text-center">إضافة طبيب</h2>}
+                    {showPopup.option === 'p' && <h2 className="text-center">إضافة مريض</h2>}
+                    {showPopup.option === 'o' && <h2 className="text-center">إضافة عملية</h2>}
 
                     <form onSubmit={handleSubmit} className={`${style.formControl} container`}>
 
-                        {showPopup === 'd' && <DoctorPop />}
-                        {showPopup === 'p' && <PatientPop />}
-                        {showPopup === 'o' && <OperationPop />}
+                        {showPopup.option === 'd' && <DoctorPop />}
+                        {showPopup.option === 'p' && <PatientPop />}
+                        {showPopup.option === 'o' && <OperationPop />}
 
                     </form>
                 </div>

@@ -2,6 +2,8 @@ import React, { useContext } from 'react'
 import { BookBtn } from "../Btns/BookOBtn"
 import { CancelBtn } from "../Btns/CancelBtn";
 import { PopupContext } from '../../context/PopUpContext';
+import style from '../Btns/BookBtn.module.css'
+import { BackBtn } from '../Btns/BackBtn';
 
 
 
@@ -15,16 +17,23 @@ export const PatientPop = () => {
             <div className="d-flex justify-content-between align-items-center">
 
             <h4>معلومات المريض</h4>
-            <button className='btn btn-outline-primary h-25'
+            <button className={style.backBtn}
                 type='button'
                 onClick={() => {
-                    setShowPopup('o');
+                    setShowPopup({ "option": 'o' })
                 }}
             > 
-                رجوع
-
+                <div className="d-flex align-items-center">
+                    <img className='ms-1 w-100' src="/images/back-square.svg" alt="" />
+                    <p className="m-0">                رجوع
+</p>
+                </div>
             </button>
+                
+
             </div>
+                
+            
 
 
             <div className="d-flex flex-column">

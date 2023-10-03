@@ -9,11 +9,18 @@ import { Doctors } from "./components/DoctorsPg/Doctors";
 import react,{ useContext, useState } from "react";
 import { Dashboard } from "./components/Dashboard/Dashboard";
 import { PopupProvider, PopupContext } from "./context/PopUpContext";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { Toaster } from "react-hot-toast";
+import { DoctorsProvider } from "./context/DoctorsContext";
 
 
 
 
 
+
+
+
+export const baseURL = 'https://tiba-backend.vercel.app/api/';
 
 
 function App() {
@@ -26,14 +33,16 @@ function App() {
       
   
   
-      path: '/', element: <PopupProvider><Main/></PopupProvider> 
+      path: '/', element: <PopupProvider>
+       <DoctorsProvider> <Main /></DoctorsProvider> 
+      </PopupProvider> 
       , children: [
         
         { index: true, element: <Dashboard /> },
         { path: '/dashboard', element: <Dashboard/> },
         { path: '/home', element: <HomePg /> },
         { path: '/login', element: <LoginPg /> },
-        { path: 'operations', element: <OperationPg /> },
+        { path: '/operations/:month/:year/:day', element: <OperationPg /> },
         { path: '/doctors', element: <Doctors />}
       ]
     },
@@ -54,12 +63,14 @@ function App() {
 
   return (
     <div className="App">
-      {/* {console.log(flag)} */}
-      {flag ? <LoginPg toggleFlag={ toggleFlag} />:<RouterProvider router={router} />} 
+      <Toaster />
+     <QueryClientProvider client={new QueryClient()}>
+         {flag ? <LoginPg toggleFlag={ toggleFlag} />:<RouterProvider router={router} />} 
+     </QueryClientProvider>
 
     </div>
   );
 }
 
 export default App;
-// export setflag;
+

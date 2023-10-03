@@ -1,10 +1,11 @@
 import style from "./Table.module.css";
 import { Switch } from "./Switch/Switch";
 
-export const Table = () => {
+export const Table = ({ data }) => {
+  console.log(data);
   return (
     <div className="">
-      <table class={`${style.mytable} table align-middle`}>
+      <table className={`${style.mytable} table align-middle`}>
         <thead className="">
           <tr className="">
             <th scope="col">الاسم</th>
@@ -20,139 +21,53 @@ export const Table = () => {
           </tr>
         </thead>
         <tbody>
-          <tr className="bgNew  ">
-            <td>أحمد سعد</td>
-            <td>24</td>
-            <td>01001016080</td>
-            <td> شبين الكوم</td>
-            <td>مياة بيضة</td>
-            <td>سامح السيد</td>
-            <td>عمرو السباعى</td>
-            <td className="">
-              <div className="d-flex">
-              <p className="m-0  ">9:30 ص</p>
-              <Switch />
-              </div>
 
-            </td>
+          
+          {data?.map((reserv,idx)=> {
+            return (
+              <tr className="bgNew  ">
+                <td>{reserv.patient.name}</td>
+              <td>{reserv.patient.age}</td>
+              <td>{reserv.patient.phone}</td>
+              <td> {reserv.patient.city}</td>
+              <td>{reserv.operationType}</td>
+              <td>{reserv.surgeon.name}</td>
+              <td>{reserv.transferDoctor.name}</td>
+              <td className="">
+                <div className="d-flex">
+                <p className="m-0  ">{reserv.time}</p>
+                <Switch />
+                </div>
+  
+              </td>
+  
+              <td>{reserv.employee.name}</td>
+              <td className="d-flex justify-content-around">
+  
+                <p className={`${style.note} m-0`}>{reserv.notes}</p>
+                <img role='button' img  src="/images/vector.svg" alt="" />
+              </td>
+            </tr>
+          
+          );
 
-            <td>سكيرتير 1</td>
-            <td className="d-flex justify-content-around">
+          })}
 
-              <p className={`${style.note} m-0`}>مجانى الدكتور عبدالرحمن</p>
-              <img role='button' img  src="./images/vector.svg" alt="" />
-            </td>
-          </tr>
-          <tr className="bgDoctor">
-            <td>أحمد سعد</td>
-            <td>24</td>
-            <td>01001016080</td>
-            <td> شبين الكوم</td>
-            <td>مياة بيضة</td>
-            <td>سامح السيد</td>
-            <td>عمرو السباعى</td>
-            <td className="">
-              <div className="d-flex">
-              <p className="m-0  ">9:30 ص</p>
-              <Switch />
-              </div>
 
-            </td>
-            <td>سكيرتير 1</td>
-            <td className="d-flex justify-content-around">
 
-              <p className={`${style.note} m-0`}>مجانى الدكتور عبدالرحمن</p>
-              <img role='button' src="./images/vector.svg" alt="" />
-            </td>
-          </tr>
-          <tr className="bgNew">
-            <td>أحمد سعد</td>
-            <td>24</td>
-            <td>01001016080</td>
-            <td> شبين الكوم</td>
-            <td>مياة بيضة</td>
-            <td>سامح السيد</td>
-            <td>عمرو السباعى</td>
-            <td className="">
-              <div className="d-flex">
-              <p className="m-0  ">9:30 ص</p>
-              <Switch />
-              </div>
 
-            </td>
-            <td>سكيرتير 1</td>
-            <td className="d-flex justify-content-around">
 
-              <p className={`${style.note} m-0`}>مجانى الدكتور عبدالرحمن</p>
-              <img role='button' src="./images/vector.svg" alt="" />
-            </td>
-          </tr>
-          <tr>
-            <td>أحمد سعد</td>
-            <td>24</td>
-            <td>01001016080</td>
-            <td> شبين الكوم</td>
-            <td>مياة بيضة</td>
-            <td>سامح السيد</td>
-            <td>عمرو السباعى</td>
-            <td className="">
-              <div className="d-flex">
-              <p className="m-0  ">9:30 ص</p>
-              <Switch />
-              </div>
 
-            </td>
-            <td>سكيرتير 1</td>
-            <td className="d-flex justify-content-around">
 
-              <p className={`${style.note} m-0`}>مجانى الدكتور عبدالرحمن</p>
-              <img role='button' src="./images/vector.svg" alt="" />
-            </td>
-          </tr>
-          <tr>
-            <td>أحمد سعد</td>
-            <td>24</td>
-            <td>01001016080</td>
-            <td> شبين الكوم</td>
-            <td>مياة بيضة</td>
-            <td>سامح السيد</td>
-            <td>عمرو السباعى</td>
-            <td className="">
-              <div className="d-flex">
-              <p className="m-0  ">9:30 ص</p>
-              <Switch />
-              </div>
 
-            </td>
-            <td>سكيرتير 1</td>
-            <td className="d-flex justify-content-around">
 
-              <p className={`${style.note} m-0`}>مجانى الدكتور عبدالرحمن</p>
-              <img role='button' src="./images/vector.svg" alt="" />
-            </td>
-          </tr>
-          <tr className="bgDoctor">
-            <td>أحمد سعد</td>
-            <td>24</td>
-            <td>01001016080</td>
-            <td> شبين الكوم</td>
-            <td>مياة بيضة</td>
-            <td>سامح السيد</td>
-            <td>عمرو السباعى</td>
-            <td className="">
-              <div className="d-flex">
-              <p className="m-0  ">9:30 ص</p>
-              <Switch />
-              </div>
 
-            </td>
-            <td>سكيرتير 1</td>
 
-            <td className="d-flex justify-content-around">
-              <p className={`${style.note} m-0`}>مجانى الدكتور عبدالرحمن</p>
-              <img role='button' src="./images/vector.svg" alt="" />
-            </td>
-          </tr>
+
+
+  
+
+
         </tbody>
       </table>
     </div>

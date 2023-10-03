@@ -11,7 +11,7 @@ export const CancelBtn = () => {
                 type="button"
                 className={`btn ${styles.signBtn}  d-flex justify-content-center  align-items-center `}
                 id="Btn"
-                onClick={()=>{ setShowPopup(null)}
+                onClick={()=>{    setShowPopup({"option":null});}
                     
                     
                    }

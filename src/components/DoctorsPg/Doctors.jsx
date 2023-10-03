@@ -17,12 +17,12 @@ export const Doctors = () => {
       <h3>اﻷطباء</h3>
       <button
           type="button" onClick={()=>
-            setShowPopup('d')
+            setShowPopup({"option":'d'})
           }
         className={`${style.bookBtn} btn  d-flex flex-row-reverse justify-content-center align-items-center `}
       >
         <p className='m-0'>   إضافة طبيب</p>
-        <img className="ms-2" alt="Image" src="./images/add-circle.svg" />
+        <img className="ms-2" alt="Image" src="/images/add-circle.svg" />
       </button>
     </div>
 
