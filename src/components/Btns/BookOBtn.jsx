@@ -4,7 +4,7 @@ import styles from './BookBtn.module.css'
 export const BookBtn = ({txt ,handleSubmit}) => {
   return (
     <button
-    type="button" onClick={handleSubmit}
+    type="submit" onClick={handleSubmit}
     className= {`btn ${styles.signBtn }  d-flex justify-content-center  align-items-center` }
     id="Btn"
     
@@ -16,7 +16,7 @@ export const BookBtn = ({txt ,handleSubmit}) => {
             <img
               className={styles.arrowLeft}
               alt="Arrow left"
-              src="./images/arrow-leftPop.svg"
+              src="/images/arrow-leftPop.svg"
             />
   </button>
   )

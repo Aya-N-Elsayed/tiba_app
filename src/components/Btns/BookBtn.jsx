@@ -8,7 +8,7 @@ export const BookBtn = ( {handleClick}) => {
   >
     
     حجز عملية
-    <img className="btnicons" alt="Image" src="./images/add.svg" />
+    <img className="btnicons" alt="Image" src="/images/add.svg" />
   </button>
   )
 }

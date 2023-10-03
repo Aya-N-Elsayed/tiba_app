@@ -19,21 +19,28 @@ export const Table = () => {
 
 
 
+
+  // ? Geting All doctor
+  
   // # Functions Using Axios to call APIs //
   function getAllDoctors() {
     return axios.get(`${baseURL}doctors/`);
   }
+
+    // # query for getAllDoctors 
+    const { isError, isFetching, isLoading, data, refetch } = useQuery("allDoctors", getAllDoctors, {
+    });
+  
+  if (refetchDoctors) { refetch(); } // refetching data whenever save doctor btn is clicked
+  
+  // ? //
 
   function deleteDoctor(id) {
     return axios.delete(`${baseURL}doctors/${id}/`);
   }
 
 
-  // # query for getAllDoctors 
-  const { isError, isFetching, isLoading, data, refetch } = useQuery("allDoctors", getAllDoctors, {
-  });
 
-  if (refetchDoctors) { refetch(); } // refetching data whenever save doctor btn is clicked
 
 
   // # query for Deleting Doctor
@@ -107,7 +114,9 @@ export const Table = () => {
       // console.log(doctor);
       y.mutate(id)
   
-    }
+  }
+  
+  //? //
 
   // # Loading screen 
 
@@ -152,18 +161,18 @@ export const Table = () => {
                 <td className="d-flex  justify-content-around align-items-center ">
 
                   <p className={` m-0`}>{doctor.clinicphone}</p>
-                  <img role='button' img src="./images/vector.svg" alt="" onClick={() => { optionsHandleClick(idx) }} />
+                  <img role='button' img src="/images/vector.svg" alt="" onClick={() => { optionsHandleClick(idx) }} />
                 </td>
 
                 {showOptions[idx] ? <div className={`${style.options} 'd-flex flex-column justify-content-between align-items-center  '`}>
                   <button type='button' className={style.editBtn} onClick={() =>  handlingUpdate(doctor)}>
-                    <img role='button' img src="./images/edit-2.svg" className='ms-2' />
+                    <img role='button' img src="/images/edit-2.svg" className='ms-2' />
                     تعديل
 
                   </button>
 
                   <button type='button' className={style.deleteBtn} onClick={() => { handlingDelete(doctor.id,idx) }}>
-                    <img role='button' img src="./images/trash.svg" className='ms-2' />
+                    <img role='button' img src="/images/trash.svg" className='ms-2' />
                     حذف
                   </button>
 

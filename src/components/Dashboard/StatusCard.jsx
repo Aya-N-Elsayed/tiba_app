@@ -9,7 +9,7 @@ export const StatusCard = ({ title, number, status, color }) => {
                 <div className="card-body p-2">
                     <div className="d-flex justify-content-between align-items-center">
                         <h5 className={`${style.title} m-0  ms-5`}>{title}  <span className={style.subtitle}> | اليوم</span></h5>
-                        <img role="button" src="./images/VectorGray.svg" alt=""></img>
+                        <img role="button" src="/images/VectorGray.svg" alt=""></img>
                     </div>
 
 

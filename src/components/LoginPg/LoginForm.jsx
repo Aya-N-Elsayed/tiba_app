@@ -35,7 +35,7 @@ export const LoginForm = ({toggleFlag}) => {
               placeholder="أدخل كلمة المرور"
               required
             />
-            <img className=" " alt="Image" src="./images/eye_black.svg" />
+            <img className=" " alt="Image" src="/images/eye_black.svg" />
           </div>
 
           

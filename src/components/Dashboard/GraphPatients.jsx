@@ -57,7 +57,7 @@ export const GraphPatients = () => {
         <div className='card p-4'>
             <div className="d-flex justify-content-between align-items-center mt-2">
                 <h5 className={`${style.title} m-0  ms-5`}>احصائيات المرضى  <span className={style.subtitle}> | اليوم</span></h5>
-                <img role="button" src="./images/VectorGray.svg" alt=""></img>
+                <img role="button" src="/images/VectorGray.svg" alt=""></img>
             </div>
             <Bar data={data}  options={options}/>
         </div>

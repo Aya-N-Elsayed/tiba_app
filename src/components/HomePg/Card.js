@@ -9,7 +9,7 @@ import { useQuery } from "react-query";
 import axios from "axios";
 
 
-export const Card = ({month , day, apiData}) => {
+export const Card = ({month , day, year,apiData, monthNum}) => {
   const navigation = useNavigate();
   
   const {setShowPopup } = useContext(PopupContext);
@@ -41,7 +41,7 @@ export const Card = ({month , day, apiData}) => {
           <div className="cardText  ">
             <p>تم تأكيدها</p>
             <div className="d-flex  justify-content-start">
-              <img className="icons " alt="Image" src="./images/Checkbox.svg" />
+              <img className="icons " alt="Image" src="/images/Checkbox.svg" />
               <p className="confirmed numbers  me-2"> { apiData?.Confirmed}</p>
             </div>
           </div>
@@ -49,7 +49,7 @@ export const Card = ({month , day, apiData}) => {
           <div className="cardText ">
             <p>لم يتم تأكدها</p>
             <div className="d-flex  justify-content-start">
-              <img className="icons" alt="Image" src="./images/close.svg" />
+              <img className="icons" alt="Image" src="/images/close.svg" />
               <p className="notConfirmed numbers me-2">{apiData?.Unconfirmed}</p>
             </div>
           </div>
@@ -57,12 +57,12 @@ export const Card = ({month , day, apiData}) => {
         {/* buttons */}
         <button
           type="button" onClick={() =>
-          navigation('/operations')
+          navigation(`/operations/${monthNum}/${year}/${day}`)
           }
           className="btn detailsBtn d-flex flex-row-reverse justify-content-center w-100 align-items-center "
         >
           <p>عرض التفاصيل</p>
-          <img className="btnicons " alt="Image" src="./images/eye.svg" />
+          <img className="btnicons " alt="Image" src="/images/eye.svg" />
           
         </button>
         <BookBtn handleClick={handleClick} />

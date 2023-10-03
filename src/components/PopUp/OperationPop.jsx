@@ -10,6 +10,9 @@ import { baseURL } from "../../App";
 import { useQuery } from "react-query";
 import axios from "axios";
 
+import { MySelect } from './MySelect'
+import { CancelBtn } from '../Btns/CancelBtn';
+
 
 export const OperationPop = () => {
 
@@ -51,8 +54,64 @@ export const OperationPop = () => {
         return axios.get(`${baseURL}patients/`);
     }
 
-    const patients = useQuery("getAllPatients", getAllPatients );
+    const { data: { data: patients } = {} } = useQuery("getAllPatients", getAllPatients, { // nested destruction
+
+    });
     console.log(patients);
+
+    // ?
+
+    // ? Post reservation
+
+    function postReservation() {
+        return axios.post(`${baseURL}patients/`);
+    }
+
+    // ?  //
+
+
+    function handleSelectPatient() {
+        // patients.refetch();
+        // console.log(patients.data.data[0].name)
+
+    }
+
+    function handleSubmitOperation() {
+
+    }
+
+
+    // ? Get doctors Api
+    function getAllDoctors() {
+        return axios.get(`${baseURL}doctors/`);
+    }
+
+    const { data: { data: doctors } = {} } = useQuery("getAllDoctors", getAllDoctors, { // nested destruction
+
+    });
+    console.log(doctors);
+
+
+    // # operations type 
+    const operationTypes = [
+        { value: "مياه بيضا", label: "مياه بيضا" },
+        { value: "تصحيح نظر", label: "تصحيح نظر" }
+    ];
+
+    // # case type 
+    const caseTypes = [
+        { value: " قديم", label: "قديم" },
+        { value: "جديد", label: "جديد" },
+        { value: "حالة طبيب", label: "حالة طبيب" }
+
+    ];
+
+        // # receiptionists
+        const receiptionists = [
+            { value: "employee", label: "Mazen Yasser" },
+    
+        ];
+    
 
     return (
         <div>
@@ -75,74 +134,72 @@ export const OperationPop = () => {
 
 
                 <div className="col-md-6">
-
-
-                    <div className="d-flex flex-column">
-                        <label>نوع العملية</label>
-                        <select className="" placeholder="اختر نوع العملية" >
-                            <option value="None"></option>
-                            <option value="Some">بعض</option>
-                        </select>
-                    </div>
+                    <MySelect
+                        label="نوع العملية"
+                        options={operationTypes}
+                        placeholder="اختر نوع العملية"
+                    />
                 </div>
 
 
                 <div className="col-md-6">
 
-                    <div className="d-flex flex-column">
-                        <label>نوع الحالة</label>
-                        <select className="" placeholder="اختر نوع الحالة" >
-                            <option value="None"></option>
-                            <option value="Some">بعض</option>
-                        </select>
-                    </div>
+
+
+                    <MySelect
+                        label="نوع الحالة"
+                        options={caseTypes}
+                        placeholder="اختر نوع الحالة"
+                    />
+
                 </div>
 
 
 
                 <div className="col-md-6">
 
-                    <div className="d-flex flex-column">
-                        <label>اسم الطبيب المحول</label>
-                        <select className="" placeholder="اختر الطبيب المحول" >
-                            <option value="None"></option>
-                            <option value="Some">بعض</option>
-                        </select>
-                    </div>
+
+
+
+                    <MySelect
+                        label="اسم الطبيب المحول  "
+                        placeholder="اختر الطبيب المحول"
+                        options={doctors?.map(doctor => ({ value: doctor.id, label: doctor.name }))}
+                    />
+
+
                 </div>
 
 
                 <div className="col-md-6">
 
-                    <div className="d-flex flex-column">
-                        <label>اسم الجراح</label>
-                        <select className="" placeholder="اختر اسم الجراح" >
-                            <option value="None"></option>
-                            <option value="Some">بعض</option>
-                        </select>
-                    </div>
+
+                    <MySelect
+                        label="اسم الجراح"
+                        placeholder="اختار اسم الجراح"
+                        options={doctors?.map(doctor => ({ value: doctor.id, label: doctor.name }))}
+                    />
                 </div>
 
 
             </div>
 
 
-            <div className={`d-flex flex-column  position-relative  ${selectStyle.myselect}`}>
-                <label> اسم المريض   </label>
-                <img src="./images/arrow-downGray.svg" alt="" className="position-absolute" />
-                
-                <select className=" w-100 " >
-                
-                    <option selected disabled> 
-                        ادخل اسم المريض</option>
-                    <option value="1">Patient 1</option>
-                    <option value="2">Patient 2</option>
-                    <option value="3">Patient 3</option>
-                   
-                </select>
-           
-            </div>
 
+
+            <MySelect
+                label="اسم المريض"
+                placeholder="اختار اسم المريض"
+                options={patients?.map(patient => ({ value: patient.id, label: patient.name }))}
+            />
+
+
+
+            <MySelect
+                label="موظف الاستقبال"
+                options={receiptionists}
+                placeholder="اختار موظف الاستقبال "
+            />
 
             <div className="d-flex flex-column">
                 <label>ملاحظات </label>
@@ -199,6 +256,8 @@ export const OperationPop = () => {
                 </h6>
 
             </button>
+
+            <CancelBtn />
 
 
         </div>

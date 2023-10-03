@@ -22,3 +22,14 @@
     margin-right: 4px;
     /* font-size: 20px; */
    }
+
+   .backBtn{
+    background-color: transparent;
+    border-color: var(--logo-colortypap-lightnesscolor);
+    padding: 6.23px 8.31px ;
+    border-radius: 8.31px;
+    border: 0.52px solid;
+    color: var(--logo-colortypap-lightnesscolor);
+    font-size: 10px ;
+    font-weight: 600;
+   }

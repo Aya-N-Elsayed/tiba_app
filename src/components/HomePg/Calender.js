@@ -23,7 +23,7 @@ export const MonthCalender = () => {
 
   // # axios
   function getMonthReservations() {
-    return axios.get(`${baseURL}calendar/?month=${month}&year=2023`, {
+    return axios.get(`${baseURL}calendar/?month=${month}&year=${year}`, {
 
     
     });
@@ -58,7 +58,7 @@ export const MonthCalender = () => {
             if (dayCount <= maxDays) {
               return (
                 <div key={rowIndex * 7 + colIndex} className="col gy-3 col-auto">
-                  <Card month={monthArr[month]} day={dayCount} apiData={ data?.data[dayCount]} />
+                  <Card month={monthArr[month]} day={dayCount} year={year} monthNum={month } apiData={ data?.data[dayCount]} />
                 </div>
               );
             }

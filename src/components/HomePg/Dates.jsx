@@ -50,7 +50,7 @@ export const Dates = ({month, setmonth, year, setyear}) => {
           <img
             className="btnicons "
             alt="Image"
-            src="./images/arrow-right.svg"
+            src="/images/arrow-right.svg"
           />
           <p className="month">{month === 1 ? monthArr[12] : monthArr[month - 1]}</p>
           <p className="date"><span>{month === 1 ? 12 : month - 1}</span>/{month === 1 ? year - 1 : year}</p>
@@ -84,7 +84,7 @@ export const Dates = ({month, setmonth, year, setyear}) => {
           <img
             className="btnicons "
             alt="Image"
-            src="./images/arrow-left.svg"
+            src="/images/arrow-left.svg"
           />
 
         </button>
