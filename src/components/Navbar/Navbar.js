@@ -14,7 +14,7 @@ export const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           
           <form className="search w-75">
-          <img classNameName="w-100 " src="/images/search.svg" alt="search"/>   
+          <img className=" " src="/images/search.svg" alt="search"/>   
             <input className="form-control me-2" type="search" placeholder="  ابحث باسم المريض أو الجراح ... " aria-label="Search" />
             
                       
@@ -23,11 +23,11 @@ export const Navbar = () => {
           <ul className="navbar-nav  d-flex align-items-center  me-auto p-0">
             
           <li className="nav-item">
-            <button type="button" className="btn notification d-flex justify-content-center align-items-center"><img classNameName="w-100 " src="/images/notification.svg" alt="notifications"/></button>
+            <button type="button" className="btn notification d-flex justify-content-center align-items-center"><img className=" " src="/images/notification.svg" alt="notifications"/></button>
           </li>
             
            <li className="nav-item me-3">
-            <button type="button" className="btn user d-flex justify-content-center align-items-center"><img classNameName="w-100 " src="/images/userimage.jpeg" alt="user image"/></button>
+            <button type="button" className="btn user d-flex justify-content-center align-items-center"><img className=" " src="/images/userimage.jpeg" alt="user image"/></button>
             </li>  
 
 
