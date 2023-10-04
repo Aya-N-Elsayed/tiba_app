@@ -75,9 +75,9 @@ const queryClient = useQueryClient();
     x.mutate(doctor.id, {
         onSuccess: () => {
             // Get the current list of doctors from the cache
-        const {data:currentDoctors}= queryClient.getQueryData('allDoctors');
-        // console.log(dataa.data);
-        // const currentDoctors = dataa?.data;
+        const dataa= queryClient.getQueryData('allDoctors');
+        console.log(dataa.data);
+        const currentDoctors = dataa?.data;
 
             // Filter out the deleted doctor
             const updatedDoctors = currentDoctors.filter(d => d.id !== doctor.id);
@@ -94,37 +94,43 @@ const queryClient = useQueryClient();
 }
 
 
-  // ? Updating doctor
+//   // ? Updating doctor
 
-// # Functions Using Axios to call APIs //
-  function updateDoctor(id, updatedData) {
-    return axios.patch(`${baseURL}doctors/${id}/`, {
-      "name": "rayyy"
+// // # Functions Using Axios to call APIs //
+//   function updateDoctor(id, updatedData) {
+//     return axios.patch(`${baseURL}doctors/${id}/`, {
+//       "name": "rayyy"
     
-    });
-  }
+//     });
+//   }
 
-  // # query for Updating Doctor
+//   // # query for Updating Doctor
 
-  const y = useMutation('updateDoc', (id) => { updateDoctor(id) },
-    {
-      enabled: false,
-    });
+//   const y = useMutation('updateDoc', (id) => { updateDoctor(id) },
+//     {
+//       enabled: false,
+//     });
   
-  // console.log("update doctor",y);
+//   // console.log("update doctor",y);
 
-    // # Handling onclicking buttons
+//     // # Handling onclicking buttons
+//   function handlingUpdate(doctor) {
+//     const { id, name, phone2, phone, address, clinicphone,notes } = doctor;
+//     setShowPopup({ "option":'d',doctor})
+
+  
+//       // console.log(doctor);
+//       y.mutate(id)
+  
+  //   }
+  
+
   function handlingUpdate(doctor) {
-    const { id, name, phone2, phone, address, clinicphone,notes } = doctor;
     setShowPopup({ "option":'d',doctor})
-
-  
-      // console.log(doctor);
-      y.mutate(id)
-  
+    
   }
   
-  //? //
+//   //? //
 
   // # Loading screen 
 

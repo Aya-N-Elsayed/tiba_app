@@ -23,6 +23,7 @@ export const OperationPg = () => {
 
   // # Functions Using Axios to call APIs //
   function getReservation() {
+    // console.log()
     return axios.get(`${baseURL}reservations`, {
       params: {
         year: year,

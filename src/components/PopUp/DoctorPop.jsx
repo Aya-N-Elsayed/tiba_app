@@ -9,17 +9,19 @@ import { PopupContext } from '../../context/PopUpContext';
 import toast from 'react-hot-toast';
 import { refetchingDoctors, sayHello } from '../DoctorsPg/Table/Table';
 import { DoctorsContext } from '../../context/DoctorsContext';
+import { useMutation } from 'react-query';
 
 
 
 
 
-export const DoctorPop = (doctor) => {
+export const DoctorPop = () => {
     
     const { setShowPopup,showPopup } = useContext(PopupContext);
     const { setrefetchDoctors } = useContext(DoctorsContext);
     
-    console.log(showPopup);
+    const doctor = showPopup.doctor;
+    console.log("doctor ",doctor);
 
     const [formData, setformData] = useState(
         {
@@ -33,6 +35,46 @@ export const DoctorPop = (doctor) => {
     }
     
     )
+
+     // ? Updating doctor
+
+// # Functions Using Axios to call APIs //
+    function updateDoctor(id) {
+        console.log(`${baseURL}doctors/${id}/`);
+        return axios.patch(`${baseURL}doctors/${id}/`,
+        formData
+        );
+  }
+
+  // # query for Updating Doctor
+
+  const y = useMutation('updateDoc', (id) => { updateDoctor(id) },
+    {
+      enabled: false,
+    });
+  
+  // console.log("update doctor",y);
+
+    // # Handling onclicking buttons
+    function handlingUpdate() {
+        const { id, name, phone2, phone, address, clinicphone, notes } = doctor;
+
+        // setShowPopup({ "option":'d',doctor})
+
+    //     y.mutate(id,
+    //         onSuccess: () => {
+
+    //             toast.success("تم إضافة طبيب",
+    //                 { autoClose: 500 });
+      
+    //   })
+    
+        y.mutate(id);
+      
+  
+  }
+
+// ? //
     function handleChange(e) {
         const { name, value } = e.target;
         console.log(name, value);
@@ -42,22 +84,25 @@ export const DoctorPop = (doctor) => {
 
     async function handleSubmit() {
         console.log(formData);
-        try {
-            await axios.post(`${baseURL}doctors/`, formData);
-            setShowPopup({"option":null});
-            toast.success("تم إضافة طبيب",
-            {autoClose:500}
-            );
 
-            setrefetchDoctors(true);
+            try {
+                await axios.post(`${baseURL}doctors/`, formData);
+                setShowPopup({"option":null});
+                toast.success("تم إضافة طبيب",
+                {autoClose:500}
+                );
+    
+                setrefetchDoctors(true);
+    
+               
+    
+    
+            } catch (error) {
+    
+                
+            }
 
-           
 
-
-        } catch (error) {
-
-            
-        }
     }
 
     return (
@@ -93,7 +138,7 @@ export const DoctorPop = (doctor) => {
                 <label>رقم العيادة </label>
                 <input className="w-100" type="number" value={formData.clinicphone}  placeholder="ادخل رقم العيادة " name="clinicphone" onChange={handleChange}  />
             </div>
-            <BookBtn txt={"حفظ طبيب"} handleSubmit={handleSubmit}/>
+            <BookBtn txt={"حفظ طبيب"} handleSubmit={showPopup.data === null ? handleSubmit : handlingUpdate} />
             <CancelBtn />
         </div>
     )
