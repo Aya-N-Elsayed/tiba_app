@@ -30,18 +30,22 @@ const queryClient = useQueryClient();
   }
 
     // # query for getAllDoctors 
-    const { isError, isFetching, isLoading, data, refetch } = useQuery("allDoctors", getAllDoctors, {
+    const { isError, isFetching, error ,isLoading, data, refetch } = useQuery("allDoctors", getAllDoctors, {
     });
+  
+  console.log("error ", isError);
+  console.log("the error ba2a ", error)
   
   if (refetchDoctors) { refetch(); } // refetching data whenever save doctor btn is clicked
   
   // ? //
 
+
+  // ? Deleting a doctor 
+
   function deleteDoctor(id) {
     return axios.delete(`${baseURL}doctors/${id}/`);
   }
-
-
 
 
 
@@ -50,11 +54,30 @@ const queryClient = useQueryClient();
   const x = useMutation('deleteDoc', (id) => { deleteDoctor(id) }, {
 
   });
-  
 
 
+  function handlingDelete(doctor, idx) { 
+    x.mutate(doctor.id, {
+        onSuccess: () => {
+            // Get the current list of doctors from the cache
+        const dataa= queryClient.getQueryData('allDoctors');
+        console.log("doctors before delete",dataa.data);
+        const currentDoctors = dataa?.data;
 
+            // Filter out the deleted doctor
+            const updatedDoctors = currentDoctors.filter(d => d.id !== doctor.id);
 
+            // Update the cache with the filtered list
+            queryClient.setQueryData('allDoctors', updatedDoctors);
+
+        toast.success(`تم حذف الطبيب ${doctor.name}`, { autoClose: 500 });
+        console.log("doctors after delete ", updatedDoctors)
+        }
+    });
+    const tempArr = [...showOptions];
+    tempArr[idx] = false;
+    setshowOptions(tempArr);
+}
 
 
   const [showOptions, setshowOptions] = useState(new Array(data?.data?.length).fill(false));
@@ -71,74 +94,45 @@ const queryClient = useQueryClient();
 
   }
 
-  function handlingDelete(doctor, idx) { 
-    x.mutate(doctor.id, {
-        onSuccess: () => {
-            // Get the current list of doctors from the cache
-        const dataa= queryClient.getQueryData('allDoctors');
-        console.log(dataa.data);
-        const currentDoctors = dataa?.data;
 
-            // Filter out the deleted doctor
-            const updatedDoctors = currentDoctors.filter(d => d.id !== doctor.id);
 
-            // Update the cache with the filtered list
-            queryClient.setQueryData('allDoctors', updatedDoctors);
 
-            toast.success(`تم حذف الطبيب ${doctor.name}`, { autoClose: 500 });
-        }
-    });
+
+  
+
+  function handlingUpdate(doctor, idx) {
     const tempArr = [...showOptions];
     tempArr[idx] = false;
     setshowOptions(tempArr);
-}
+    setShowPopup({ "option": 'd', doctor })
 
-
-//   // ? Updating doctor
-
-// // # Functions Using Axios to call APIs //
-//   function updateDoctor(id, updatedData) {
-//     return axios.patch(`${baseURL}doctors/${id}/`, {
-//       "name": "rayyy"
-    
-//     });
-//   }
-
-//   // # query for Updating Doctor
-
-//   const y = useMutation('updateDoc', (id) => { updateDoctor(id) },
-//     {
-//       enabled: false,
-//     });
-  
-//   // console.log("update doctor",y);
-
-//     // # Handling onclicking buttons
-//   function handlingUpdate(doctor) {
-//     const { id, name, phone2, phone, address, clinicphone,notes } = doctor;
-//     setShowPopup({ "option":'d',doctor})
-
-  
-//       // console.log(doctor);
-//       y.mutate(id)
-  
-  //   }
-  
-
-  function handlingUpdate(doctor) {
-    setShowPopup({ "option":'d',doctor})
     
   }
   
-//   //? //
+  //   //? //
+  
+
+  //  ? Loading screen 
 
   // # Loading screen 
 
-  if (isLoading) {
+  if (isLoading && !isError) {
     return <div className=' d-flex justify-content-center'>
       <ThreeDots color="var(--logo-colortypap-lightnesscolor)" />
     </div>
   }
+
+  else if (isLoading && isError) {
+    
+    return <>
+      <h2>
+         Errorrrrrrrrrrrrrrrr
+      </h2>
+      </>
+
+  }
+
+  // ? //
 
   return (
     <div className="">
@@ -179,7 +173,7 @@ const queryClient = useQueryClient();
                 </td>
 
                 {showOptions[idx] ? <div className={`${style.options} 'd-flex flex-column justify-content-between align-items-center  '`}>
-                  <button type='button' className={style.editBtn} onClick={() =>  handlingUpdate(doctor)}>
+                  <button type='button' className={style.editBtn} onClick={() =>  handlingUpdate(doctor,idx)}>
                     <img role='button' img src="/images/edit-2.svg" className='ms-2' />
                     تعديل
 

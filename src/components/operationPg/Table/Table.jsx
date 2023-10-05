@@ -29,8 +29,8 @@ export const Table = ({ data }) => {
                 <td>{reserv.patient?.name}</td>
               <td>{reserv.patient?.age}</td>
               <td>{reserv.patient?.phone}</td>
-              <td> {reserv.patient?.city}</td>
-              <td>{reserv.operationType}</td>
+              <td> {reserv.patient?.city.name}</td>
+              <td>{reserv.operationType.name}</td>
               <td>{reserv.surgeon?.name}</td>
               <td>{reserv.transferDoctor?.name}</td>
               <td className="">

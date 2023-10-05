@@ -12,11 +12,14 @@ import { PopupProvider, PopupContext } from "./context/PopUpContext";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Toaster } from "react-hot-toast";
 import { DoctorsProvider } from "./context/DoctorsContext";
+import { ReactQueryDevtools } from 'react-query/devtools';
 
 
 
 
 
+
+const queryClient = new QueryClient();
 
 
 
@@ -64,9 +67,13 @@ function App() {
   return (
     <div className="App">
       <Toaster />
-     <QueryClientProvider client={new QueryClient()}>
-         {flag ? <LoginPg toggleFlag={ toggleFlag} />:<RouterProvider router={router} />} 
-     </QueryClientProvider>
+     <QueryClientProvider client={queryClient}>
+        {flag ? <LoginPg toggleFlag={toggleFlag} /> : <RouterProvider router={router} />} 
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+      
+
+      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
 
     </div>
   );

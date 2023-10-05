@@ -9,7 +9,7 @@ import { PopupContext } from '../../context/PopUpContext';
 import toast from 'react-hot-toast';
 import { refetchingDoctors, sayHello } from '../DoctorsPg/Table/Table';
 import { DoctorsContext } from '../../context/DoctorsContext';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 
 
 
@@ -19,6 +19,7 @@ export const DoctorPop = () => {
     
     const { setShowPopup,showPopup } = useContext(PopupContext);
     const { setrefetchDoctors } = useContext(DoctorsContext);
+    const queryClient = useQueryClient();
     
     const doctor = showPopup.doctor;
     console.log("doctor ",doctor);
@@ -57,19 +58,31 @@ export const DoctorPop = () => {
 
     // # Handling onclicking buttons
     function handlingUpdate() {
-        const { id, name, phone2, phone, address, clinicphone, notes } = doctor;
+        const doc = doctor;
 
         // setShowPopup({ "option":'d',doctor})
 
-    //     y.mutate(id,
-    //         onSuccess: () => {
+        y.mutate(doc.id, {
+            onSuccess: () => {
 
-    //             toast.success("تم إضافة طبيب",
-    //                 { autoClose: 500 });
+
+                const dataa= queryClient.getQueryData('allDoctors');
+                console.log(dataa.data);
+                const currentDoctors = dataa?.data;
+        
+                    // Filter out the deleted doctor
+                    // const updatedDoctors = currentDoctors.filter(d => d.id !== doc.id);
+        
+                    // Update the cache with the filtered list
+                    queryClient.setQueryData('allDoctors', currentDoctors);
+
+                toast.success("تم تعديل الطبيب بنجاح",
+                    { autoClose: 500 });
       
-    //   })
+            }
+        })
     
-        y.mutate(id);
+        // y.mutate(doc?.id);
       
   
   }

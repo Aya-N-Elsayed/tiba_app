@@ -430,10 +430,6 @@ nav{
   word-wrap: break-word;
 }
 
-.dropdown-toggle::after {
-  vertical-align: 0;
-  border-top: 0.3em solid var(--logo-greylogo-grey700) ;
-}
 
 .main{
  min-height: 100vh;

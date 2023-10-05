@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Card } from "./Card";
 import { Dates } from "./Dates";
 
@@ -31,9 +31,15 @@ export const MonthCalender = () => {
 
 
   const { isError, isFetching, isLoading, data, refetch } = useQuery("MonthReservations", getMonthReservations, {
+  
+    enabled:true
   });
 
-  console.log(data?.data["27"]);
+  useEffect(() => {
+    refetch();  // Manually refetch when month changes
+  }, [month, refetch]);  // Dependency array
+
+ console.log("data on calender ", data?.data)
 
 
   // ?  //
@@ -58,7 +64,7 @@ export const MonthCalender = () => {
             if (dayCount <= maxDays) {
               return (
                 <div key={rowIndex * 7 + colIndex} className="col gy-3 col-auto">
-                  <Card month={monthArr[month]} day={dayCount} year={year} monthNum={month } apiData={ data?.data[dayCount]} />
+                  <Card key={rowIndex * 7 + colIndex} month={monthArr[month]} day={dayCount} year={year} monthNum={month } apiData={ data?.data[dayCount]} />
                 </div>
               );
             }
