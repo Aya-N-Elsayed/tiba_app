@@ -26,22 +26,22 @@ export const Table = ({ data }) => {
           {data?.map((reserv,idx)=> {
             return (
               <tr className="bgNew  ">
-                <td>{reserv.patient.name}</td>
-              <td>{reserv.patient.age}</td>
-              <td>{reserv.patient.phone}</td>
-              <td> {reserv.patient.city}</td>
-              <td>{reserv.operationType}</td>
-              <td>{reserv.surgeon.name}</td>
-              <td>{reserv.transferDoctor.name}</td>
+                <td>{reserv.patient?.name}</td>
+              <td>{reserv.patient?.age}</td>
+              <td>{reserv.patient?.phone}</td>
+              <td> {reserv.patient?.city.name}</td>
+              <td>{reserv.operationType.name}</td>
+              <td>{reserv.surgeon?.name}</td>
+              <td>{reserv.transferDoctor?.name}</td>
               <td className="">
                 <div className="d-flex">
-                <p className="m-0  ">{reserv.time}</p>
+                <p className="m-0  ">{reserv?.time}</p>
                 <Switch />
                 </div>
   
               </td>
   
-              <td>{reserv.employee.name}</td>
+              <td>{reserv.employee}</td>
               <td className="d-flex justify-content-around">
   
                 <p className={`${style.note} m-0`}>{reserv.notes}</p>

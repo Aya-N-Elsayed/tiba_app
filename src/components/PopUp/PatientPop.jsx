@@ -94,7 +94,7 @@ export const PatientPop = () => {
 
                     <div className="d-flex flex-column">
                         <label>التاريخ المرضى </label>
-                        <select className="" placeholder="اختر التاريخ" >
+                        <select   menuPlacement="auto" className="" placeholder="اختر التاريخ" >
                             <option value="None"></option>
                             <option value="Some">بعض</option>
                         </select>

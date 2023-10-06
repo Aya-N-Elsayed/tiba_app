@@ -11,6 +11,8 @@ import axios from "axios";
 
 export const Card = ({month , day, year,apiData, monthNum}) => {
   const navigation = useNavigate();
+
+  console.log("data inside the card ", apiData) 
   
   const {setShowPopup } = useContext(PopupContext);
   function handleClick() {;
