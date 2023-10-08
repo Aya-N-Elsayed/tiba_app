@@ -12,17 +12,39 @@ import axios from "axios";
 
 import { MySelect } from './MySelect'
 import { CancelBtn } from '../Btns/CancelBtn';
+import toast from 'react-hot-toast';
 
 
 export const OperationPop = () => {
 
-    const { setShowPopup } = useContext(PopupContext);
+    const { setShowPopup, showPopup } = useContext(PopupContext);
 
     const [hour, sethour] = useState(10);
     const [min, setmin] = useState(59);
     const [period, setperiod] = useState("صباحا")
 
+    //    ?   set up form data 
+    
+    const reservation = showPopup.reservation;
+    console.log("reservation",reservation);
 
+    const [formData, setformData] = useState(
+        {
+
+            "patient": '',
+            "surgeon": '',
+            "transferDoctor": '',
+            "date": '',
+            "time": '',
+            "operationType": '',
+            "caseType": '',
+            "employee": '',
+            "notes": '',
+            
+
+            
+        }
+    )
 
     // ? Functions Handling time period selection 
     function handlePeriodClick() {
@@ -76,7 +98,24 @@ export const OperationPop = () => {
 
     }
 
-    function handleSubmitOperation() {
+    async function handleSubmitOperation() {
+
+        try {
+            await axios.post(`${baseURL}reservations/`, formData);
+            setShowPopup({"option":null});
+            toast.success("تم إضافة عملية",
+            {autoClose:500}
+            );
+
+            // setrefetchDoctors(true);
+
+           
+
+
+        } catch (error) {
+
+            
+        }
 
     }
 
@@ -91,6 +130,8 @@ export const OperationPop = () => {
     });
     console.log(doctors);
 
+    
+    
 
     // # operations type 
     const operationTypes = [
@@ -138,6 +179,7 @@ export const OperationPop = () => {
                         label="نوع العملية"
                         options={operationTypes}
                         placeholder="اختر نوع العملية"
+                        onChange={(value) => setformData({ ...formData,"operationType": value })}
                     />
                 </div>
 
@@ -150,6 +192,8 @@ export const OperationPop = () => {
                         label="نوع الحالة"
                         options={caseTypes}
                         placeholder="اختر نوع الحالة"
+                        onChange={(value) => setformData({ ...formData,"caseType": value })}
+
                     />
 
                 </div>
@@ -165,7 +209,10 @@ export const OperationPop = () => {
                         label="اسم الطبيب المحول  "
                         placeholder="اختر الطبيب المحول"
                         options={doctors?.map(doctor => ({ value: doctor.id, label: doctor.name }))}
+                        onChange={(value) => setformData({ ...formData,"transferDoctor": value })}
+
                     />
+                    {console.log({formData})}
 
 
                 </div>
@@ -178,6 +225,8 @@ export const OperationPop = () => {
                         label="اسم الجراح"
                         placeholder="اختار اسم الجراح"
                         options={doctors?.map(doctor => ({ value: doctor.id, label: doctor.name }))}
+                        onChange={(value) => setformData({ ...formData,"surgeon": value })}
+
                     />
                 </div>
 
@@ -191,6 +240,8 @@ export const OperationPop = () => {
                 label="اسم المريض"
                 placeholder="اختار اسم المريض"
                 options={patients?.map(patient => ({ value: patient.id, label: patient.name }))}
+                onChange={(value) => setformData({ ...formData,"patient": value })}
+
             />
 
 
@@ -199,6 +250,8 @@ export const OperationPop = () => {
                 label="موظف الاستقبال"
                 options={receiptionists}
                 placeholder="اختار موظف الاستقبال "
+                onChange={(value) => setformData({ ...formData,"employee": value })}
+
             />
 
             <div className="d-flex flex-column">

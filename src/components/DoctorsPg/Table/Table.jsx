@@ -25,7 +25,7 @@ const queryClient = useQueryClient();
   // ? Geting All doctor
   
   // # Functions Using Axios to call APIs //
-  function getAllDoctors() {
+   function getAllDoctors() {
     return axios.get(`${baseURL}doctors/`);
   }
 
