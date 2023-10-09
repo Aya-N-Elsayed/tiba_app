@@ -56,6 +56,7 @@ export const OperationPg = () => {
         className={`${style.booking} d-flex justify-content-between align-items-center`}
       >
         <h3>حجز عملية</h3>
+        <h4 className={style.dateStyle}>{year}/{month}/{day}</h4>
         <div className="d-flex align-items-center ">
           <BackBtn />
           <button
@@ -80,7 +81,7 @@ export const OperationPg = () => {
       {console.log(isLoading)}
 
 
-      {/* <Table data={data?.data} /> */}
+     
 
 
     </div>

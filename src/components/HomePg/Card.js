@@ -9,14 +9,19 @@ import { useQuery } from "react-query";
 import axios from "axios";
 
 
-export const Card = ({month , day, year,apiData, monthNum}) => {
+export const Card = ({month , day, year,apiData, monthNum, refetchReserve}) => {
   const navigation = useNavigate();
 
   // console.log("data inside the card ", apiData) 
   
   const {setShowPopup, showPopup } = useContext(PopupContext);
-  function handleClick() {;
-    setShowPopup({...showPopup,"option":'o'});
+  function handleClick() {
+    setShowPopup({
+      ...showPopup, "option": 'o', "data": {
+        "date": `${year}-${monthNum}-${day}`,
+        "refetchReserve": refetchReserve,
+        
+    }});
    
     
   }

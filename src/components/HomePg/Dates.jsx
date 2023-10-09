@@ -19,9 +19,6 @@ export const Dates = ({ month, setmonth, year, setyear }) => {
   }));
 
 
-  console.log({monthOptions});
-
-
  
   const queryClient = useQueryClient();
 
@@ -72,7 +69,7 @@ export const Dates = ({ month, setmonth, year, setyear }) => {
           />
           <p className="month ">{month === 1 ? monthArr[12] : monthArr[month - 1]}</p>
  
-          {console.log({month},{monthArr},{monthArr})}
+          {/* {console.log({month},{monthArr},{monthArr})} */}
           <p className="date"><span>{month === 1 ? 12 : month - 1}</span>/{month === 1 ? year - 1 : year}</p>
         </button>
       </div>
