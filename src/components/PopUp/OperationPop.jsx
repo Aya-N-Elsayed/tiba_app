@@ -72,6 +72,32 @@ export const OperationPop = () => {
     function handleHourPost() {
         sethour(hour === 12 ? 0 : hour + 1)
     }
+
+
+    function handleHourScroll(e) {
+        if (e.deltaY < 0) {
+            handleHourPre();
+          } else if (e.deltaY > 0) {
+            handleHourPost();
+          }
+
+    }
+
+    function handleMinScroll(e) {
+        if (e.deltaY < 0) {
+            handleMinPre();
+          } else if (e.deltaY > 0) {
+            handleMinPost();
+          }
+    } 
+
+    function handlePeriodScroll(e) {
+        if (e.deltaY < 0) {
+            handlePeriodClick();
+          } else if (e.deltaY > 0) {
+            handlePeriodClick();
+          }
+    }
     // ? //
 
     // ? Get patients Api
@@ -273,21 +299,22 @@ export const OperationPop = () => {
 
             <div className={`${timeStyle.time} d-flex align-items-center justify-content-evenly my-5`}>
 
-                <div className="text-center">
+            <div className="text-center" onWheel={handleHourScroll}>
                     <h6 className='mb-3'>ساعات</h6>
                     <h3 onClick={handleHourPre} className={`${timeStyle.pre}`}>{hour === 0 ? 12 : hour - 1}</h3>
                     <h3 className={`${timeStyle.current}`}>{hour}</h3>
                     <h3 onClick={handleHourPost} className={`${timeStyle.post}`}>{hour === 12 ? 0 : hour + 1} </h3>
                 </div>
 
-                <div className="text-center">
+                <div className="text-center" onWheel={handleMinScroll}>
                     <h6 className='mb-3'>دقائق</h6>
                     <h3 onClick={handleMinPre} className={`${timeStyle.pre}`}>{min === 0 ? 59 : min - 1}</h3>
                     <h3 className={`${timeStyle.current}`}>{min}</h3>
                     <h3 onClick={handleMinPost} className={`${timeStyle.post}`}>{min === 59 ? 0 : min + 1}</h3>
                 </div>
 
-                <div className="text-center">
+                
+                <div className="text-center" onWheel={handlePeriodScroll}>
                     <h3 onClick={handlePeriodClick} className={`${timeStyle.pre}`}>{period === 'ص' ? "م" : "ص"}</h3>
                     <h3 onClick={handlePeriodClick} className={`${timeStyle.current}`}>{period}</h3>
 
