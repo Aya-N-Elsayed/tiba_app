@@ -149,12 +149,15 @@ export const OperationPop = () => {
     console.log({ caseTypes });
 
 
+    // ? Get employee Api
+    function getAllEmployees() {
+        return axios.get(`${baseURL}employees/`);
+    }
 
-    // # receiptionists
-    const receiptionists = [
-        { value:"01102851831", label: "Mazen Yasser" },
+    const { data: { data: employees } = {} } = useQuery("getAllEmployees", getAllEmployees);
 
-    ];
+    console.log({ employees });
+
 
 
     return (
@@ -254,7 +257,7 @@ export const OperationPop = () => {
 
             <MySelect
                 label="موظف الاستقبال"
-                options={receiptionists}
+                options={employees?.map(employee => ({ value: employee.phone, label: `${employee.first_name} ${employee.last_name}` }))}
                 placeholder="اختار موظف الاستقبال "
                 onChange={(value) => setformData({ ...formData, "employee": value })}
 
@@ -304,7 +307,7 @@ export const OperationPop = () => {
                     borderColor: 'var(--logo-colortypap-lightnesscolor)'
                 }}
                 onClick={() => {
-                    setShowPopup({ ...showPopup,"option": 'p' });
+                    setShowPopup({ ...showPopup, "option": 'p' });
 
                 }}
 

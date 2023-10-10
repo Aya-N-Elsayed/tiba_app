@@ -43,7 +43,7 @@ export const Table = ({ data }) => {
 
                 </td>
 
-                <td>{reserv.employee}</td>
+                <td>{reserv?.employee.first_name}  {reserv?.employee.last_name}</td>
                 <td className="d-flex justify-content-around">
 
                   <p className={`${style.note} m-0`}>{reserv.notes}</p>

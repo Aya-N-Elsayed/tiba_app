@@ -70,7 +70,7 @@ export const Dates = ({ month, setmonth, year, setyear }) => {
           <p className="month ">{month === 1 ? monthArr[12] : monthArr[month - 1]}</p>
  
           {/* {console.log({month},{monthArr},{monthArr})} */}
-          <p className="date"><span>{month === 1 ? 12 : month - 1}</span>/{month === 1 ? year - 1 : year}</p>
+          <p className="date"><span>{month === 1 ? year - 1 : year}</span>/{month === 1 ? 12 : month - 1}</p>
         </button>
       </div>
 
@@ -81,6 +81,7 @@ export const Dates = ({ month, setmonth, year, setyear }) => {
         placeholder={`${monthArr[month]} ${month}/${year}`} // Display the current month/year as the placeholder.
         onChange={(selectedOption) => setmonth(Number(selectedOption))}
         selectedValue={month}
+        selLabel={year}
       />
 
 

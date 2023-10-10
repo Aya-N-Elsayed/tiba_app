@@ -120,3 +120,30 @@ select:required:invalid {
 select, option {
   color: black;
 }
+
+
+.genderSection {
+  margin-bottom: 16px; /* Adjust as needed */
+
+}
+
+.genderOptions {
+  gap: 351px; /* Adjust the space between the radio buttons */
+
+}
+
+.formCheckReverse {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  direction: rtl; /* This will make label appear on the left */
+}
+
+.formCheckInput {
+  /* Style the radio buttons to match the design */
+}
+
+.formCheckLabel {
+  /* Style the label text */
+  margin-left: 15px;
+}
