@@ -27,8 +27,8 @@ export const OperationPop = () => {
 
     //    ?   set up form data 
 
-    const refetchReserve = showPopup.data.refetchReserve;
-    const refetchOperation = showPopup.data.refetchOperation;
+    const refetchReserve = showPopup.data?.refetchReserve;
+    const refetchOperation = showPopup.data?.refetchOperation;
 
     console.log({showPopup})
 
