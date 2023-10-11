@@ -14,7 +14,7 @@ import { ThreeDots } from 'react-loader-spinner'
 
 
 export const OperationPg = () => {
-  const { setShowPopup } = useContext(PopupContext);
+  const { setShowPopup, showPopup } = useContext(PopupContext);
 
   const { month, year, day } = useParams();
   console.log(month, year, day)
@@ -23,7 +23,6 @@ export const OperationPg = () => {
 
   // # Functions Using Axios to call APIs //
   function getReservation() {
-    // console.log()
     return axios.get(`${baseURL}reservations`, {
       params: {
         year: year,
@@ -33,11 +32,10 @@ export const OperationPg = () => {
     });
   }
 
-  // # query for getAllDoctors 
-  const { data, isLoading } = useQuery("allReservation", getReservation, {
+  const { data, isLoading, refetch } = useQuery("allReservation", getReservation, {
   });
 
-  console.log(data);
+
 
   // if (refetchDoctors) { refetch(); } // refetching data whenever save doctor btn is clicked
 
@@ -55,14 +53,19 @@ export const OperationPg = () => {
       <div
         className={`${style.booking} d-flex justify-content-between align-items-center`}
       >
-        <h3>حجز عملية</h3>
-        <h4 className={style.dateStyle}>{year}/{month}/{day}</h4>
+        <h3>حجز عملية : <span className='text-muted fw-lighter fs-5'>ليوم {year}/{month}/{day}</span></h3> 
+  
         <div className="d-flex align-items-center ">
           <BackBtn />
           <button
             type="button" onClick={() => {
 
-              setShowPopup({ "option": 'o' })
+              setShowPopup({
+                ...showPopup, "option": 'o', "data": {
+                  "date": `${year}-${month}-${day}`,
+                  "refetchOperation": refetch
+                }
+})
             }}
             className={`${style.bookBtn}  me-2  d-flex flex-row-reverse justify-content-center align-items-center `}
           >
@@ -77,7 +80,7 @@ export const OperationPg = () => {
 
       {isLoading ?  <div className=' d-flex justify-content-center'>
         <ThreeDots color="var(--logo-colortypap-lightnesscolor)" />
-      </div> : <Table data={data?.data} /> }
+      </div> : <Table data={data?.data} refetchOperation={refetch} /> }
       {console.log(isLoading)}
 
 

@@ -26,7 +26,7 @@ export const Doctors = () => {
       </button>
     </div>
 
-    <Filter />
+  
 
     <Table />
   </section>

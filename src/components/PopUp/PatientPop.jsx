@@ -10,6 +10,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { baseURL } from '../../App';
 import { MySelect } from './MySelect';
+import { useQuery } from 'react-query';
 
 
 
@@ -17,6 +18,12 @@ export const PatientPop = () => {
 
 
     const { setShowPopup, showPopup } = useContext(PopupContext);
+
+    function getAllCities() {
+        return axios.get(`${baseURL}city/`);
+    }
+
+    const { data: { data: city } = {}, isLoading, isError } = useQuery("getAllCities", getAllCities);
 
     const [formData, setFormData] = useState({
         name: "",
@@ -27,7 +34,7 @@ export const PatientPop = () => {
         birth_date: "",
         medicalHistory: "سكر",
         notes: "",
-        city: 2,
+        city: '',
     });
 
     const handleChange = (e) => {
@@ -176,6 +183,13 @@ export const PatientPop = () => {
                 />
             </div>
 
+            <MySelect
+                label="المدينة"
+                placeholder="اختار المدينة"
+                options={city?.map(city => ({ value: city.id, label: city.name }))}
+                onChange={(value) => setFormData({ ...formData, "city": Number(value) })}
+            />
+
             <div className="d-flex flex-column">
                 <label>التاريخ المرضى</label>
                 <input
@@ -183,9 +197,9 @@ export const PatientPop = () => {
                     type="text"
                     placeholder="اختر التاريخ"
                     name='medicalHistory'
-           
-                value={formData.medicalHistory}  
-                onChange={handleChange}    
+
+                    value={formData.medicalHistory}
+                    onChange={handleChange}
                 />
             </div>
 

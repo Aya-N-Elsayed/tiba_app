@@ -93,22 +93,28 @@ select{
 
 
 
-.layer{
-  /* background-color: aqua; */
-  /* filter: blur(5px); */
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
+.layer {
+  position: fixed;
   top: 0;
-
-  z-index: 10000;
-
+  left: 0;
   width: 100%;
-  /* height: 100%; */
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);  /* semi-transparent background */
+  display: flex;
+  /* align-items: center; center content vertically */
+  justify-content: center; /* center content horizontally */
+  z-index: 9999;
   overflow: auto;
-  background: rgba(0,0,0,0.5);
 }
+
+.popupContainer {
+  width: 100%; /* or any preferred width */
+  max-width: 600px; /* maximum width */
+ height: 80vh;
+  border-radius: 10px; /* rounded corners */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* shadow effect */
+}
+
 
 textarea {
   min-height: 100px;

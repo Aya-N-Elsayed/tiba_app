@@ -9,34 +9,35 @@ import { DoctorsContext } from '../../../context/DoctorsContext';
 import { PopupContext } from '../../../context/PopUpContext';
 import toast from 'react-hot-toast';
 
+import Options from '../../DeleteModify/Options';
 
 
 
 
 export const Table = () => {
-  const {setShowPopup}  = useContext(PopupContext);
+  const { setShowPopup } = useContext(PopupContext);
 
   const { refetchDoctors } = useContext(DoctorsContext);
 
-const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
 
 
 
   // ? Geting All doctor
-  
+
   // # Functions Using Axios to call APIs //
-   function getAllDoctors() {
+  function getAllDoctors() {
     return axios.get(`${baseURL}doctors/`);
   }
 
-    // # query for getAllDoctors 
-    const { isError, isFetching, error ,isLoading, data, refetch } = useQuery("allDoctors", getAllDoctors, {
-    });
-  
+  // # query for getAllDoctors 
+  const { isError, isFetching, error, isLoading, data, refetch } = useQuery("allDoctors", getAllDoctors, {
+  });
 
-  
+
+
   if (refetchDoctors) { refetch(); } // refetching data whenever save doctor btn is clicked
-  
+
   // ? //
 
 
@@ -55,28 +56,28 @@ const queryClient = useQueryClient();
   });
 
 
-  function handlingDelete(doctor, idx) { 
+  function handlingDelete(doctor, idx) {
     x.mutate(doctor.id, {
-        onSuccess: () => {
-            // Get the current list of doctors from the cache
-        const dataa= queryClient.getQueryData('allDoctors');
-        console.log("doctors before delete",dataa.data);
+      onSuccess: () => {
+        // Get the current list of doctors from the cache
+        const dataa = queryClient.getQueryData('allDoctors');
+        console.log("doctors before delete", dataa.data);
         const currentDoctors = dataa?.data;
 
-            // Filter out the deleted doctor
-            const updatedDoctors = currentDoctors.filter(d => d.id !== doctor.id);
+        // Filter out the deleted doctor
+        const updatedDoctors = currentDoctors.filter(d => d.id !== doctor.id);
 
-            // Update the cache with the filtered list
-            queryClient.setQueryData('allDoctors', updatedDoctors);
+        // Update the cache with the filtered list
+        queryClient.setQueryData('allDoctors', updatedDoctors);
 
         toast.success(`تم حذف الطبيب ${doctor.name}`, { autoClose: 500 });
         console.log("doctors after delete ", updatedDoctors)
-        }
+      }
     });
     const tempArr = [...showOptions];
     tempArr[idx] = false;
     setshowOptions(tempArr);
-}
+  }
 
 
   const [showOptions, setshowOptions] = useState(new Array(data?.data?.length).fill(false));
@@ -97,7 +98,7 @@ const queryClient = useQueryClient();
 
 
 
-  
+
 
   function handlingUpdate(doctor, idx) {
     const tempArr = [...showOptions];
@@ -105,11 +106,11 @@ const queryClient = useQueryClient();
     setshowOptions(tempArr);
     setShowPopup({ "option": 'd', doctor })
 
-    
+
   }
-  
+
   //   //? //
-  
+
 
   //  ? Loading screen 
 
@@ -122,19 +123,19 @@ const queryClient = useQueryClient();
   }
 
   else if (isLoading && isError) {
-    
+
     return <>
       <h2>
-         Errorrrrrrrrrrrrrrrr
+        Errorrrrrrrrrrrrrrrr
       </h2>
-      </>
+    </>
 
   }
 
   // ? //
 
   return (
-    <div className="">
+    <div className="my-5">
 
 
       <table class={`${style.mytable} table align-middle `}>
@@ -149,6 +150,7 @@ const queryClient = useQueryClient();
             </th>
             <th scope="col">عنوان العيادة</th>
             <th scope="col">رقم العيادة</th>
+            <th scope='col'></th>
 
 
           </tr>
@@ -168,24 +170,19 @@ const queryClient = useQueryClient();
                 <td className="d-flex  justify-content-around align-items-center ">
 
                   <p className={` m-0`}>{doctor.clinicphone}</p>
-                  <img role='button' img src="/images/vector.svg" alt="" onClick={() => { optionsHandleClick(idx) }} />
                 </td>
 
-                {showOptions[idx] ? <div className={`${style.options} 'd-flex flex-column justify-content-between align-items-center  '`}>
-                  <button type='button' className={style.editBtn} onClick={() =>  handlingUpdate(doctor,idx)}>
-                    <img role='button' img src="/images/edit-2.svg" className='ms-2' />
-                    تعديل
-
-                  </button>
-
-                  <button type='button' className={style.deleteBtn} onClick={() => { handlingDelete(doctor,idx) }}>
-                    <img role='button' img src="/images/trash.svg" className='ms-2' />
-                    حذف
-                  </button>
+                <td>
+                  <Options
+                    show={showOptions[idx]}
+                    setShow = {()=>optionsHandleClick(idx)}
+                    onUpdate={() => handlingUpdate(doctor, idx)}
+                    onDelete={() => handlingDelete(doctor, idx)}
+                  />
+                </td>
 
 
 
-                </div> : null}
 
 
               </tr>

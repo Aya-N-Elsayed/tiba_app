@@ -7,7 +7,7 @@ import selectStyle from './PopUp.module.css'
 
 
 import { baseURL } from "../../App";
-import { useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import axios from "axios";
 
 import { MySelect } from './MySelect'
@@ -18,6 +18,8 @@ import toast from 'react-hot-toast';
 export const OperationPop = () => {
 
     const { setShowPopup, showPopup } = useContext(PopupContext);
+    const queryClient = useQueryClient();
+    
 
     const [hour, sethour] = useState(10);
     const [min, setmin] = useState(59);
@@ -26,29 +28,66 @@ export const OperationPop = () => {
     //    ?   set up form data 
 
     const refetchReserve = showPopup.data.refetchReserve;
+    const refetchOperation = showPopup.data.refetchOperation;
+
+    console.log({showPopup})
+
+    const [formData, setformData] = useState({
+        "fileNumber": showPopup.reserv?.fileNumber || '', // <-- use showPopup reserv if available, otherwise default to empty.
+        "operationNumber": showPopup.reserv?.operationNumber || '',
+        "patient": showPopup.reserv?.patient || '',
+        "surgeon": showPopup.reserv?.surgeon || '',
+        "transferDoctor": showPopup.reserv?.transferDoctor || '',
+        "date": showPopup.reserv?.date || '',
+        "time": showPopup.reserv?.time || `${hour}:${min} ${period}`,
+        "operationType": showPopup.reserv?.operationType || '',
+        "caseType": showPopup.reserv?.caseType || '',
+        "employee": showPopup.reserv?.employee || '',
+        "notes": showPopup.reserv?.notes || '',
+        // any other fields...
+    });
+
+    function updateOperation(id) {
+        console.log(`${baseURL}reservations/${id}/`);
+        return axios.patch(`${baseURL}reservations/${id}/`, formData);
+    
+    }
+    
+    const reserv = showPopup?.reserv;
+
+  const y = useMutation('updateOperation', (id) => { updateOperation(id) },
+  {
+    enabled: false,
+  });
 
 
-    const [formData, setformData] = useState(
-        {
+    // # Handling onclicking buttons
+    function handleUpdate() {
+        const operation = reserv;
 
-            "fileNumber": '',
-            "operationNumber": '',
+        // setShowPopup({ "option":'d',doctor})
 
-            "patient": '',
-            "surgeon": '',
-            "transferDoctor": '',
-            "date": '',
-            "time": `${hour}:${min} ${period}`,
-            "operationType": '',
-            "caseType": '',
-            "employee": '',
-            "notes": '',
-            "date": showPopup.data.date
+        y.mutate(operation.id, {
+            onSuccess: () => {
 
 
+                // const dataa= queryClient.getQueryData('allReservation');
+                // console.log(dataa.data);
+                // const currentDoctors = dataa?.data;
+        
+    
+                //     queryClient.setQueryData('allDoctors', currentDoctors);
 
-        }
-    )
+                toast.success("تم تعديل عملية بنجاح",
+                    { autoClose: 500 });
+      
+            }
+        })
+    
+        // y.mutate(doc?.id);
+      
+  
+  }
 
     // ? Functions Handling time period selection 
     function handlePeriodClick() {
@@ -75,28 +114,34 @@ export const OperationPop = () => {
 
 
     function handleHourScroll(e) {
+        e.stopPropagation();
+        e.preventDefault();
         if (e.deltaY < 0) {
             handleHourPre();
-          } else if (e.deltaY > 0) {
+        } else if (e.deltaY > 0) {
             handleHourPost();
-          }
+        }
 
     }
 
     function handleMinScroll(e) {
+        e.stopPropagation();
+        e.preventDefault();
         if (e.deltaY < 0) {
             handleMinPre();
-          } else if (e.deltaY > 0) {
+        } else if (e.deltaY > 0) {
             handleMinPost();
-          }
-    } 
+        }
+    }
 
     function handlePeriodScroll(e) {
+        e.stopPropagation();
+        e.preventDefault();
         if (e.deltaY < 0) {
             handlePeriodClick();
-          } else if (e.deltaY > 0) {
+        } else if (e.deltaY > 0) {
             handlePeriodClick();
-          }
+        }
     }
     // ? //
 
@@ -109,7 +154,7 @@ export const OperationPop = () => {
     const { data: { data: patients } = {} } = useQuery("getAllPatients", getAllPatients, { // nested destruction
 
     });
-    console.log(patients);
+    // console.log(patients);
 
     // ?
 
@@ -118,12 +163,14 @@ export const OperationPop = () => {
 
         try {
             await axios.post(`${baseURL}reservations/`, formData);
+      
             setShowPopup({ ...showPopup, "option": null });
             toast.success("تم إضافة عملية",
                 { autoClose: 500 }
             );
-
             refetchReserve()
+         refetchOperation()
+
 
 
 
@@ -172,7 +219,7 @@ export const OperationPop = () => {
     const { data: { data: caseTypes } = {} } = useQuery("getAllcaseType", getAllcaseType, { // nested destruction
 
     });
-    console.log({ caseTypes });
+    // console.log({ caseTypes });
 
 
     // ? Get employee Api
@@ -182,7 +229,7 @@ export const OperationPop = () => {
 
     const { data: { data: employees } = {} } = useQuery("getAllEmployees", getAllEmployees);
 
-    console.log({ employees });
+    // console.log({ employees });
 
 
 
@@ -247,7 +294,7 @@ export const OperationPop = () => {
                         onChange={(value) => setformData({ ...formData, "transferDoctor": Number(value) })}
 
                     />
-                    {console.log({ formData })}
+                    {/* {console.log({ formData })} */}
 
 
                 </div>
@@ -296,33 +343,27 @@ export const OperationPop = () => {
 
 
             <h4>حدد الوقت المناسب</h4>
-
             <div className={`${timeStyle.time} d-flex align-items-center justify-content-evenly my-5`}>
-
-            <div className="text-center" onWheel={handleHourScroll}>
+                <div className="text-center" onWheel={handleHourScroll} >
                     <h6 className='mb-3'>ساعات</h6>
                     <h3 onClick={handleHourPre} className={`${timeStyle.pre}`}>{hour === 0 ? 12 : hour - 1}</h3>
                     <h3 className={`${timeStyle.current}`}>{hour}</h3>
                     <h3 onClick={handleHourPost} className={`${timeStyle.post}`}>{hour === 12 ? 0 : hour + 1} </h3>
                 </div>
-
-                <div className="text-center" onWheel={handleMinScroll}>
+                <div className="text-center" onWheel={handleMinScroll} >
                     <h6 className='mb-3'>دقائق</h6>
                     <h3 onClick={handleMinPre} className={`${timeStyle.pre}`}>{min === 0 ? 59 : min - 1}</h3>
                     <h3 className={`${timeStyle.current}`}>{min}</h3>
                     <h3 onClick={handleMinPost} className={`${timeStyle.post}`}>{min === 59 ? 0 : min + 1}</h3>
                 </div>
-
-                
-                <div className="text-center" onWheel={handlePeriodScroll}>
+                <div className="text-center" onWheel={handlePeriodScroll} >
                     <h3 onClick={handlePeriodClick} className={`${timeStyle.pre}`}>{period === 'ص' ? "م" : "ص"}</h3>
                     <h3 onClick={handlePeriodClick} className={`${timeStyle.current}`}>{period}</h3>
-
                 </div>
-
             </div>
 
-            <BookBtn txt={"حجز"} handleSubmit={handleSubmitOperation} />
+
+            <BookBtn txt={"حجز"} handleSubmit={showPopup.data === null ?handleSubmitOperation:handleUpdate} />
 
             <button
                 type="button"

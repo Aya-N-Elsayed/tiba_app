@@ -7,6 +7,7 @@ import { PopupContext } from "../../context/PopUpContext";
 import { baseURL } from "../../App";
 import { useQuery } from "react-query";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 
 export const Card = ({month , day, year,apiData, monthNum, refetchReserve}) => {
@@ -22,7 +23,7 @@ export const Card = ({month , day, year,apiData, monthNum, refetchReserve}) => {
         "refetchReserve": refetchReserve,
         
     }});
-   
+
     
   }
 
