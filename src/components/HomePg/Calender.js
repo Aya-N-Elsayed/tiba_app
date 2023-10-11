@@ -18,7 +18,7 @@ export const MonthCalender = () => {
 
 
 
-  console.log("month ", month)
+
   // ? Getting reservations for current month
 
   // # axios
@@ -39,7 +39,7 @@ export const MonthCalender = () => {
     refetch();  // Manually refetch when month changes
   }, [month, refetch]);  // Dependency array
 
- console.log("data on calender ", data?.data)
+//  console.log("data on calender ", data?.data)
 
 
   // ?  //
@@ -64,7 +64,7 @@ export const MonthCalender = () => {
             if (dayCount <= maxDays) {
               return (
                 <div key={rowIndex * 7 + colIndex} className="col gy-3 col-auto">
-                  <Card key={rowIndex * 7 + colIndex} month={monthArr[month]} day={dayCount} year={year} monthNum={month } apiData={ data?.data[dayCount]} />
+                  <Card key={rowIndex * 7 + colIndex} month={monthArr[month]} day={dayCount} year={year} monthNum={month } apiData={ data?.data[dayCount]} refetchReserve={refetch} />
                 </div>
               );
             }

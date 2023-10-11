@@ -22,34 +22,36 @@ export const Table = ({ data }) => {
         </thead>
         <tbody>
 
-          
-          {data?.map((reserv,idx)=> {
+
+          {data?.map((reserv, idx) => {
+                          console.log({reserv}); 
+
             return (
-              <tr className="bgNew  ">
+              <tr className={reserv.caseType.name === 'جديد' ? 'bgNew' : (reserv.caseType.name === 'حالة طبيب' ? 'bgDoctor' : '')}>
                 <td>{reserv.patient?.name}</td>
-              <td>{reserv.patient?.age}</td>
-              <td>{reserv.patient?.phone}</td>
-              <td> {reserv.patient?.city.name}</td>
-              <td>{reserv.operationType.name}</td>
-              <td>{reserv.surgeon?.name}</td>
-              <td>{reserv.transferDoctor?.name}</td>
-              <td className="">
-                <div className="d-flex">
-                <p className="m-0  ">{reserv?.time}</p>
-                <Switch />
-                </div>
-  
-              </td>
-  
-              <td>{reserv.employee}</td>
-              <td className="d-flex justify-content-around">
-  
-                <p className={`${style.note} m-0`}>{reserv.notes}</p>
-                <img role='button' img  src="/images/vector.svg" alt="" />
-              </td>
-            </tr>
-          
-          );
+                <td>{reserv.patient?.age}</td>
+                <td>{reserv.patient?.phone}</td>
+                <td> {reserv.patient?.city.name}</td>
+                <td>{reserv.operationType.name}</td>
+                <td>{reserv.surgeon?.name}</td>
+                <td>{reserv.transferDoctor?.name}</td>
+                <td className="">
+                  <div className="d-flex">
+                    <p className="m-0  ">{reserv?.time}</p>
+                    <Switch />
+                  </div>
+
+                </td>
+
+                <td>{reserv?.employee?.first_name}  {reserv?.employee?.last_name}</td>
+                <td className="d-flex justify-content-around">
+
+                  <p className={`${style.note} m-0`}>{reserv.notes}</p>
+                  <img role='button' img src="/images/vector.svg" alt="" />
+                </td>
+              </tr>
+
+            );
 
           })}
 
@@ -65,7 +67,7 @@ export const Table = ({ data }) => {
 
 
 
-  
+
 
 
         </tbody>

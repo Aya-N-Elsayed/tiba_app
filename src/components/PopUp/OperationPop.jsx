@@ -12,21 +12,47 @@ import axios from "axios";
 
 import { MySelect } from './MySelect'
 import { CancelBtn } from '../Btns/CancelBtn';
+import toast from 'react-hot-toast';
 
 
 export const OperationPop = () => {
 
-    const { setShowPopup } = useContext(PopupContext);
+    const { setShowPopup, showPopup } = useContext(PopupContext);
 
     const [hour, sethour] = useState(10);
     const [min, setmin] = useState(59);
-    const [period, setperiod] = useState("صباحا")
+    const [period, setperiod] = useState("ص")
+
+    //    ?   set up form data 
+
+    const refetchReserve = showPopup.data.refetchReserve;
 
 
+    const [formData, setformData] = useState(
+        {
+
+            "fileNumber": '',
+            "operationNumber": '',
+
+            "patient": '',
+            "surgeon": '',
+            "transferDoctor": '',
+            "date": '',
+            "time": `${hour}:${min} ${period}`,
+            "operationType": '',
+            "caseType": '',
+            "employee": '',
+            "notes": '',
+            "date": showPopup.data.date
+
+
+
+        }
+    )
 
     // ? Functions Handling time period selection 
     function handlePeriodClick() {
-        setperiod(period === 'صباحا' ? "مساءا" : "صباحا")
+        setperiod(period === 'ص' ? "م" : "ص")
 
     }
 
@@ -61,22 +87,25 @@ export const OperationPop = () => {
 
     // ?
 
-    // ? Post reservation
 
-    function postReservation() {
-        return axios.post(`${baseURL}patients/`);
-    }
+    async function handleSubmitOperation() {
 
-    // ?  //
+        try {
+            await axios.post(`${baseURL}reservations/`, formData);
+            setShowPopup({ ...showPopup, "option": null });
+            toast.success("تم إضافة عملية",
+                { autoClose: 500 }
+            );
+
+            refetchReserve()
 
 
-    function handleSelectPatient() {
-        // patients.refetch();
-        // console.log(patients.data.data[0].name)
 
-    }
 
-    function handleSubmitOperation() {
+        } catch (error) {
+
+
+        }
 
     }
 
@@ -89,29 +118,47 @@ export const OperationPop = () => {
     const { data: { data: doctors } = {} } = useQuery("getAllDoctors", getAllDoctors, { // nested destruction
 
     });
-    console.log(doctors);
+
+
+
 
 
     // # operations type 
-    const operationTypes = [
-        { value: "مياه بيضا", label: "مياه بيضا" },
-        { value: "تصحيح نظر", label: "تصحيح نظر" }
-    ];
+
+    // ? Get caseType Api
+    function getAlloperationType() {
+        return axios.get(`${baseURL}operationtypes/`);
+    }
+
+    const { data: { data: operationTypes } = {} } = useQuery("getAlloperationType", getAlloperationType, { // nested destruction
+
+    });
+
+
 
     // # case type 
-    const caseTypes = [
-        { value: " قديم", label: "قديم" },
-        { value: "جديد", label: "جديد" },
-        { value: "حالة طبيب", label: "حالة طبيب" }
 
-    ];
+    // ? Get caseType Api
+    function getAllcaseType() {
+        return axios.get(`${baseURL}casetypes/`);
+    }
 
-        // # receiptionists
-        const receiptionists = [
-            { value: "employee", label: "Mazen Yasser" },
-    
-        ];
-    
+    const { data: { data: caseTypes } = {} } = useQuery("getAllcaseType", getAllcaseType, { // nested destruction
+
+    });
+    console.log({ caseTypes });
+
+
+    // ? Get employee Api
+    function getAllEmployees() {
+        return axios.get(`${baseURL}employees/`);
+    }
+
+    const { data: { data: employees } = {} } = useQuery("getAllEmployees", getAllEmployees);
+
+    console.log({ employees });
+
+
 
     return (
         <div>
@@ -119,7 +166,9 @@ export const OperationPop = () => {
                 <div className="col-md-6">
                     <div className="d-flex flex-column">
                         <label>رقم العملية</label>
-                        <input className="" type="tel" placeholder="ادخل رقم العملية" />
+                        <input className="" type="tel" placeholder="ادخل رقم العملية"
+                            onChange={(e) => setformData({ ...formData, "operationNumber": e.target.value })}
+                            value={formData.operationNumber} />
                     </div>
                 </div>
 
@@ -127,7 +176,9 @@ export const OperationPop = () => {
 
                     <div className="d-flex flex-column">
                         <label>رقم الملف  </label>
-                        <input className="" type="tel" placeholder="ادخل رقم الملف" />
+                        <input className="" type="tel" placeholder="ادخل رقم الملف"
+                            onChange={(e) => setformData({ ...formData, "fileNumber": e.target.value })}
+                            value={formData.fileNumber} />
                     </div>
                 </div>
 
@@ -136,8 +187,8 @@ export const OperationPop = () => {
                 <div className="col-md-6">
                     <MySelect
                         label="نوع العملية"
-                        options={operationTypes}
-                        placeholder="اختر نوع العملية"
+                        options={operationTypes?.map(operation => ({ value: operation.id, label: operation.name }))} placeholder="اختر نوع العملية"
+                        onChange={(value) => setformData({ ...formData, "operationType": Number(value) })}
                     />
                 </div>
 
@@ -148,8 +199,10 @@ export const OperationPop = () => {
 
                     <MySelect
                         label="نوع الحالة"
-                        options={caseTypes}
+                        options={caseTypes?.map(type => ({ value: type.id, label: type.name }))}
                         placeholder="اختر نوع الحالة"
+                        onChange={(value) => setformData({ ...formData, "caseType": Number(value) })}
+
                     />
 
                 </div>
@@ -165,7 +218,10 @@ export const OperationPop = () => {
                         label="اسم الطبيب المحول  "
                         placeholder="اختر الطبيب المحول"
                         options={doctors?.map(doctor => ({ value: doctor.id, label: doctor.name }))}
+                        onChange={(value) => setformData({ ...formData, "transferDoctor": Number(value) })}
+
                     />
+                    {console.log({ formData })}
 
 
                 </div>
@@ -178,6 +234,8 @@ export const OperationPop = () => {
                         label="اسم الجراح"
                         placeholder="اختار اسم الجراح"
                         options={doctors?.map(doctor => ({ value: doctor.id, label: doctor.name }))}
+                        onChange={(value) => setformData({ ...formData, "surgeon": Number(value) })}
+
                     />
                 </div>
 
@@ -191,19 +249,23 @@ export const OperationPop = () => {
                 label="اسم المريض"
                 placeholder="اختار اسم المريض"
                 options={patients?.map(patient => ({ value: patient.id, label: patient.name }))}
+                onChange={(value) => setformData({ ...formData, "patient": Number(value) })}
+
             />
 
 
 
             <MySelect
                 label="موظف الاستقبال"
-                options={receiptionists}
+                options={employees?.map(employee => ({ value: employee.phone, label: `${employee.first_name} ${employee.last_name}` }))}
                 placeholder="اختار موظف الاستقبال "
+                onChange={(value) => setformData({ ...formData, "employee": value })}
+
             />
 
             <div className="d-flex flex-column">
                 <label>ملاحظات </label>
-                <textarea placeholder="ادخل الملاحظات" />
+                <textarea placeholder="ادخل الملاحظات" onChange={(e) => setformData({ ...formData, "notes": e.target.value })} />
             </div>
 
 
@@ -226,14 +288,14 @@ export const OperationPop = () => {
                 </div>
 
                 <div className="text-center">
-                    <h3 onClick={handlePeriodClick} className={`${timeStyle.pre}`}>{period === 'صباحا' ? "مساءا" : "صباحا"}</h3>
+                    <h3 onClick={handlePeriodClick} className={`${timeStyle.pre}`}>{period === 'ص' ? "م" : "ص"}</h3>
                     <h3 onClick={handlePeriodClick} className={`${timeStyle.current}`}>{period}</h3>
 
                 </div>
 
             </div>
 
-            <BookBtn txt={"حجز"} />
+            <BookBtn txt={"حجز"} handleSubmit={handleSubmitOperation} />
 
             <button
                 type="button"
@@ -245,7 +307,7 @@ export const OperationPop = () => {
                     borderColor: 'var(--logo-colortypap-lightnesscolor)'
                 }}
                 onClick={() => {
-                    setShowPopup({ "option": 'p' });
+                    setShowPopup({ ...showPopup, "option": 'p' });
 
                 }}
 

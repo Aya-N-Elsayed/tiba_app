@@ -25,7 +25,7 @@ const queryClient = useQueryClient();
   // ? Geting All doctor
   
   // # Functions Using Axios to call APIs //
-  function getAllDoctors() {
+   function getAllDoctors() {
     return axios.get(`${baseURL}doctors/`);
   }
 
@@ -33,8 +33,7 @@ const queryClient = useQueryClient();
     const { isError, isFetching, error ,isLoading, data, refetch } = useQuery("allDoctors", getAllDoctors, {
     });
   
-  console.log("error ", isError);
-  console.log("the error ba2a ", error)
+
   
   if (refetchDoctors) { refetch(); } // refetching data whenever save doctor btn is clicked
   
