@@ -21,6 +21,7 @@ export const Card = ({month , day, year,apiData, monthNum, refetchReserve}) => {
       ...showPopup, "option": 'o', "data": {
         "date": `${year}-${monthNum}-${day}`,
         "refetchReserve": refetchReserve,
+        "reserv":null
         
     }});
 
@@ -34,7 +35,7 @@ export const Card = ({month , day, year,apiData, monthNum, refetchReserve}) => {
   return (
     <div className="card ">
       <div className="card-body text-end p-0">
-        <h6 className="weekday text-center">{ apiData?.Weekday??'السبت'}</h6>
+        <h6 className="weekday text-center">{ apiData?.Weekday??'Disabled'}</h6>
         <div className="date text-center d-flex justify-content-center">
         <h5 className="day ms-1"> {day} </h5>
 

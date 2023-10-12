@@ -29,21 +29,22 @@ export const OperationPop = () => {
 
     const refetchReserve = showPopup.data?.refetchReserve;
     const refetchOperation = showPopup.data?.refetchOperation;
-
+    
     console.log({showPopup})
+    console.log("reserv",showPopup.data.reserv )
 
     const [formData, setformData] = useState({
-        "fileNumber": showPopup.reserv?.fileNumber || '', // <-- use showPopup reserv if available, otherwise default to empty.
-        "operationNumber": showPopup.reserv?.operationNumber || '',
-        "patient": showPopup.reserv?.patient || '',
-        "surgeon": showPopup.reserv?.surgeon || '',
-        "transferDoctor": showPopup.reserv?.transferDoctor || '',
-        "date": showPopup.reserv?.date || '',
-        "time": showPopup.reserv?.time || `${hour}:${min} ${period}`,
-        "operationType": showPopup.reserv?.operationType || '',
-        "caseType": showPopup.reserv?.caseType || '',
-        "employee": showPopup.reserv?.employee || '',
-        "notes": showPopup.reserv?.notes || '',
+        "fileNumber": showPopup.data.reserv?.fileNumber || '', // <-- use showPopup.data reserv if available, otherwise default to empty.
+        "operationNumber": showPopup.data.reserv?.operationNumber || '',
+        "patient": showPopup.data.reserv?.patient.id || '',
+        "surgeon": showPopup.data.reserv?.surgeon.id || '',
+        "transferDoctor": showPopup.data.reserv?.transferDoctor.id || '',
+        "date": showPopup.data?.date || showPopup.data?.reserv.date ,
+        "time": showPopup.data.reserv?.time || `${hour}:${min} ${period}`,
+        "operationType": showPopup.data.reserv?.operationType.id || '',
+        "caseType": showPopup.data.reserv?.caseType.id || '',
+        "employee": showPopup.data.reserv?.employee.phone || '',
+        "notes": showPopup.data.reserv?.notes || '',
         // any other fields...
     });
 
@@ -53,7 +54,7 @@ export const OperationPop = () => {
     
     }
     
-    const reserv = showPopup?.reserv;
+    const reserv = showPopup?.data.reserv;
 
   const y = useMutation('updateOperation', (id) => { updateOperation(id) },
   {
@@ -64,8 +65,9 @@ export const OperationPop = () => {
     // # Handling onclicking buttons
     function handleUpdate() {
         const operation = reserv;
+        console.log("in updeate ",{formData})
 
-        // setShowPopup({ "option":'d',doctor})
+
 
         y.mutate(operation.id, {
             onSuccess: () => {
@@ -80,6 +82,8 @@ export const OperationPop = () => {
 
                 toast.success("تم تعديل عملية بنجاح",
                     { autoClose: 500 });
+                    refetchOperation()
+
       
             }
         })
@@ -160,6 +164,7 @@ export const OperationPop = () => {
 
 
     async function handleSubmitOperation() {
+        console.log({formData})
 
         try {
             await axios.post(`${baseURL}reservations/`, formData);
@@ -262,6 +267,8 @@ export const OperationPop = () => {
                         label="نوع العملية"
                         options={operationTypes?.map(operation => ({ value: operation.id, label: operation.name }))} placeholder="اختر نوع العملية"
                         onChange={(value) => setformData({ ...formData, "operationType": Number(value) })}
+                        selectedValue={formData.operationType}
+
                     />
                 </div>
 
@@ -275,6 +282,8 @@ export const OperationPop = () => {
                         options={caseTypes?.map(type => ({ value: type.id, label: type.name }))}
                         placeholder="اختر نوع الحالة"
                         onChange={(value) => setformData({ ...formData, "caseType": Number(value) })}
+                        selectedValue={formData.caseType}
+
 
                     />
 
@@ -292,6 +301,8 @@ export const OperationPop = () => {
                         placeholder="اختر الطبيب المحول"
                         options={doctors?.map(doctor => ({ value: doctor.id, label: doctor.name }))}
                         onChange={(value) => setformData({ ...formData, "transferDoctor": Number(value) })}
+                        selectedValue={formData.transferDoctor}
+
 
                     />
                     {/* {console.log({ formData })} */}
@@ -308,6 +319,8 @@ export const OperationPop = () => {
                         placeholder="اختار اسم الجراح"
                         options={doctors?.map(doctor => ({ value: doctor.id, label: doctor.name }))}
                         onChange={(value) => setformData({ ...formData, "surgeon": Number(value) })}
+                        selectedValue={formData.surgeon}
+
 
                     />
                 </div>
@@ -323,6 +336,8 @@ export const OperationPop = () => {
                 placeholder="اختار اسم المريض"
                 options={patients?.map(patient => ({ value: patient.id, label: patient.name }))}
                 onChange={(value) => setformData({ ...formData, "patient": Number(value) })}
+                selectedValue={formData.patient}
+
 
             />
 
@@ -333,12 +348,13 @@ export const OperationPop = () => {
                 options={employees?.map(employee => ({ value: employee.phone, label: `${employee.first_name} ${employee.last_name}` }))}
                 placeholder="اختار موظف الاستقبال "
                 onChange={(value) => setformData({ ...formData, "employee": value })}
+                selectedValue={formData.employee}
 
             />
 
             <div className="d-flex flex-column">
                 <label>ملاحظات </label>
-                <textarea placeholder="ادخل الملاحظات" onChange={(e) => setformData({ ...formData, "notes": e.target.value })} />
+                <textarea placeholder="ادخل الملاحظات" value={formData.notes} onChange={(e) => setformData({ ...formData, "notes": e.target.value })} />
             </div>
 
 
@@ -363,7 +379,7 @@ export const OperationPop = () => {
             </div>
 
 
-            <BookBtn txt={"حجز"} handleSubmit={showPopup.data === null ?handleSubmitOperation:handleUpdate} />
+            <BookBtn txt={"حجز"} handleSubmit={showPopup.data.reserv === null ?handleSubmitOperation:handleUpdate} />
 
             <button
                 type="button"

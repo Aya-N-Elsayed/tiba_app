@@ -47,7 +47,7 @@ export const Table = ({ data, refetchOperation }) => {
     });
   };
 
-  function handleOnChangeSwitch(reserv) {
+  function    handleOnChangeSwitch(reserv) {
 
     console.log({ reserv })
 
@@ -104,8 +104,13 @@ export const Table = ({ data, refetchOperation }) => {
     const tempArr = [...showOptions];
     tempArr[idx] = false;
     setshowOptions(tempArr);
-    setShowPopup({ ...showPopup, "option": 'o', reserv })
-
+    console.log("date in side the table", showPopup)
+    setShowPopup({
+      ...showPopup,
+      "option": 'o', "data": { ...showPopup.data, "reserv": reserv, "refetchOperation":refetchOperation }
+       }
+  )
+  
 
   }
 

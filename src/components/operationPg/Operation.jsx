@@ -63,7 +63,8 @@ export const OperationPg = () => {
               setShowPopup({
                 ...showPopup, "option": 'o', "data": {
                   "date": `${year}-${month}-${day}`,
-                  "refetchOperation": refetch
+                  "refetchOperation": refetch,
+                  "reserv": null
                 }
 })
             }}
