@@ -1,14 +1,9 @@
 import React from 'react'
 import { StatusCard } from './StatusCard'
-import ProgressBar from './GraphLatest';
+
 import { GraphPatients } from './GraphPatients'
-import PieChart from './GraphGender';
-import LineChart from './GraphOperations';
-import { Chart, LinearScale, CategoryScale, BarElement, PointElement, LineElement, ArcElement } from 'chart.js';
-Chart.register(LinearScale, CategoryScale, BarElement, PointElement, LineElement, ArcElement);
 
 export const Dashboard = () => {
-  const patientData = [70, 30];
   return (
     <>
       <div className='row mt-4 gx-1'>
@@ -41,36 +36,16 @@ export const Dashboard = () => {
 
       </div>
 
-      <div className="row m-4 gx-1">
-      <div className="card col-md-3">
-          <h4>نوع المرضى</h4>
-          <PieChart data={patientData} />
-          </div>
-
-
-        <div className="card col-md-9">
+      <div className="row mt-4">
+        <div className="col-md-8">
           <GraphPatients />
         </div>
-      
-      </div>
 
-      <div className="row m-4 gx-1">
-        <div className="card col-md-3">
-          <h4>آخر الإحصائيات</h4>
-          <ProgressBar day="ملفات قديمة" percentage={60} />
-          <ProgressBar day="حالات جديدة" percentage={20} />
-          <ProgressBar day="حالات دكاترة" percentage={90} />
-        </div>
 
-        <div className="card col-md-6">
-          <LineChart/>
-          </div>
+
       </div>
 
 
-      
-      
-      
     </>
   )
 }
