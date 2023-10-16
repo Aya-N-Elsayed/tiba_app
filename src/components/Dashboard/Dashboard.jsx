@@ -2,6 +2,8 @@ import React from 'react'
 import { StatusCard } from './StatusCard'
 
 import { GraphPatients } from './GraphPatients'
+import LineChart from './GraphOperations'
+import { GraphGender } from './GraphGender'
 
 export const Dashboard = () => {
   return (
@@ -41,6 +43,22 @@ export const Dashboard = () => {
           <GraphPatients />
         </div>
 
+        <div className="col-md-8">
+          {/* <GraphGender /> */}
+        </div>
+
+        
+
+
+      </div>
+
+
+      <div className="row mt-4">
+        <div className="col-md-8">
+          <LineChart />
+        </div>
+
+        
 
 
       </div>

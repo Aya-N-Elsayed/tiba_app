@@ -36,14 +36,14 @@ export const OperationPop = () => {
     const [formData, setformData] = useState({
         "fileNumber": showPopup.data.reserv?.fileNumber || '', // <-- use showPopup.data reserv if available, otherwise default to empty.
         "operationNumber": showPopup.data.reserv?.operationNumber || '',
-        "patient": showPopup.data.reserv?.patient.id || '',
-        "surgeon": showPopup.data.reserv?.surgeon.id || '',
-        "transferDoctor": showPopup.data.reserv?.transferDoctor.id || '',
-        "date": showPopup.data?.date || showPopup.data?.reserv.date ,
+        "patient": showPopup.data.reserv?.patient?.id || '',
+        "surgeon": showPopup.data.reserv?.surgeon?.id || '',
+        "transferDoctor": showPopup.data.reserv?.transferDoctor?.id || '',
+        "date": showPopup.data?.date || showPopup.data?.reserv?.date ,
         "time": showPopup.data.reserv?.time || `${hour}:${min} ${period}`,
-        "operationType": showPopup.data.reserv?.operationType.id || '',
-        "caseType": showPopup.data.reserv?.caseType.id || '',
-        "employee": showPopup.data.reserv?.employee.phone || '',
+        "operationType": showPopup.data.reserv?.operationType?.id || '',
+        "caseType": showPopup.data.reserv?.caseType?.id || '',
+        "employee": showPopup.data.reserv?.employee?.phone || '',
         "notes": showPopup.data.reserv?.notes || '',
         // any other fields...
     });
