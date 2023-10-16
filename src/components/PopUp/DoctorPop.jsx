@@ -69,11 +69,7 @@ export const DoctorPop = () => {
                 const dataa= queryClient.getQueryData('allDoctors');
                 console.log(dataa.data);
                 const currentDoctors = dataa?.data;
-        
-                    // Filter out the deleted doctor
-                    // const updatedDoctors = currentDoctors.filter(d => d.id !== doc.id);
-        
-                    // Update the cache with the filtered list
+
                     queryClient.setQueryData('allDoctors', currentDoctors);
 
                 toast.success("تم تعديل الطبيب بنجاح",
@@ -82,7 +78,6 @@ export const DoctorPop = () => {
             }
         })
     
-        // y.mutate(doc?.id);
       
   
   }

@@ -7,7 +7,7 @@ import selectStyle from './PopUp.module.css'
 
 
 import { baseURL } from "../../App";
-import { useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import axios from "axios";
 
 import { MySelect } from './MySelect'
@@ -18,6 +18,8 @@ import toast from 'react-hot-toast';
 export const OperationPop = () => {
 
     const { setShowPopup, showPopup } = useContext(PopupContext);
+    const queryClient = useQueryClient();
+    
 
     const [hour, sethour] = useState(10);
     const [min, setmin] = useState(59);
@@ -25,30 +27,71 @@ export const OperationPop = () => {
 
     //    ?   set up form data 
 
-    const refetchReserve = showPopup.data.refetchReserve;
+    const refetchReserve = showPopup.data?.refetchReserve;
+    const refetchOperation = showPopup.data?.refetchOperation;
+    
+    console.log({showPopup})
+    console.log("reserv",showPopup.data.reserv )
+
+    const [formData, setformData] = useState({
+        "fileNumber": showPopup.data.reserv?.fileNumber || '', // <-- use showPopup.data reserv if available, otherwise default to empty.
+        "operationNumber": showPopup.data.reserv?.operationNumber || '',
+        "patient": showPopup.data.reserv?.patient?.id || '',
+        "surgeon": showPopup.data.reserv?.surgeon?.id || '',
+        "transferDoctor": showPopup.data.reserv?.transferDoctor?.id || '',
+        "date": showPopup.data?.date || showPopup.data?.reserv?.date ,
+        "time": showPopup.data.reserv?.time || `${hour}:${min} ${period}`,
+        "operationType": showPopup.data.reserv?.operationType?.id || '',
+        "caseType": showPopup.data.reserv?.caseType?.id || '',
+        "employee": showPopup.data.reserv?.employee?.phone || '',
+        "notes": showPopup.data.reserv?.notes || '',
+        // any other fields...
+    });
+
+    function updateOperation(id) {
+        console.log(`${baseURL}reservations/${id}/`);
+        return axios.patch(`${baseURL}reservations/${id}/`, formData);
+    
+    }
+    
+    const reserv = showPopup?.data.reserv;
+
+  const y = useMutation('updateOperation', (id) => { updateOperation(id) },
+  {
+    enabled: false,
+  });
 
 
-    const [formData, setformData] = useState(
-        {
-
-            "fileNumber": '',
-            "operationNumber": '',
-
-            "patient": '',
-            "surgeon": '',
-            "transferDoctor": '',
-            "date": '',
-            "time": `${hour}:${min} ${period}`,
-            "operationType": '',
-            "caseType": '',
-            "employee": '',
-            "notes": '',
-            "date": showPopup.data.date
+    // # Handling onclicking buttons
+    function handleUpdate() {
+        const operation = reserv;
+        console.log("in updeate ",{formData})
 
 
 
-        }
-    )
+        y.mutate(operation.id, {
+            onSuccess: () => {
+
+
+                // const dataa= queryClient.getQueryData('allReservation');
+                // console.log(dataa.data);
+                // const currentDoctors = dataa?.data;
+        
+    
+                //     queryClient.setQueryData('allDoctors', currentDoctors);
+
+                toast.success("تم تعديل عملية بنجاح",
+                    { autoClose: 500 });
+                    refetchOperation()
+
+      
+            }
+        })
+    
+        // y.mutate(doc?.id);
+      
+  
+  }
 
     // ? Functions Handling time period selection 
     function handlePeriodClick() {
@@ -72,6 +115,38 @@ export const OperationPop = () => {
     function handleHourPost() {
         sethour(hour === 12 ? 0 : hour + 1)
     }
+
+
+    function handleHourScroll(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        if (e.deltaY < 0) {
+            handleHourPre();
+        } else if (e.deltaY > 0) {
+            handleHourPost();
+        }
+
+    }
+
+    function handleMinScroll(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        if (e.deltaY < 0) {
+            handleMinPre();
+        } else if (e.deltaY > 0) {
+            handleMinPost();
+        }
+    }
+
+    function handlePeriodScroll(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        if (e.deltaY < 0) {
+            handlePeriodClick();
+        } else if (e.deltaY > 0) {
+            handlePeriodClick();
+        }
+    }
     // ? //
 
     // ? Get patients Api
@@ -83,21 +158,24 @@ export const OperationPop = () => {
     const { data: { data: patients } = {} } = useQuery("getAllPatients", getAllPatients, { // nested destruction
 
     });
-    console.log(patients);
+    // console.log(patients);
 
     // ?
 
 
     async function handleSubmitOperation() {
+        console.log({formData})
 
         try {
             await axios.post(`${baseURL}reservations/`, formData);
+      
             setShowPopup({ ...showPopup, "option": null });
             toast.success("تم إضافة عملية",
                 { autoClose: 500 }
             );
-
             refetchReserve()
+         refetchOperation()
+
 
 
 
@@ -146,7 +224,7 @@ export const OperationPop = () => {
     const { data: { data: caseTypes } = {} } = useQuery("getAllcaseType", getAllcaseType, { // nested destruction
 
     });
-    console.log({ caseTypes });
+    // console.log({ caseTypes });
 
 
     // ? Get employee Api
@@ -156,7 +234,7 @@ export const OperationPop = () => {
 
     const { data: { data: employees } = {} } = useQuery("getAllEmployees", getAllEmployees);
 
-    console.log({ employees });
+    // console.log({ employees });
 
 
 
@@ -189,6 +267,8 @@ export const OperationPop = () => {
                         label="نوع العملية"
                         options={operationTypes?.map(operation => ({ value: operation.id, label: operation.name }))} placeholder="اختر نوع العملية"
                         onChange={(value) => setformData({ ...formData, "operationType": Number(value) })}
+                        selectedValue={formData.operationType}
+
                     />
                 </div>
 
@@ -202,6 +282,8 @@ export const OperationPop = () => {
                         options={caseTypes?.map(type => ({ value: type.id, label: type.name }))}
                         placeholder="اختر نوع الحالة"
                         onChange={(value) => setformData({ ...formData, "caseType": Number(value) })}
+                        selectedValue={formData.caseType}
+
 
                     />
 
@@ -219,9 +301,11 @@ export const OperationPop = () => {
                         placeholder="اختر الطبيب المحول"
                         options={doctors?.map(doctor => ({ value: doctor.id, label: doctor.name }))}
                         onChange={(value) => setformData({ ...formData, "transferDoctor": Number(value) })}
+                        selectedValue={formData.transferDoctor}
+
 
                     />
-                    {console.log({ formData })}
+                    {/* {console.log({ formData })} */}
 
 
                 </div>
@@ -235,6 +319,8 @@ export const OperationPop = () => {
                         placeholder="اختار اسم الجراح"
                         options={doctors?.map(doctor => ({ value: doctor.id, label: doctor.name }))}
                         onChange={(value) => setformData({ ...formData, "surgeon": Number(value) })}
+                        selectedValue={formData.surgeon}
+
 
                     />
                 </div>
@@ -250,6 +336,8 @@ export const OperationPop = () => {
                 placeholder="اختار اسم المريض"
                 options={patients?.map(patient => ({ value: patient.id, label: patient.name }))}
                 onChange={(value) => setformData({ ...formData, "patient": Number(value) })}
+                selectedValue={formData.patient}
+
 
             />
 
@@ -260,42 +348,38 @@ export const OperationPop = () => {
                 options={employees?.map(employee => ({ value: employee.phone, label: `${employee.first_name} ${employee.last_name}` }))}
                 placeholder="اختار موظف الاستقبال "
                 onChange={(value) => setformData({ ...formData, "employee": value })}
+                selectedValue={formData.employee}
 
             />
 
             <div className="d-flex flex-column">
                 <label>ملاحظات </label>
-                <textarea placeholder="ادخل الملاحظات" onChange={(e) => setformData({ ...formData, "notes": e.target.value })} />
+                <textarea placeholder="ادخل الملاحظات" value={formData.notes} onChange={(e) => setformData({ ...formData, "notes": e.target.value })} />
             </div>
 
 
             <h4>حدد الوقت المناسب</h4>
-
             <div className={`${timeStyle.time} d-flex align-items-center justify-content-evenly my-5`}>
-
-                <div className="text-center">
+                <div className="text-center" onWheel={handleHourScroll} >
                     <h6 className='mb-3'>ساعات</h6>
                     <h3 onClick={handleHourPre} className={`${timeStyle.pre}`}>{hour === 0 ? 12 : hour - 1}</h3>
                     <h3 className={`${timeStyle.current}`}>{hour}</h3>
                     <h3 onClick={handleHourPost} className={`${timeStyle.post}`}>{hour === 12 ? 0 : hour + 1} </h3>
                 </div>
-
-                <div className="text-center">
+                <div className="text-center" onWheel={handleMinScroll} >
                     <h6 className='mb-3'>دقائق</h6>
                     <h3 onClick={handleMinPre} className={`${timeStyle.pre}`}>{min === 0 ? 59 : min - 1}</h3>
                     <h3 className={`${timeStyle.current}`}>{min}</h3>
                     <h3 onClick={handleMinPost} className={`${timeStyle.post}`}>{min === 59 ? 0 : min + 1}</h3>
                 </div>
-
-                <div className="text-center">
+                <div className="text-center" onWheel={handlePeriodScroll} >
                     <h3 onClick={handlePeriodClick} className={`${timeStyle.pre}`}>{period === 'ص' ? "م" : "ص"}</h3>
                     <h3 onClick={handlePeriodClick} className={`${timeStyle.current}`}>{period}</h3>
-
                 </div>
-
             </div>
 
-            <BookBtn txt={"حجز"} handleSubmit={handleSubmitOperation} />
+
+            <BookBtn txt={"حجز"} handleSubmit={showPopup.data.reserv === null ?handleSubmitOperation:handleUpdate} />
 
             <button
                 type="button"

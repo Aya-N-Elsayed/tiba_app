@@ -10,6 +10,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { baseURL } from '../../App';
 import { MySelect } from './MySelect';
+import { useQuery } from 'react-query';
 
 
 
@@ -18,16 +19,22 @@ export const PatientPop = () => {
 
     const { setShowPopup, showPopup } = useContext(PopupContext);
 
+    function getAllCities() {
+        return axios.get(`${baseURL}city/`);
+    }
+
+    const { data: { data: city } = {}, isLoading, isError } = useQuery("getAllCities", getAllCities);
+
     const [formData, setFormData] = useState({
         name: "",
         age: "",
         gender: "F",
-       phone: "",
-       phone2: "",
+        phone: "",
+        phone2: "",
         birth_date: "",
         medicalHistory: "سكر",
         notes: "",
-        city: "اسكندرية",
+        city: '',
     });
 
     const handleChange = (e) => {
@@ -42,14 +49,14 @@ export const PatientPop = () => {
         console.log({ formData });
 
         try {
-            await axios.post(`${baseURL}patient/`, formData);
+            await axios.post(`${baseURL}patients/`, formData);
             setShowPopup({ "option": null });
             console.log({ showPopup })
             toast.success("تم إضافة مريض",
                 { autoClose: 500 }
             );
 
-            
+
 
 
 
@@ -176,18 +183,26 @@ export const PatientPop = () => {
                 />
             </div>
 
-            <div className="d-flex flex-column">
-                <MySelect
-                    label="التاريخ المرضى"
-                    options={[
-                        { value: 'None', label: 'اختر التاريخ' },
-                        { value: 'Some', label: 'بعض' }
-                    ]}
-                    placeholder="اختر التاريخ"
-               
-                />
+            <MySelect
+                label="المدينة"
+                placeholder="اختار المدينة"
+                options={city?.map(city => ({ value: city.id, label: city.name }))}
+                onChange={(value) => setFormData({ ...formData, "city": Number(value) })}
+            />
 
+            <div className="d-flex flex-column">
+                <label>التاريخ المرضى</label>
+                <input
+                    className="w-100"
+                    type="text"
+                    placeholder="اختر التاريخ"
+                    name='medicalHistory'
+
+                    value={formData.medicalHistory}
+                    onChange={handleChange}
+                />
             </div>
+
 
             <div className="d-flex flex-column">
                 <label>ملاحظات </label>

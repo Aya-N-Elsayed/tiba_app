@@ -372,7 +372,7 @@ nav{
 }
 
 .calender .row{
-  row-gap:18.03px;
+  /* row-gap:18.03px; */
   /* max-width: 100%; */
   /* column-gap:15.02px; */
 }

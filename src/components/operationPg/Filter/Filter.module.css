@@ -41,8 +41,9 @@
     width: 116px;
 }
 
-.fitlerBtns div{
-    margin-left: 41px;
+.fitlerBtns {
+    /* margin-left: 4px; */
+    gap: 40px;
 }
 
 .fitlerBtns h4{

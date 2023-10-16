@@ -54,7 +54,7 @@ export const Filter = () => {
 
 
 
-                <div className={`${style.fitlerBtns} d-flex `}>
+                <div className={`${style.fitlerBtns} d-flex  `}>
 
 
                             
