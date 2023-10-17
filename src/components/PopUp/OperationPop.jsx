@@ -16,23 +16,13 @@ import toast from 'react-hot-toast';
 
 
 export const OperationPop = () => {
-
     const { setShowPopup, showPopup } = useContext(PopupContext);
-    const queryClient = useQueryClient();
-    
-
     const [hour, sethour] = useState(10);
     const [min, setmin] = useState(59);
     const [period, setperiod] = useState("ص")
-
-    //    ?   set up form data 
-
     const refetchReserve = showPopup.data?.refetchReserve;
     const refetchOperation = showPopup.data?.refetchOperation;
     
-    console.log({showPopup})
-    console.log("reserv",showPopup.data.reserv )
-
     const [formData, setformData] = useState({
         "fileNumber": showPopup.data.reserv?.fileNumber || '', // <-- use showPopup.data reserv if available, otherwise default to empty.
         "operationNumber": showPopup.data.reserv?.operationNumber || '',
@@ -71,15 +61,6 @@ export const OperationPop = () => {
 
         y.mutate(operation.id, {
             onSuccess: () => {
-
-
-                // const dataa= queryClient.getQueryData('allReservation');
-                // console.log(dataa.data);
-                // const currentDoctors = dataa?.data;
-        
-    
-                //     queryClient.setQueryData('allDoctors', currentDoctors);
-
                 toast.success("تم تعديل عملية بنجاح",
                     { autoClose: 500 });
                     refetchOperation()
@@ -87,11 +68,7 @@ export const OperationPop = () => {
       
             }
         })
-    
-        // y.mutate(doc?.id);
-      
-  
-  }
+    }
 
     // ? Functions Handling time period selection 
     function handlePeriodClick() {
@@ -147,10 +124,6 @@ export const OperationPop = () => {
             handlePeriodClick();
         }
     }
-    // ? //
-
-    // ? Get patients Api
-
     function getAllPatients() {
         return axios.get(`${baseURL}patients/`);
     }
@@ -158,31 +131,27 @@ export const OperationPop = () => {
     const { data: { data: patients } = {} } = useQuery("getAllPatients", getAllPatients, { // nested destruction
 
     });
-    // console.log(patients);
-
-    // ?
-
 
     async function handleSubmitOperation() {
-        console.log({formData})
-
         try {
             await axios.post(`${baseURL}reservations/`, formData);
-      
             setShowPopup({ ...showPopup, "option": null });
             toast.success("تم إضافة عملية",
                 { autoClose: 500 }
             );
-            refetchReserve()
-         refetchOperation()
-
-
-
-
-
+        try{
+            refetchOperation();
+        }catch(error){
+            console.log("ERROR::::",error);
+        }
+        try{
+            refetchReserve();
+        }catch(error){
+            console.log("ERROR::::",error);
+        }
+        
         } catch (error) {
-
-
+            console.log("ERROR::::",error);
         }
 
     }

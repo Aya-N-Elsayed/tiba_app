@@ -11,10 +11,8 @@ export const PopUp = ({
     const { showPopup, setShowPopup } = useContext(PopupContext);
 
     const handleSubmit = (e) => {
-        // e.preventDefault();
         console.log("submitted");
         setShowPopup({"option": null});
-        // Handle form submission logic (API call) later
     };
 
     useEffect(() => {

@@ -9,7 +9,6 @@ import axios from "axios";
 import { baseURL } from "../../../App";
 
 export const Table = ({ data, refetchOperation }) => {
-  const queryClient = useQueryClient();
   const [showOptions, setshowOptions] = useState(new Array(data?.length).fill(false));
   const { setShowPopup, showPopup } = useContext(PopupContext);
 
@@ -49,8 +48,6 @@ export const Table = ({ data, refetchOperation }) => {
 
   function    handleOnChangeSwitch(reserv) {
 
-    console.log({ reserv })
-
     const updatedData = {
       status: reserv?.status === "Confirmed" ?
         "Unconfirmed" : "Confirmed"
@@ -58,8 +55,6 @@ export const Table = ({ data, refetchOperation }) => {
     console.log({ updatedData }, { reserv })
     updateReservation(reserv?.id, updatedData);
   }
-  const mutation = useMutation('deleteReserv', (id) => { deleteReservation(id) });
-
   function handlingDelete(reserv, idx) {
     deleteReservation(reserv?.id).then((res) => {
       console.log(res);
@@ -97,7 +92,6 @@ export const Table = ({ data, refetchOperation }) => {
     const tempArr = [...showOptions];
     tempArr[idx] = false;
     setshowOptions(tempArr);
-    console.log("date in side the table", showPopup)
     setShowPopup({
       ...showPopup,
       "option": 'o', "data": { ...showPopup.data, "reserv": reserv, "refetchOperation":refetchOperation }
