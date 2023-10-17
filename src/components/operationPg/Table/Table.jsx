@@ -61,27 +61,20 @@ export const Table = ({ data, refetchOperation }) => {
   const mutation = useMutation('deleteReserv', (id) => { deleteReservation(id) });
 
   function handlingDelete(reserv, idx) {
-    mutation.mutate(reserv.id, {
-      onSuccess: () => {
-        // Get the current list of reservations from the cache
-        const currentData = queryClient.getQueryData('allReservation');
-        const currentReservations = currentData?.data;
-
-        // Filter out the deleted reservation
-        const updatedReservations = currentReservations.filter(r => r?.id !== reserv?.id);
-
-        // Update the cache with the filtered list
-        queryClient.setQueryData('allReservation', updatedReservations);
-
-        toast.success(`تم حذف الحجز ${reserv?.id}`, { autoClose: 500 });
-        refetchOperation();
-      }
-    });
-
-    const tempArr = [...showOptions];
-    tempArr[idx] = false;
-    setshowOptions(tempArr);
+    deleteReservation(reserv?.id).then((res) => {
+      console.log(res);
+      const tempArr = [...showOptions];
+      tempArr[idx] = false;
+      setshowOptions(tempArr);
+      toast.success("تم حذف الحجز بنجاح");
+      refetchOperation();
+    }
+    ).catch((err) => {
+      console.log(err);
+      toast.error("خطأ فى حذف الحجز");
+    })
   }
+  
 
 
 

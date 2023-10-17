@@ -1,12 +1,13 @@
 import style from './Operation.module.css'
 import { Filter } from "./Filter/Filter"
 import { Table } from "./Table/Table"
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { PopupContext } from '../../context/PopUpContext'
 import { BackBtn } from '../Btns/BackBtn'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
-import { useQuery } from 'react-query'
+import { useState } from 'react'
+
 import { baseURL } from '../../App'
 import { ThreeDots } from 'react-loader-spinner'
 
@@ -17,39 +18,36 @@ export const OperationPg = () => {
   const { setShowPopup, showPopup } = useContext(PopupContext);
 
   const { month, year, day } = useParams();
-  console.log(month, year, day)
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [shouldRefetch, setShouldRefetch] = useState(false);
 
-  // ? Geting All doctor
-
-  // # Functions Using Axios to call APIs //
-  function getReservation() {
-    return axios.get(`${baseURL}reservations`, {
+  const triggerRefresh = () => {
+    console.log("triggerRefresh, shouldRefetch: ", shouldRefetch)
+    setShouldRefetch(!shouldRefetch);
+  }
+  useEffect(() => {
+    console.log("useEffect, shouldRefetch: ", shouldRefetch)
+    setLoading(true)
+    axios.get(`${baseURL}reservations`, {
       params: {
         year: year,
         month: month,
         day: day
       }
-    });
+    }).then((res) => {
+      console.log("Done fetching ")
+      setData(res.data)
+      setLoading(false)
+    }).catch((err) => {
+      console.log(err)
+      setLoading(false)
+    })
   }
-
-  const { data, isLoading, refetch } = useQuery("allReservation", getReservation, {
-  });
-
-
-
-  // if (refetchDoctors) { refetch(); } // refetching data whenever save doctor btn is clicked
-
-
-
-
-  // ? //
-
+    , [shouldRefetch])
 
   return (
     <div className={`${style.OperationPg} container`}>
-
-
-
       <div
         className={`${style.booking} d-flex justify-content-between align-items-center`}
       >
@@ -63,7 +61,7 @@ export const OperationPg = () => {
               setShowPopup({
                 ...showPopup, "option": 'o', "data": {
                   "date": `${year}-${month}-${day}`,
-                  "refetchOperation": refetch,
+                  "refetchOperation": triggerRefresh,
                   "reserv": null
                 }
 })
@@ -79,15 +77,9 @@ export const OperationPg = () => {
 
       <Filter />
 
-      {isLoading ?  <div className=' d-flex justify-content-center'>
+      {loading ?  <div className=' d-flex justify-content-center'>
         <ThreeDots color="var(--logo-colortypap-lightnesscolor)" />
-      </div> : <Table data={data?.data} refetchOperation={refetch} /> }
-      {console.log(isLoading)}
-
-
-     
-
-
+      </div> : <Table data={data} refetchOperation={triggerRefresh} /> }
     </div>
   );
 }
