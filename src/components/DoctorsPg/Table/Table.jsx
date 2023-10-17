@@ -142,12 +142,8 @@ export const Table = () => {
         <thead>
           <tr className="">
             <th scope="col">الاسم</th>
-            <th scope="col">
-              رقم الموبيل 1
-            </th>
-            <th scope="col">
-              رقم الموبيل 2
-            </th>
+            <th scope="col"> رقم الموبيل 1 </th>
+            <th scope="col"> رقم الموبيل 2</th>
             <th scope="col">عنوان العيادة</th>
             <th scope="col">رقم العيادة</th>
             <th scope='col'></th>
@@ -161,13 +157,13 @@ export const Table = () => {
           {data?.data?.map(function (doctor, idx) {
             return <>
 
-              <tr className='position-relative' >
-                <td>{doctor.name}</td>
+              <tr className='position-relative  ' >
+                <td className=' '>{doctor.name}</td>
                 <td>{doctor.phone}</td>
                 <td>{doctor.phone2}</td>
                 <td>{doctor.address}
                 </td>
-                <td className="d-flex  justify-content-around align-items-center ">
+                <td className="">
 
                   <p className={` m-0`}>{doctor.clinicphone}</p>
                 </td>

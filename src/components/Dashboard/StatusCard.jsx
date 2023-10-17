@@ -4,7 +4,7 @@ import style from './Dashboard.module.css'
 export const StatusCard = ({ title, number, status, color }) => {
     return (
         <div>
-            <div className="card me-3 ">
+            <div className="card  ">
 
                 <div className="card-body p-2">
                     <div className="d-flex justify-content-between align-items-center">
