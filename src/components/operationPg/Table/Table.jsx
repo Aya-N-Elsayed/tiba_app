@@ -64,6 +64,7 @@ export const Table = ({ data, refetchOperation }) => {
     mutation.mutate(reserv.id, {
       onSuccess: () => {
         // Get the current list of reservations from the cache
+        queryClient.invalidateQueries('allReservation');
         const currentData = queryClient.getQueryData('allReservation');
         const currentReservations = currentData?.data;
 
