@@ -60,6 +60,7 @@ export const Table = () => {
     x.mutate(doctor.id, {
       onSuccess: () => {
         // Get the current list of doctors from the cache
+        queryClient.invalidateQueries('allDoctors');
         const dataa = queryClient.getQueryData('allDoctors');
         console.log("doctors before delete", dataa.data);
         const currentDoctors = dataa?.data;
