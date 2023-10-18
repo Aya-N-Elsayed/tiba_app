@@ -48,9 +48,6 @@ export const Table = ({ data, refetchOperation }) => {
   };
 
   function    handleOnChangeSwitch(reserv) {
-
-    console.log({ reserv })
-
     const updatedData = {
       status: reserv?.status === "Confirmed" ?
         "Unconfirmed" : "Confirmed"
@@ -59,21 +56,10 @@ export const Table = ({ data, refetchOperation }) => {
     updateReservation(reserv?.id, updatedData);
   }
   const mutation = useMutation('deleteReserv', (id) => { deleteReservation(id) });
-
   function handlingDelete(reserv, idx) {
     mutation.mutate(reserv.id, {
       onSuccess: () => {
-        // Get the current list of reservations from the cache
         queryClient.invalidateQueries('allReservation');
-        const currentData = queryClient.getQueryData('allReservation');
-        const currentReservations = currentData?.data;
-
-        // Filter out the deleted reservation
-        const updatedReservations = currentReservations.filter(r => r?.id !== reserv?.id);
-
-        // Update the cache with the filtered list
-        queryClient.setQueryData('allReservation', updatedReservations);
-
         toast.success(`تم حذف الحجز ${reserv?.id}`, { autoClose: 500 });
         refetchOperation();
       }
