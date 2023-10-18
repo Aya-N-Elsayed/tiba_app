@@ -165,7 +165,6 @@ export const OperationPop = () => {
 
     async function handleSubmitOperation() {
         console.log({formData})
-
         try {
             await axios.post(`${baseURL}reservations/`, formData);
       
@@ -173,15 +172,23 @@ export const OperationPop = () => {
             toast.success("تم إضافة عملية",
                 { autoClose: 500 }
             );
-            refetchReserve()
-         refetchOperation()
-
-
-
-
+            console.log("REFETCH RESERVE : ", refetchReserve)
+            console.log("REFETCH OPERATION : ", refetchOperation)
+            try{
+                refetchReserve()
+            }
+            catch(err){
+                console.log("REFETCH RESERVE FAIL======>", err);
+            }
+            try{
+                refetchOperation()
+            }
+            catch(err){
+                console.log("REFETCH OPERATION FAIL======>", err);
+            }
 
         } catch (error) {
-
+            console.log("ERROR======>", error);
 
         }
 
