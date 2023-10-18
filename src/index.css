@@ -437,3 +437,10 @@ nav{
 }
 
 
+.fit-content {
+  width: fit-content;
+}
+
+.card{
+  height: 100%;
+}
