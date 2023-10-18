@@ -55,10 +55,11 @@ export const Table = ({ data, refetchOperation }) => {
     console.log({ updatedData }, { reserv })
     updateReservation(reserv?.id, updatedData);
   }
-  const mutation = useMutation('deleteReserv', (id) => { deleteReservation(id) });
+  const mutation = useMutation('deleteReserv',async  (id) => { await deleteReservation(id) });
   function handlingDelete(reserv, idx) {
     mutation.mutate(reserv.id, {
       onSuccess: () => {
+        console.log("DELETED ....", reserv?.id);
         queryClient.invalidateQueries('allReservation');
         toast.success(`تم حذف الحجز ${reserv?.id}`, { autoClose: 500 });
         refetchOperation();

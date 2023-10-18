@@ -22,14 +22,17 @@ export const OperationPg = () => {
   // ? Geting All doctor
 
   // # Functions Using Axios to call APIs //
-  function getReservation() {
-    return axios.get(`${baseURL}reservations`, {
+  async function getReservation() {
+    console.log("GET RESERVATION IS CALLED ", year, month, day)
+    const x = await axios.get(`${baseURL}reservations`, {
       params: {
         year: year,
         month: month,
         day: day
       }
     });
+    console.log("X IS :",x)
+    return x;
   }
 
   const { data, isLoading, refetch } = useQuery("allReservation", getReservation, {
@@ -82,12 +85,6 @@ export const OperationPg = () => {
       {isLoading ?  <div className=' d-flex justify-content-center'>
         <ThreeDots color="var(--logo-colortypap-lightnesscolor)" />
       </div> : <Table data={data?.data} refetchOperation={refetch} /> }
-      {console.log(isLoading)}
-
-
-     
-
-
     </div>
   );
 }
