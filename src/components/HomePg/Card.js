@@ -33,7 +33,7 @@ export const Card = ({month , day, year,apiData, monthNum, refetchReserve}) => {
 
 
   return (
-    <div className="card ">
+    <div className="card h-100 ">
       <div className="card-body text-end p-0">
         <h6 className="weekday text-center">{ apiData?.Weekday??'Disabled'}</h6>
         <div className="date text-center d-flex justify-content-center">
@@ -68,13 +68,13 @@ export const Card = ({month , day, year,apiData, monthNum, refetchReserve}) => {
           type="button" onClick={() =>
           navigation(`/operations/${monthNum}/${year}/${day}`)
           }
-          className="btn detailsBtn d-flex flex-row-reverse justify-content-center w-100 align-items-center "
-        >
+          className={`btn detailsBtn d-flex flex-row-reverse justify-content-center w-100 align-items-center ${apiData?.Weekday ? '' : 'disabled'}`}
+          >
           <p>عرض التفاصيل</p>
           <img className="btnicons " alt="Image" src="/images/eye.svg" />
           
         </button>
-        <BookBtn handleClick={handleClick} />
+        <BookBtn handleClick={handleClick} classDisable={apiData?.Weekday ? '' : 'disabled'} />
       </div>
     </div>
   );
