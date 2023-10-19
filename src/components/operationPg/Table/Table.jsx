@@ -61,9 +61,6 @@ console.log({showPopup})
     );
   }
   function    handleOnChangeSwitch(reserv) {
-
-    console.log({ reserv })
-
     const updatedData = {
       status: reserv?.status === "Confirmed" ?
         "Unconfirmed" : "Confirmed"

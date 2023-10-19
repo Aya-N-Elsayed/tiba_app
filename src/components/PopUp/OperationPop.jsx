@@ -158,7 +158,6 @@ export const OperationPop = () => {
 
     async function handleSubmitOperation() {
         console.log({formData})
-
         try {
             await axios.post(`${baseURL}reservations/`, formData);
       
@@ -178,17 +177,10 @@ export const OperationPop = () => {
             catch(err){
                 console.log("REFETCH OPERATION FAIL======>", err);
             }
-
         } catch (error) {
             console.log("ERROR======>", error);
 
         }
-
-
-
-
-
-
     }
 
 

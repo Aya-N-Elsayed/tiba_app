@@ -107,8 +107,7 @@ export const DoctorPop = () => {
     
     
             } catch (error) {
-    
-                
+                console.log("ERROR ====> ", error);
             }
 
 

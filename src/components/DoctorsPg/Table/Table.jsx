@@ -59,11 +59,7 @@ export const Table = () => {
         console.log("errrorrrrrrrrrrrrrrrr", error)
           
       }
-
-
-
       toast.success(`تم حذف الطبيب `, { autoClose: 500 });
-      // console.log("doctors after delete ", updatedDoctors)
     }
     
 
