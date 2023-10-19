@@ -1,15 +1,12 @@
 import React, { useContext, useState } from 'react'
 import { BookBtn } from "../Btns/BookOBtn";
 import { CancelBtn } from "../Btns/CancelBtn";
-import { useSyncExternalStore } from 'react';
-import { Formik } from 'formik';
+
 import axios from 'axios';
 import { baseURL } from '../../App';
 import { PopupContext } from '../../context/PopUpContext';
 import toast from 'react-hot-toast';
-import { refetchingDoctors, sayHello } from '../DoctorsPg/Table/Table';
-import { DoctorsContext } from '../../context/DoctorsContext';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient} from 'react-query';
 
 
 
@@ -18,11 +15,12 @@ import { useMutation, useQueryClient } from 'react-query';
 export const DoctorPop = () => {
     
     const { setShowPopup,showPopup } = useContext(PopupContext);
-    const { setrefetchDoctors } = useContext(DoctorsContext);
-    const queryClient = useQueryClient();
     
     const doctor = showPopup.doctor;
-    console.log("doctor ",doctor);
+    console.log({showPopup});
+    
+    const refetchDoctors = showPopup?.refetchDoctors;
+    const qClient =useQueryClient()
 
     const [formData, setformData] = useState(
         {
@@ -49,9 +47,16 @@ export const DoctorPop = () => {
 
   // # query for Updating Doctor
 
-  const y = useMutation('updateDoc', (id) => { updateDoctor(id) },
+  const y = useMutation('updateDoc', async(id) => { await updateDoctor(id) },
     {
-      enabled: false,
+        onSuccess: () => {
+
+            qClient.refetchQueries('allDoctors')
+
+            toast.success("تم تعديل الطبيب بنجاح",
+                { autoClose: 500 });
+  
+        }
     });
   
   // console.log("update doctor",y);
@@ -63,19 +68,7 @@ export const DoctorPop = () => {
         // setShowPopup({ "option":'d',doctor})
 
         y.mutate(doc.id, {
-            onSuccess: () => {
 
-
-                const dataa= queryClient.getQueryData('allDoctors');
-                console.log(dataa.data);
-                const currentDoctors = dataa?.data;
-
-                    queryClient.setQueryData('allDoctors', currentDoctors);
-
-                toast.success("تم تعديل الطبيب بنجاح",
-                    { autoClose: 500 });
-      
-            }
         })
     
       
@@ -95,12 +88,20 @@ export const DoctorPop = () => {
 
             try {
                 await axios.post(`${baseURL}doctors/`, formData);
-                setShowPopup({"option":null});
+              
                 toast.success("تم إضافة طبيب",
                 {autoClose:500}
                 );
     
-                setrefetchDoctors(true);
+
+             try {
+                 // await 
+                 qClient.refetchQueries('allDoctors')
+                 
+             } catch (error) {
+                toast.error(error)
+             }
+             setShowPopup({"option":null});
     
                
     

@@ -22,8 +22,8 @@ export const OperationPg = () => {
   // ? Geting All doctor
 
   // # Functions Using Axios to call APIs //
-  function getReservation() {
-    return axios.get(`${baseURL}reservations`, {
+ async function getReservation() {
+    return await axios.get(`${baseURL}reservations`, {
       params: {
         year: year,
         month: month,

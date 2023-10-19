@@ -9,17 +9,18 @@ import axios from "axios";
 import { baseURL } from "../../../App";
 
 export const Table = ({ data, refetchOperation }) => {
-  const queryClient = useQueryClient();
   const [showOptions, setshowOptions] = useState(new Array(data?.length).fill(false));
   const { setShowPopup, showPopup } = useContext(PopupContext);
 
 
 
-  // Assuming you have an API function deleteReservation(id) to delete a reservation.
+
+
+console.log({showPopup})
 
   // # query for Deleting Reservation
-  function deleteReservation(id) {
-    return axios.delete(`${baseURL}reservations/${id}/`);
+   function deleteReservation(id) {
+    return   axios.delete(`${baseURL}reservations/${id}/`);
   }
 
 
@@ -29,24 +30,36 @@ export const Table = ({ data, refetchOperation }) => {
   }
 
 
-  const patchMutation = useMutation(({ id, updatedData }) => patchReservation(id, updatedData));
+  const patchMutation = useMutation(async ({ id, updatedData }) => await patchReservation(id, updatedData), {
+    onSuccess: async() => {
+       
+      try {
+        await refetchOperation();
+
+      } catch (error) {
+        console.log(error)
+      }    
+    },
+    onError: (error) => {
+      toast.error("خطأ فى تعديل الحجز");
+    },
+  
+
+  });
+  
+  console.log(patchMutation.status)
 
   const updateReservation = (id, updatedData) => {
     patchMutation.mutate({ id, updatedData }, {
       onSuccess: () => {
-        // Handle success, maybe show a toast notification
-        // console.log("feh eh",updatedData["status"])
-        toast.success(updatedData["status"] === 'Confirmed' ? "!تم تأكيد الحجز" : "تم إلغاء الحجز");
-        // toast.success("تم التعديل بنجاح")
-        refetchOperation();
-      },
-      onError: (error) => {
-        // Handle error, maybe show an error toast notification
-        toast.error("خطأ فى تعديل الحجز");
-      },
-    });
-  };
+              toast.success(updatedData["status"] === 'Confirmed' ? "!تم تأكيد الحجز" : "تم إلغاء الحجز");
 
+      }
+    }
+     
+
+    );
+  }
   function    handleOnChangeSwitch(reserv) {
 
     console.log({ reserv })
@@ -58,24 +71,25 @@ export const Table = ({ data, refetchOperation }) => {
     console.log({ updatedData }, { reserv })
     updateReservation(reserv?.id, updatedData);
   }
-  const mutation = useMutation('deleteReserv', (id) => { deleteReservation(id) });
+  const mutation = useMutation('deleteReserv', async (id) => {  await deleteReservation(id) }, {
+    onSuccess: async () => {
+      // Get the current list of reservations from the cache
+
+      try {
+        await refetchOperation();
+
+      } catch (error) {
+        console.log("refetch mutation error ", error)
+        
+      }
+      toast.success(`تم حذف الحجز `, { autoClose: 500 });
+
+    }
+  });
 
   function handlingDelete(reserv, idx) {
     mutation.mutate(reserv.id, {
-      onSuccess: () => {
-        // Get the current list of reservations from the cache
-        const currentData = queryClient.getQueryData('allReservation');
-        const currentReservations = currentData?.data;
-
-        // Filter out the deleted reservation
-        const updatedReservations = currentReservations.filter(r => r?.id !== reserv?.id);
-
-        // Update the cache with the filtered list
-        queryClient.setQueryData('allReservation', updatedReservations);
-
-        toast.success(`تم حذف الحجز ${reserv?.id}`, { autoClose: 500 });
-        refetchOperation();
-      }
+  
     });
 
     const tempArr = [...showOptions];

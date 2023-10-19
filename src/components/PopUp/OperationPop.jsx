@@ -49,17 +49,25 @@ export const OperationPop = () => {
     });
 
     function updateOperation(id) {
-        console.log(`${baseURL}reservations/${id}/`);
         return axios.patch(`${baseURL}reservations/${id}/`, formData);
     
     }
     
     const reserv = showPopup?.data.reserv;
 
-  const y = useMutation('updateOperation', (id) => { updateOperation(id) },
-  {
-    enabled: false,
-  });
+    const y = useMutation('updateOperation', async (id) => { await updateOperation(id) }, {
+        onSuccess: () => {
+
+
+            toast.success("تم تعديل عملية بنجاح");
+                refetchOperation()
+
+  
+        },      onError: (error) => {
+            toast.error("خطأ فى تعديل الحجز");
+          },
+  }
+);
 
 
     // # Handling onclicking buttons
@@ -70,22 +78,7 @@ export const OperationPop = () => {
 
 
         y.mutate(operation.id, {
-            onSuccess: () => {
 
-
-                // const dataa= queryClient.getQueryData('allReservation');
-                // console.log(dataa.data);
-                // const currentDoctors = dataa?.data;
-        
-    
-                //     queryClient.setQueryData('allDoctors', currentDoctors);
-
-                toast.success("تم تعديل عملية بنجاح",
-                    { autoClose: 500 });
-                    refetchOperation()
-
-      
-            }
         })
     
         // y.mutate(doc?.id);
@@ -173,17 +166,28 @@ export const OperationPop = () => {
             toast.success("تم إضافة عملية",
                 { autoClose: 500 }
             );
-            refetchReserve()
-         refetchOperation()
-
-
-
-
+            try{
+                refetchReserve()
+            }
+            catch(err){
+                console.log("REFETCH RESERVE FAIL======>", err);
+            }
+            try{
+                refetchOperation()
+            }
+            catch(err){
+                console.log("REFETCH OPERATION FAIL======>", err);
+            }
 
         } catch (error) {
-
+            console.log("ERROR======>", error);
 
         }
+
+
+
+
+
 
     }
 

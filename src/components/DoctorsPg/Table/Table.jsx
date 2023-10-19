@@ -5,7 +5,6 @@ import { baseURL } from '../../../App'
 import { useContext, useEffect, useState } from 'react';
 import { ThreeDots } from 'react-loader-spinner'
 import { useQueryClient, useMutation, useQueries, useQuery } from 'react-query';
-import { DoctorsContext } from '../../../context/DoctorsContext';
 import { PopupContext } from '../../../context/PopUpContext';
 import toast from 'react-hot-toast';
 
@@ -15,11 +14,9 @@ import Options from '../../DeleteModify/Options';
 
 
 export const Table = () => {
-  const { setShowPopup } = useContext(PopupContext);
+  const { setShowPopup, showPopup } = useContext(PopupContext);
 
-  const { refetchDoctors } = useContext(DoctorsContext);
 
-  const queryClient = useQueryClient();
 
 
 
@@ -36,8 +33,7 @@ export const Table = () => {
 
 
 
-  if (refetchDoctors) { refetch(); } // refetching data whenever save doctor btn is clicked
-
+  
   // ? //
 
 
@@ -51,29 +47,32 @@ export const Table = () => {
 
   // # query for Deleting Doctor
 
-  const x = useMutation('deleteDoc', (id) => { deleteDoctor(id) }, {
+  const x = useMutation('deleteDoc', (id) =>
+    deleteDoctor(id), {
+    
+    onSuccess: async () => {
 
+      try {
+        await refetch({ force: true })
+
+      } catch (error) {
+        console.log("errrorrrrrrrrrrrrrrrr", error)
+          
+      }
+
+
+
+      toast.success(`تم حذف الطبيب `, { autoClose: 500 });
+      // console.log("doctors after delete ", updatedDoctors)
+    }
+    
+
+    
   });
 
 
   function handlingDelete(doctor, idx) {
-    x.mutate(doctor.id, {
-      onSuccess: () => {
-        // Get the current list of doctors from the cache
-        const dataa = queryClient.getQueryData('allDoctors');
-        console.log("doctors before delete", dataa.data);
-        const currentDoctors = dataa?.data;
-
-        // Filter out the deleted doctor
-        const updatedDoctors = currentDoctors.filter(d => d.id !== doctor.id);
-
-        // Update the cache with the filtered list
-        queryClient.setQueryData('allDoctors', updatedDoctors);
-
-        toast.success(`تم حذف الطبيب ${doctor.name}`, { autoClose: 500 });
-        console.log("doctors after delete ", updatedDoctors)
-      }
-    });
+    x.mutate(doctor.id);
     const tempArr = [...showOptions];
     tempArr[idx] = false;
     setshowOptions(tempArr);
@@ -104,13 +103,12 @@ export const Table = () => {
     const tempArr = [...showOptions];
     tempArr[idx] = false;
     setshowOptions(tempArr);
-    setShowPopup({ "option": 'd', doctor })
+    setShowPopup({ ...showPopup, "option": 'd', doctor, "data": refetch })
 
 
   }
 
   //   //? //
-
 
   //  ? Loading screen 
 
@@ -132,9 +130,14 @@ export const Table = () => {
 
   }
 
+
+  
+
   // ? //
 
   return (
+
+
     <div className="my-5">
 
 
