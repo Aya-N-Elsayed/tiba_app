@@ -11,7 +11,6 @@ import { Dashboard } from "./components/Dashboard/Dashboard";
 import { PopupProvider, PopupContext } from "./context/PopUpContext";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Toaster } from "react-hot-toast";
-import { DoctorsProvider } from "./context/DoctorsContext";
 import { ReactQueryDevtools } from 'react-query/devtools';
 
 
@@ -37,7 +36,7 @@ function App() {
   
   
       path: '/', element: <PopupProvider>
-       <DoctorsProvider> <Main /></DoctorsProvider> 
+ <Main />
       </PopupProvider> 
       , children: [
         

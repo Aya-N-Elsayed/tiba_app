@@ -22,9 +22,10 @@ export const OperationPg = () => {
   // ? Geting All doctor
 
   // # Functions Using Axios to call APIs //
-  async function getReservation() {
-    console.log("GET RESERVATION IS CALLED ", year, month, day)
-    const x = await axios.get(`${baseURL}reservations`, {
+
+ async function getReservation() {
+    return await axios.get(`${baseURL}reservations`, {
+
       params: {
         year: year,
         month: month,
