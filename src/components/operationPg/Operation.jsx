@@ -32,8 +32,6 @@ export const OperationPg = () => {
         day: day
       }
     });
-    console.log("X IS :",x)
-    return x;
   }
 
   const { data, isLoading, refetch } = useQuery("allReservation", getReservation, {
