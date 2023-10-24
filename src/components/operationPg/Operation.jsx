@@ -39,7 +39,6 @@ export const OperationPg = () => {
 
 
 
-  // if (refetchDoctors) { refetch(); } // refetching data whenever save doctor btn is clicked
 
 
 

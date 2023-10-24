@@ -6,6 +6,7 @@ import LineChart from './GraphOperations'
 import { GraphGender } from './GraphGender'
 import { GraphLatest } from './GraphLatest'
 import style from './Dashboard.module.css'
+import { TimeWidget } from '../TimeWidget/TimeWidget'
 
 
 export const Dashboard = () => {
@@ -13,6 +14,7 @@ export const Dashboard = () => {
 
   return (
     <>
+      
       <div className='row mt-4 gx-'>
 
         <div className="col-md-3 ">

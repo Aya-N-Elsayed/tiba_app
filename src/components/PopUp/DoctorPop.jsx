@@ -7,6 +7,7 @@ import { baseURL } from '../../App';
 import { PopupContext } from '../../context/PopUpContext';
 import toast from 'react-hot-toast';
 import { useMutation, useQueryClient} from 'react-query';
+import { useFormik } from 'formik';
 
 
 
@@ -17,10 +18,21 @@ export const DoctorPop = () => {
     const { setShowPopup,showPopup } = useContext(PopupContext);
     
     const doctor = showPopup.doctor;
-    console.log({showPopup});
-    
-    const refetchDoctors = showPopup?.refetchDoctors;
-    const qClient =useQueryClient()
+        
+    const qClient = useQueryClient()
+    //? Formik
+
+    const formik = useFormik({
+        initialValues: {
+            "name": showPopup.doctor?.name ,
+            "phone": showPopup.doctor?.phone,
+            "phone2": showPopup.doctor?.phone2,
+            "address": showPopup.doctor?.address,
+            "clinicphone": showPopup.doctor?.clinicphone
+        },
+
+        // validationSchema:
+    })
 
     const [formData, setformData] = useState(
         {

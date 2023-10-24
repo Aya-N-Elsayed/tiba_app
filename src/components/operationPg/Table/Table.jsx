@@ -7,6 +7,17 @@ import toast from "react-hot-toast";
 import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
 import { baseURL } from "../../../App";
+import withReactContent from 'sweetalert2-react-content';
+
+import { TimeWidget } from "../../TimeWidget/TimeWidget";
+import Swal from 'sweetalert2'
+import timeStyle from '../../TimeWidget/TimeWidget.module.css'
+import { useUpdateOperation } from "../../Utilities/DataMutating";
+import { useFormData } from "../../Utilities/OperationForm";
+import { handleTimeBooking, useHandleTimeBooking, usehandleTimeBooking } from "../../Utilities/TimeWidget";
+
+
+
 
 export const Table = ({ data, refetchOperation }) => {
   const [showOptions, setshowOptions] = useState(new Array(data?.length).fill(false));
@@ -16,11 +27,14 @@ export const Table = ({ data, refetchOperation }) => {
 
 
 
-console.log({showPopup})
+  
+
+
+
 
   // # query for Deleting Reservation
-   function deleteReservation(id) {
-    return   axios.delete(`${baseURL}reservations/${id}/`);
+  function deleteReservation(id) {
+    return axios.delete(`${baseURL}reservations/${id}/`);
   }
 
 
@@ -31,36 +45,36 @@ console.log({showPopup})
 
 
   const patchMutation = useMutation(async ({ id, updatedData }) => await patchReservation(id, updatedData), {
-    onSuccess: async() => {
-       
+    onSuccess: async () => {
+
       try {
         await refetchOperation();
 
       } catch (error) {
         console.log(error)
-      }    
+      }
     },
     onError: (error) => {
-      toast.error("خطأ فى تعديل الحجز");
+      toast.error(error,":خطأ فى تعديل الحجز");
     },
-  
+
 
   });
-  
+
   console.log(patchMutation.status)
 
   const updateReservation = (id, updatedData) => {
     patchMutation.mutate({ id, updatedData }, {
       onSuccess: () => {
-              toast.success(updatedData["status"] === 'Confirmed' ? "!تم تأكيد الحجز" : "تم إلغاء الحجز");
+        toast.success(updatedData["status"] === 'Confirmed' ? "!تم تأكيد الحجز" : "تم إلغاء الحجز");
 
       }
     }
-     
+
 
     );
   }
-  function    handleOnChangeSwitch(reserv) {
+  function handleOnChangeSwitch(reserv) {
     const updatedData = {
       status: reserv?.status === "Confirmed" ?
         "Unconfirmed" : "Confirmed"
@@ -68,7 +82,7 @@ console.log({showPopup})
     console.log({ updatedData }, { reserv })
     updateReservation(reserv?.id, updatedData);
   }
-  const mutation = useMutation('deleteReserv', async (id) => {  await deleteReservation(id) }, {
+  const mutation = useMutation('deleteReserv', async (id) => { await deleteReservation(id) }, {
     onSuccess: async () => {
       // Get the current list of reservations from the cache
 
@@ -77,7 +91,7 @@ console.log({showPopup})
 
       } catch (error) {
         console.log("refetch mutation error ", error)
-        
+
       }
       toast.success(`تم حذف الحجز `, { autoClose: 500 });
 
@@ -86,7 +100,7 @@ console.log({showPopup})
 
   function handlingDelete(reserv, idx) {
     mutation.mutate(reserv.id, {
-  
+
     });
 
     const tempArr = [...showOptions];
@@ -118,19 +132,21 @@ console.log({showPopup})
     console.log("date in side the table", showPopup)
     setShowPopup({
       ...showPopup,
-      "option": 'o', "data": { ...showPopup.data, "reserv": reserv, "refetchOperation":refetchOperation }
-       }
-  )
-  
+      "option": 'o', "data": { ...showPopup.data, "reserv": reserv, "refetchOperation": refetchOperation }
+    }
+    )
+
 
   }
 
   // useEffect(() => {
 
   // },[updatedData["status"]])
+ 
+
 
   return (
-    <div className="">
+    <div className="tableCont">
       <table className={`${style.mytable} table align-middle`}>
         <thead className="">
           <tr className="">
@@ -151,7 +167,6 @@ console.log({showPopup})
 
 
           {data?.map((reserv, idx) => {
-            // console.log({reserv}); 
 
             return (
               <tr className={`position-relative ${reserv.caseType.name === 'جديد' ? 'bgNew' : (reserv.caseType.name === 'حالة طبيب' ? 'bgDoctor' : '')}`}>
@@ -159,14 +174,14 @@ console.log({showPopup})
                 <td>{reserv.patient?.age}</td>
                 <td>{reserv.patient?.phone}</td>
                 <td> {reserv.patient?.city.name}</td>
-                <td>{reserv.operationType.name}</td>
+                <td>{reserv.operationType?.name}</td>
                 <td>{reserv.surgeon?.name}</td>
                 <td>{reserv.transferDoctor?.name}</td>
                 <td className="">
                   <div className="d-flex justify-content-center">
-                    <p className="m-0  ">{reserv?.time}</p>
-                    {/* {console.log(reserv["status"])} */}
-                    <Switch confirmed={reserv?.status} handleOnChange={() => handleOnChangeSwitch(reserv)} />
+                    <p className="m-0  " role="button" onClick={() => handleTimeBooking({ reserv })} >{reserv?.time}</p>
+                    {console.log("timeee ",reserv["time"][0])}
+                    <Switch confirmed={reserv?.status} handleOnChange={() => handleOnChangeSwitch( reserv )} />
                   </div>
 
                 </td>
@@ -192,20 +207,6 @@ console.log({showPopup})
             );
 
           })}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         </tbody>

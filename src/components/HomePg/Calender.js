@@ -22,9 +22,7 @@ export const MonthCalender = () => {
     return axios.get(`${baseURL}calendar/?month=${month}&year=${year}`, {});
   }
 
-  const { isError, isFetching, isLoading, data, refetch } = useQuery(
-    "MonthReservations",
-    getMonthReservations,
+  const { isError, isFetching, isLoading, data, refetch } =  useQuery("MonthReservations",   getMonthReservations,
     {
       enabled: true,
     }
@@ -32,7 +30,7 @@ export const MonthCalender = () => {
 
   useEffect(() => {
     refetch(); // Manually refetch when month changes
-  }, [month, refetch]); // Dependency array
+  }, [month]); // Dependency array
 
   const calendarData = Object.values(data?.data || {});
 

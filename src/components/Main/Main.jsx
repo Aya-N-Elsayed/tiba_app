@@ -1,5 +1,5 @@
 import React from 'react'
-import { Navbar } from "../Navbar/Navbar"
+import { Navbar } from "../LoginPg/Navbar/Navbar"
 import { Sidebar } from "../Sidebar/Sidebar"
 import { Outlet } from 'react-router-dom'
 import { PopUp } from '../PopUp/PopUp'
