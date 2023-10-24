@@ -6,159 +6,127 @@ import axios from 'axios';
 import { baseURL } from '../../App';
 import { PopupContext } from '../../context/PopUpContext';
 import toast from 'react-hot-toast';
-import { useMutation, useQueryClient} from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { useFormik } from 'formik';
-
-
-
+import * as Yup from 'yup';
 
 
 export const DoctorPop = () => {
-    
-    const { setShowPopup,showPopup } = useContext(PopupContext);
-    
+
+    const { setShowPopup, showPopup } = useContext(PopupContext);
+
     const doctor = showPopup.doctor;
-        
+
     const qClient = useQueryClient()
+
+    const inputConfigs = [
+        { label: 'الاسم', name: 'name', type: 'text', placeholder: 'ادخل الاسم' },
+        { label: 'رقم الهاتف', name: 'phone', type: 'tel', placeholder: 'ادخل رقم الهاتف' },
+        { label: 'رقم الهاتف ٢', name: 'phone2', type: 'tel', placeholder: 'ادخل رقم الهاتف الثاني' },
+        { label: 'عنوان العيادة', name: 'address', type: 'text', placeholder: 'ادخل عنوان العيادة' },
+        { label: 'رقم العيادة', name: 'clinicphone', type: 'text', placeholder: 'ادخل رقم العيادة' }
+    ];
+
     //? Formik
+
+
+    const validationSchema = Yup.object({
+        name: Yup.string().required('Name is required').min(3, "username must be more than 3 characters").max(50, "username must be less than 50 characters"),
+        phone: Yup.string().required('Phone is required').matches(/^01[0125][0-9]{8}/, "please enter a valid egyptian number"),
+        phone2: Yup.string().notRequired().matches(/^01[0125][0-9]{8}/, "please enter a valid egyptian number"),
+        address: Yup.string().required('Address is required'),
+        clinicphone: Yup.string().required('Clinic phone is required')
+    });
 
     const formik = useFormik({
         initialValues: {
-            "name": showPopup.doctor?.name ,
+            "name": showPopup.doctor?.name,
             "phone": showPopup.doctor?.phone,
             "phone2": showPopup.doctor?.phone2,
             "address": showPopup.doctor?.address,
             "clinicphone": showPopup.doctor?.clinicphone
         },
 
-        // validationSchema:
-    })
+        validationSchema,
 
-    const [formData, setformData] = useState(
-        {
-            "name": showPopup.doctor?.name ,
-            "phone": showPopup.doctor?.phone,
-            "phone2": showPopup.doctor?.phone2,
-            "address": showPopup.doctor?.address,
-            "clinicphone": showPopup.doctor?.clinicphone
 
-            
-    }
-    
-    )
-
-     // ? Updating doctor
-
-// # Functions Using Axios to call APIs //
-    function updateDoctor(id) {
-        console.log(`${baseURL}doctors/${id}/`);
-        return axios.patch(`${baseURL}doctors/${id}/`,
-        formData
-        );
-  }
-
-  // # query for Updating Doctor
-
-  const y = useMutation('updateDoc', async(id) => { await updateDoctor(id) },
-    {
-        onSuccess: () => {
-
-            qClient.refetchQueries('allDoctors')
-
-            toast.success("تم تعديل الطبيب بنجاح",
-                { autoClose: 500 });
-  
-        }
-    });
-  
-  // console.log("update doctor",y);
-
-    // # Handling onclicking buttons
-    function handlingUpdate() {
-        const doc = doctor;
-
-        // setShowPopup({ "option":'d',doctor})
-
-        y.mutate(doc.id, {
-
-        })
-    
-      
-  
-  }
-
-// ? //
-    function handleChange(e) {
-        const { name, value } = e.target;
-        console.log(name, value);
-        setformData({ ...formData, [name]: value });
-        console.log("datA",formData);
-    }
-
-    async function handleSubmit() {
-        console.log(formData);
-
+        onSubmit: async (values) => {
             try {
-                await axios.post(`${baseURL}doctors/`, formData);
-              
-                toast.success("تم إضافة طبيب",
-                {autoClose:500}
-                );
-    
-
-             try {
-                 // await 
-                 qClient.refetchQueries('allDoctors')
-                 
-             } catch (error) {
-                toast.error(error)
-             }
-             setShowPopup({"option":null});
-    
-               
-    
-    
+                await axios.post(`${baseURL}doctors/`, values);
+                toast.success("تم إضافة طبيب", { autoClose: 500 });
+                qClient.refetchQueries('allDoctors');
+                setShowPopup({ "option": null });
             } catch (error) {
                 console.log("ERROR ====> ", error);
             }
+        },
+    });
 
 
+
+    // ? Updating doctor
+
+    // # Functions Using Axios to call APIs //
+    function updateDoctor(id) {
+        console.log(`${baseURL}doctors/${id}/`);
+        return axios.patch(`${baseURL}doctors/${id}/`,
+            formik.values
+        );
+    }
+
+    // # query for Updating Doctor
+
+    const y = useMutation('updateDoc', async (id) => { await updateDoctor(id) },
+        {
+            onSuccess: () => {
+
+                qClient.refetchQueries('allDoctors')
+
+                toast.success("تم تعديل الطبيب بنجاح",
+                    { autoClose: 500 });
+
+            }
+        });
+
+    // console.log("update doctor",y);
+
+    // # Handling onclicking buttons
+    function handlingUpdate() {
+        const doc = doctor
+        y.mutate(doc.id, {
+        })
     }
 
     return (
         <div>
 
             <h4>معلومات الطبيب</h4>
-            <div className="d-flex flex-column">
-                <label>الاسم </label>
-                <input name="name" value={formData.name} className="w-100" type="text" placeholder="  ادخل الاسم الطبيب"   onChange={handleChange} />
-            </div>
+
             <div className="row">
-                <div className="col-md-6">
-                    <div className="d-flex flex-column">
-                        <label>رقم الهاتف </label>
-                        <input className="" value={formData.phone} type="tel" placeholder="ادخل رقم الهاتف" name="phone" onChange={handleChange}  />
-                    </div>
-                </div>
 
-                <div className="col-md-6">
-
-                    <div className="d-flex flex-column">
-                        <label>رقم الهاتف ٢ </label>
-                        <input className=""  value={formData.phone2}  type="tel" placeholder="ادخل رقم الهاتف الثاني" name="phone2" onChange={handleChange} />
+                {inputConfigs.map((config, index) => (
+                    <div className={config.type == 'tel' ? "col-md-6" : "col-md-12"}>
+                        <div className="d-flex flex-column" key={index}>
+                            <label>{config.label}</label>
+                            <input
+                                name={config.name}
+                                type={config.type}
+                                value={formik.values[config.name]}
+                                placeholder={config.placeholder}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur} 
+                            />
+   {console.log("eerors fo ",formik.errors)}
+                            {formik.errors[config.name] && formik.touched[config.name]  ? (
+                                <p className="text-danger">{formik.errors[config.name] }</p>
+                            ) : (
+                                ""
+                            )}
+                        </div>
                     </div>
-                </div>
+                ))}
             </div>
-            <div className="d-flex flex-column">
-                <label>عنوان العيادة
-                </label>
-                <input className="w-100"  value={formData.address}  type="text" placeholder="ادخل عنوان العيادة" name="address" onChange={handleChange}  />
-            </div>
-            <div className="d-flex flex-column">
-                <label>رقم العيادة </label>
-                <input className="w-100" type="number" value={formData.clinicphone}  placeholder="ادخل رقم العيادة " name="clinicphone" onChange={handleChange}  />
-            </div>
-            <BookBtn txt={"حفظ طبيب"} handleSubmit={showPopup.data === null ? handleSubmit : handlingUpdate} />
+            <BookBtn txt={"حفظ طبيب"} handleSubmit={showPopup.data === null ? formik.handleSubmit : handlingUpdate} />
             <CancelBtn />
         </div>
     )

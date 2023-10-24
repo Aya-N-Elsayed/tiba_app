@@ -7,14 +7,8 @@ import toast from "react-hot-toast";
 import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
 import { baseURL } from "../../../App";
-import withReactContent from 'sweetalert2-react-content';
+import { handleTimeBooking} from '../../Utilities/Operation/TimeWidget'
 
-import { TimeWidget } from "../../TimeWidget/TimeWidget";
-import Swal from 'sweetalert2'
-import timeStyle from '../../TimeWidget/TimeWidget.module.css'
-import { useUpdateOperation } from "../../Utilities/DataMutating";
-import { useFormData } from "../../Utilities/OperationForm";
-import { handleTimeBooking, useHandleTimeBooking, usehandleTimeBooking } from "../../Utilities/TimeWidget";
 
 
 
@@ -22,7 +16,6 @@ import { handleTimeBooking, useHandleTimeBooking, usehandleTimeBooking } from ".
 export const Table = ({ data, refetchOperation }) => {
   const [showOptions, setshowOptions] = useState(new Array(data?.length).fill(false));
   const { setShowPopup, showPopup } = useContext(PopupContext);
-
 
 
 
@@ -179,7 +172,7 @@ export const Table = ({ data, refetchOperation }) => {
                 <td>{reserv.transferDoctor?.name}</td>
                 <td className="">
                   <div className="d-flex justify-content-center">
-                    <p className="m-0  " role="button" onClick={() => handleTimeBooking({ reserv })} >{reserv?.time}</p>
+                    <p className="m-0  " role="button" onClick={() =>  handleTimeBooking({ reserv })} >{reserv?.time}</p>
                     {console.log("timeee ",reserv["time"][0])}
                     <Switch confirmed={reserv?.status} handleOnChange={() => handleOnChangeSwitch( reserv )} />
                   </div>

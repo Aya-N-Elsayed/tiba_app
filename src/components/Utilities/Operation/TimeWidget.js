@@ -1,7 +1,5 @@
 import Swal from "sweetalert2";
-import timeStyle from '../TimeWidget/TimeWidget.module.css'
 import withReactContent from "sweetalert2-react-content";
-import { TimeWidget } from "../TimeWidget/TimeWidget";
 import { useUpdateOperation } from "./DataMutating";
 
 const MySwal = withReactContent(Swal);

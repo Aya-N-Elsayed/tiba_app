@@ -4,10 +4,10 @@ import { PopupContext } from '../../context/PopUpContext';
 import { MySelect } from './MySelect'
 import { CancelBtn } from '../Btns/CancelBtn';
 import toast from 'react-hot-toast';
-import { useAllDoctors, useAllEmployees, useAllPatients, useCaseTypes, useOperationTypes } from '../Utilities/DataFetching';
+import { useAllDoctors, useAllEmployees, useAllPatients, useCaseTypes, useOperationTypes } from '../Utilities/Operation/DataFetching';
 import { NewPatientBtn } from '../Btns/NewPatientBtn';
-import { submitOperation, useUpdateOperation } from '../Utilities/DataMutating';
-import { getInitialFormData, useFormData } from '../Utilities/OperationForm';
+import { submitOperation, useUpdateOperation } from '../Utilities/Operation/DataMutating';
+import { getInitialFormData, useFormData } from '../Utilities/Operation/OperationForm';
 import { useFormik, validateYupSchema } from 'formik';
 
 

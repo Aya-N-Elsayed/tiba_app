@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 import { useQuery } from 'react-query';
-import { baseURL } from '../../App';
+import { baseURL } from '../../../App';
 import toast from 'react-hot-toast';
 
 
