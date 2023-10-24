@@ -31,11 +31,11 @@ export const DoctorPop = () => {
 
 
     const validationSchema = Yup.object({
-        name: Yup.string().required('Name is required').min(3, "username must be more than 3 characters").max(50, "username must be less than 50 characters"),
-        phone: Yup.string().required('Phone is required').matches(/^01[0125][0-9]{8}/, "please enter a valid egyptian number"),
-        phone2: Yup.string().notRequired().matches(/^01[0125][0-9]{8}/, "please enter a valid egyptian number"),
-        address: Yup.string().required('Address is required'),
-        clinicphone: Yup.string().required('Clinic phone is required')
+        name: Yup.string().required('الاسم مطلوب').min(3, "يجب أن يكون الاسم أكثر من 3 أحرف").max(50, "يجب أن يكون الاسم أقل من 50 حرف"),
+        phone: Yup.string().required('رقم الهاتف مطلوب').matches(/^01[0125][0-9]{8}/, "يرجى إدخال رقم هاتف مصري صحيح"),
+        phone2: Yup.string().notRequired().matches(/^01[0125][0-9]{8}/, "يرجى إدخال رقم هاتف مصري صحيح"),
+        address: Yup.string().required('العنوان مطلوب').matches(/[a-zA-Z]/, 'العنوان يجب أن يحتوي على حروف'),
+        clinicphone: Yup.string().required('رقم العيادة مطلوب').matches(/^(0[0-9]{8}|01[0125][0-9]{8})$/, 'يرجى إدخال رقم هاتف أو رقم أرضي صالح في مصر')
     });
 
     const formik = useFormik({
@@ -116,7 +116,6 @@ export const DoctorPop = () => {
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur} 
                             />
-   {console.log("eerors fo ",formik.errors)}
                             {formik.errors[config.name] && formik.touched[config.name]  ? (
                                 <p className="text-danger">{formik.errors[config.name] }</p>
                             ) : (
