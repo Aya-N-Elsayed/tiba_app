@@ -23,7 +23,8 @@ const validationSchema = Yup.object({
 
     city: Yup.string()
         .required('العنوان مطلوب')
-        .matches(/[a-zA-Z]/, 'العنوان يجب أن يحتوي على حروف'),
+        // .matches(/[a-zA-Z]/, 'العنوان يجب أن يحتوي على حروف')
+    ,
 
         age: Yup.number()
         .required('العمر مطلوب')
@@ -32,7 +33,7 @@ const validationSchema = Yup.object({
     
     notes: Yup.string().notRequired(),
     medicalHistory: Yup.string().notRequired(),
-    birth_date: Yup.string().required(),
+    birth_date: Yup.string().required("تاريخ الميلاد مطلوب "    ),
     
     gender: Yup.string()
         .oneOf(['M', 'F'], 'نوع غير صحيح')
@@ -72,7 +73,8 @@ export function useFormicPatient() {
     
     
             } catch (error) {
-               toast.error(error)
+                toast.error(error.message)
+                console.log(error.message)
     
             }
         }

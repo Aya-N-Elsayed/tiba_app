@@ -48,7 +48,7 @@ export const Table = ({ data, refetchOperation }) => {
       }
     },
     onError: (error) => {
-      toast.error(error,":خطأ فى تعديل الحجز");
+      toast.error(error.message,":خطأ فى تعديل الحجز");
     },
 
 
