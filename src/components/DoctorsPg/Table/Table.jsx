@@ -1,71 +1,25 @@
-import axios from 'axios';
 import style from './Table.module.css'
-
-import { baseURL } from '../../../App'
 import { useContext, useEffect, useState } from 'react';
 import { ThreeDots } from 'react-loader-spinner'
-import { useQueryClient, useMutation, useQueries, useQuery } from 'react-query';
 import { PopupContext } from '../../../context/PopUpContext';
-import toast from 'react-hot-toast';
-
 import Options from '../../DeleteModify/Options';
-
-
+import { useAllDoctors } from '../../Utilities/Operation/DataFetching';
+import { useMutationDelete } from '../../Utilities/DataDeleting';
 
 
 export const Table = () => {
   const { setShowPopup, showPopup } = useContext(PopupContext);
 
 
-
-
-
   // ? Geting All doctor
-
-  // # Functions Using Axios to call APIs //
-  function getAllDoctors() {
-    return axios.get(`${baseURL}doctors/`);
-  }
-
-  // # query for getAllDoctors 
-  const { isError, isFetching, error, isLoading, data, refetch } = useQuery("allDoctors", getAllDoctors, {
-  });
-
-
-
-  
-  // ? //
-
-
+  const { isError, isLoading, data, refetch } = useAllDoctors();
+ 
   // ? Deleting a doctor 
-
-  function deleteDoctor(id) {
-    return axios.delete(`${baseURL}doctors/${id}/`);
-  }
-
 
 
   // # query for Deleting Doctor
 
-  const x = useMutation('deleteDoc', (id) =>
-    deleteDoctor(id), {
-    
-    onSuccess: async () => {
-
-      try {
-        await refetch({ force: true })
-
-      } catch (error) {
-        console.log("errrorrrrrrrrrrrrrrrr", error)
-          
-      }
-      toast.success(`تم حذف الطبيب `, { autoClose: 500 });
-    }
-    
-
-    
-  });
-
+  const x = useMutationDelete()
 
   function handlingDelete(doctor, idx) {
     x.mutate(doctor.id);
@@ -88,11 +42,6 @@ export const Table = () => {
     setshowOptions(tempArr);
 
   }
-
-
-
-
-
 
 
   function handlingUpdate(doctor, idx) {
@@ -120,14 +69,11 @@ export const Table = () => {
 
     return <>
       <h2>
-        Errorrrrrrrrrrrrrrrr
+        Error
       </h2>
     </>
 
   }
-
-
-  
 
   // ? //
 
@@ -160,13 +106,8 @@ export const Table = () => {
                 <td className=' '>{doctor.name}</td>
                 <td>{doctor.phone}</td>
                 <td>{doctor.phone2}</td>
-                <td>{doctor.address}
-                </td>
-                <td className="">
-
-                  <p className={` m-0`}>{doctor.clinicphone}</p>
-                </td>
-
+                <td>{doctor.address}</td>
+                <td>{doctor.clinicphone}</td>
                 <td>
                   <Options
                     show={showOptions[idx]}
@@ -175,11 +116,6 @@ export const Table = () => {
                     onDelete={() => handlingDelete(doctor, idx)}
                   />
                 </td>
-
-
-
-
-
               </tr>
             </>
 

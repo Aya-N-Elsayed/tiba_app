@@ -2,46 +2,57 @@
 
 import axios from "axios";
 import { useMutation, useQueryClient } from "react-query";
-import toast from 'react-hot-toast';
+import toast from "react-hot-toast";
 
-import { baseURL } from '../../../App';
-
-
-export function useRefetechOperation() {
-    const qOperation = useQueryClient();
-    return qOperation
-}
+import { baseURL } from "../../../App";
+import { useRefetech } from "../RefectchingQueries";
 
 export function submitOperation(formData) {
-    return axios.post(`${baseURL}reservations/`, formData);
+  return axios.post(`${baseURL}reservations/`, formData);
 }
 
-export async function updateOperation({ id, data }) {
-    try {
-        const response = await axios.patch(`${baseURL}reservations/${id}/`, data);
-        return response.data;
-    } catch (error) {
-        throw error;
-    }
+export function update({ id, data, endpoint }) {
+  //general
+  return axios.patch(`${baseURL}${endpoint}/${id}/`, data);
 }
 
-
-
-
-export function useUpdateOperation(refetchOperation) {
-    const qOperation= useRefetechOperation()
-    return useMutation('updateOperation', async ({ id,data }) =>  await updateOperation({id,data}) , {
-        onSuccess: (response) => {
-            toast.success("تم تعديل عملية بنجاح  ");
-            try {
-                qOperation.refetchQueries('allReservation')
-                // refetchOperation();
-            } catch (error) {
-                console.log({error})
-            }
-        },
-        onError: (error) => {
-            toast.error("خطأ فى تعديل الحجز  ", error);
+export function useUpdateOperation() {
+  const qOperation = useRefetech();
+  return useMutation(
+    "updateOperation",
+    async ({ id, data }) =>
+      await update({ id, data, endpoint: "reservations" }),
+    {
+      onSuccess: (response) => {
+        toast.success("تم تعديل عملية بنجاح  ");
+        try {
+          qOperation.refetchQueries("allReservation");
+        } catch (error) {
+          console.log({ error });
         }
-    });
+      },
+      onError: (error) => {
+        toast.error("خطأ فى تعديل الحجز  ", error.messege);
+      },
+    }
+  );
+}
+
+export function useUpdateDoctor() {
+  const qDoc = useRefetech();
+  return useMutation("updateDoctor",async ({ id, data }) => await update({ id, data, endpoint: "doctors" }),
+    {
+      onSuccess: (response) => {
+        toast.success("تم تعديل الطبيب بنجاح", { autoClose: 500 });
+        try {
+          qDoc.refetchQueries("getAllDoctors");
+        } catch (error) {
+          console.log({ error });
+        }
+      },
+      onError: (error) => {
+        toast.error("خطأ فى تعديل الطبيب", error.messege);
+      },
+    }
+  );
 }
