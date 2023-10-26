@@ -16,7 +16,7 @@ const validationSchema = Yup.object({
 });
 
 
-export function useFormicDoctor({ qClient }) {
+export function useFormikDoctor({ qClient }) {
     const { setShowPopup, showPopup } = useContext(PopupContext);
     
 

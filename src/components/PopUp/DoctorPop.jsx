@@ -2,13 +2,9 @@ import React, { useContext, useState } from 'react'
 import { BookBtn } from "../Btns/BookOBtn";
 import { CancelBtn } from "../Btns/CancelBtn";
 
-import axios from 'axios';
-import { baseURL } from '../../App';
 import { PopupContext } from '../../context/PopUpContext';
-import toast from 'react-hot-toast';
 import { useMutation, useQueryClient } from 'react-query';
-import { useFormicDoctor } from '../Utilities/Doctor/FormHandling';
-import { useUpdateDoctor } from '../Utilities/Operation/DataMutating';
+import { useFormikDoctor } from '../Utilities/Doctor/FormHandling';
 
 
 export const DoctorPop = () => {
@@ -29,7 +25,7 @@ export const DoctorPop = () => {
 
     //? Formik
 
-    const formik = useFormicDoctor({ qClient });
+    const formik = useFormikDoctor({ qClient });
 
     console.log("doc Formik ", formik.isValidating)
 
