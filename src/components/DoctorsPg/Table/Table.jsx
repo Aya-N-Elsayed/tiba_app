@@ -103,7 +103,7 @@ export const Table = () => {
             return <>
 
               <tr className='position-relative  ' >
-                <td className=' '>{doctor.name}</td>
+                <td className=' text-end'>{doctor.name}</td>
                 <td>{doctor.phone}</td>
                 <td>{doctor.phone2}</td>
                 <td>{doctor.address}</td>

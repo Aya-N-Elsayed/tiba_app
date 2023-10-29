@@ -1,48 +1,91 @@
 import React, { useEffect, useState } from 'react'
 
 import timeStyle from './TimeWidget.module.css'
+import withReactContent from 'sweetalert2-react-content';
+import Swal from 'sweetalert2';
 
 
+const MySwal = withReactContent(Swal);
 
-export const TimeWidget = ({ reserv }) => {
 
+export function handleTimeBooking({ reserv, updateMutation, setTimeState, timeState }) { 
     function extractTime(timeString) {
         const [time, p] = timeString.split(' ');
         const [h, m] = time.split(':');
         return { h, m, p };
-    }
-    const { h, m,  p } = extractTime(reserv.time);
-
-    const [hour, sethour] = useState(Number(h));
-    const [min, setmin] = useState(Number(m));
-    const [period, setperiod] = useState(p)
+      }
+      const { h, m, p } = extractTime(reserv.time);
+      setTimeState({ ...timeState, hour: Number(h), min:Number(m), period:p });
 
 
+    MySwal.fire(
+      {
+        title: 'حدد الوقت المناسب',
+        html: <TimeWidget reserv={reserv}  updateMutation={updateMutation} />,
+        heightAuto: false,
+        confirmButtonText: 'تم',
+        cancelButtonText: 'إلغاء',
+        showCancelButton: true,
+        customClass: {
+          confirmButton: ` ${timeStyle.bookBtn}`
+          ,
+          title: `${timeStyle.title}`
+        },
 
+        willOpen: () => {
+          document.body.style.overflow = 'hidden';  // Prevents scrolling
+
+        },
+        didClose: () => {
+          document.body.style.overflow = 'auto';  // Allows scrolling again
+        }
+
+
+      }).then((result) => {
+        if (result.isConfirmed) {
+          try {
+            updateMutation.mutate({ id: reserv?.id, data: { time: `${timeState.hour}:${timeState.min} ${timeState.period}` } });
+            console.log("++++++")
+        } catch (error) {
+          console.error("Mutation failed", error);
+        }
+        }
+      
+      })
     
 
-    
-    // ? Functions Handling time period selection 
+
+  };
+
+
+
+export const TimeWidget = ({ reserv,updateMutation,setTimeState,timeState }) => {
+
+
+    const {hour,min, period}  = timeState;
+ 
+    const updateState = (newState) => {
+        setTimeState({ ...timeState, ...newState });
+    };
+
     function handlePeriodClick() {
-        setperiod(period === 'ص' ? "م" : "ص")
-
+        updateState({ period: period === 'ص' ? 'م' : 'ص' });
     }
 
     function handleMinPre() {
-        setmin(min === 0 ? 59 : min - 1);
+        updateState({ min: min === 0 ? 59 : min - 1 });
     }
 
     function handleMinPost() {
-        setmin(min === 59 ? 0 : min + 1)
+        updateState({ min: min === 59 ? 0 : min + 1 });
     }
 
-
     function handleHourPre() {
-        sethour(hour === 0 ? 12 : hour - 1);
+        updateState({ hour: hour === 0 ? 12 : hour - 1 });
     }
 
     function handleHourPost() {
-        sethour(hour === 12 ? 0 : hour + 1)
+        updateState({ hour: hour === 12 ? 0 : hour + 1 });
     }
 
 

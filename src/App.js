@@ -65,8 +65,9 @@ function App() {
 
   return (
     <div className="App">
+       <QueryClientProvider client={queryClient}>
       <Toaster />
-     <QueryClientProvider client={queryClient}>
+
         {flag ? <LoginPg toggleFlag={toggleFlag} /> : <RouterProvider router={router} />} 
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>

@@ -11,7 +11,7 @@ const validationSchema = Yup.object({
     name: Yup.string().required('الاسم مطلوب').min(3, "يجب أن يكون الاسم أكثر من 3 أحرف").max(50, "يجب أن يكون الاسم أقل من 50 حرف"),
     phone: Yup.string().required('رقم الهاتف مطلوب').matches(/^01[0125][0-9]{8}/, "يرجى إدخال رقم هاتف مصري صحيح"),
     phone2: Yup.string().notRequired().matches(/^01[0125][0-9]{8}/, "يرجى إدخال رقم هاتف مصري صحيح"),
-    address: Yup.string().required('العنوان مطلوب').matches(/[a-zA-Z]/, 'العنوان يجب أن يحتوي على حروف'),
+    address: Yup.string().required('العنوان مطلوب').matches(/[\u0600-\u06FFa-zA-Z0-9]/, 'العنوان يجب أن يحتوي على حروف'),
     clinicphone: Yup.string().required('رقم العيادة مطلوب').matches(/^(0[0-9]{8}|01[0125][0-9]{8})$/, 'يرجى إدخال رقم هاتف أو رقم أرضي صالح في مصر')
 });
 
@@ -24,7 +24,7 @@ export function useFormikDoctor({ qClient }) {
         initialValues: {
             "name": showPopup.doctor?.name,
             "phone": showPopup.doctor?.phone,
-            "phone2": showPopup.doctor?.phone2,
+            "phone2": showPopup.doctor?.phone2 || '',
             "address": showPopup.doctor?.address,
             "clinicphone": showPopup.doctor?.clinicphone
         },

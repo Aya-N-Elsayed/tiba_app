@@ -1,16 +1,8 @@
 
 
-.mytable th{
-    color: var(--logo-greylogo-grey800);
-    font-size: 13px;
-    word-wrap: break-word;
-    text-align: center;
-    background-color: #00000008;
-    padding-block: 32px;
-    
-}
 
-.mytable td{
+
+.mytable tr td{
     color: var(--logo-colortypap-darkcolor);
     font-size: 13px;
     word-wrap: break-word;
@@ -21,12 +13,13 @@
    
     margin-block: 20px;
     padding-block: 20px;
+    width: fit-content !important;
 }
 
 .mytable thead{
     background-color:#00000008;
     /* border-radius: 16.8px; */
-    padding-inline: 64px;
+    /* padding-inline: 64px; */
 
     /* border: solid 0.7px red; */
 
@@ -34,6 +27,16 @@
     
 }
 
+.mytable tbody{
+
+    /* border-radius: 16.8px; */
+    padding-inline: 20px;
+
+    /* border: solid 0.7px red; */
+
+
+    
+}
 .mytable {
     margin-bottom: 23px;
     border:  transparent;
@@ -91,3 +94,13 @@
     top: 28.6px;
 }
 
+.mytable tr th {
+    color: var(--logo-greylogo-grey800);
+    font-size: 13px;
+    word-wrap: break-word;
+    text-align: center;
+    background-color: #00000008;
+    padding-block: 32px;
+    width: fit-content ;
+    
+}

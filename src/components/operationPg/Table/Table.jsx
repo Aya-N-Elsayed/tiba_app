@@ -7,7 +7,8 @@ import toast from "react-hot-toast";
 import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
 import { baseURL } from "../../../App";
-import { handleTimeBooking} from '../../Utilities/Operation/TimeWidget'
+import { useUpdateOperation } from "../../Utilities/Operation/DataMutating";
+import { handleTimeBooking } from "../../TimeWidget/TimeWidget";
 
 
 
@@ -20,7 +21,10 @@ export const Table = ({ data, refetchOperation }) => {
 
 
 
-  
+  const [timeState, setTimeState] = useState({ hour: 6, min: 30, period: "ص" });
+
+
+  const updateMutation = useUpdateOperation();
 
 
 
@@ -48,7 +52,7 @@ export const Table = ({ data, refetchOperation }) => {
       }
     },
     onError: (error) => {
-      toast.error(error.message,":خطأ فى تعديل الحجز");
+      toast.error(error.message, ":خطأ فى تعديل الحجز");
     },
 
 
@@ -122,7 +126,6 @@ export const Table = ({ data, refetchOperation }) => {
     const tempArr = [...showOptions];
     tempArr[idx] = false;
     setshowOptions(tempArr);
-    console.log("date in side the table", showPopup)
     setShowPopup({
       ...showPopup,
       "option": 'o', "data": { ...showPopup.data, "reserv": reserv, "refetchOperation": refetchOperation }
@@ -131,11 +134,6 @@ export const Table = ({ data, refetchOperation }) => {
 
 
   }
-
-  // useEffect(() => {
-
-  // },[updatedData["status"]])
- 
 
 
   return (
@@ -162,7 +160,7 @@ export const Table = ({ data, refetchOperation }) => {
           {data?.map((reserv, idx) => {
 
             return (
-              <tr className={`position-relative ${reserv.caseType.name === 'جديد' ? 'bgNew' : (reserv.caseType.name === 'حالة طبيب' ? 'bgDoctor' : '')}`}>
+              <tr className={`position-relative ${reserv.caseType?.name === 'جديد' ? 'bgNew' : (reserv.caseType?.name === 'حالة طبيب' ? 'bgDoctor' : '')}`}>
                 <td>{reserv.patient?.name}</td>
                 <td>{reserv.patient?.age}</td>
                 <td>{reserv.patient?.phone}</td>
@@ -172,9 +170,9 @@ export const Table = ({ data, refetchOperation }) => {
                 <td>{reserv.transferDoctor?.name}</td>
                 <td className="">
                   <div className="d-flex justify-content-center">
-                    <p className="m-0  " role="button" onClick={() =>  handleTimeBooking({ reserv })} >{reserv?.time}</p>
-                    {console.log("timeee ",reserv["time"][0])}
-                    <Switch confirmed={reserv?.status} handleOnChange={() => handleOnChangeSwitch( reserv )} />
+                    <p className="m-0  " role="button" onClick={() => handleTimeBooking({ reserv, updateMutation,setTimeState,timeState })} >{reserv?.time}</p>
+                    {console.log("timeee ", reserv["time"][0])}
+                    <Switch confirmed={reserv?.status} handleOnChange={() => handleOnChangeSwitch(reserv)} />
                   </div>
 
                 </td>

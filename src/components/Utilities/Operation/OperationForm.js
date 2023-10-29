@@ -54,11 +54,11 @@ export function useFormikOperation() {
         validationSchema,
         
         onSubmit: async (values) => {
-            const endpoint = showPopup.operation?.id 
-                ? `${baseURL}reservations/${showPopup.operation.id}/`  // update endpoint
+            const endpoint = showPopup.data?.reserv
+                ? `${baseURL}reservations/${values.id}/`  // update endpoint
                 : `${baseURL}reservations/`;                           // submit endpoint
         
-            const httpMethod = showPopup.operation?.id ? 'PUT' : 'POST';
+            const httpMethod = showPopup.data?.reserv?  'PUT' : 'POST';
         
             try {
                 await axios({
