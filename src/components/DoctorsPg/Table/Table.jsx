@@ -86,7 +86,7 @@ export const Table = () => {
       <table class={`${style.mytable} table align-middle `}>
         <thead>
           <tr className="">
-            <th scope="col">الاسم</th>
+            <th className="text-end pe-4" scope="col">الاسم</th>
             <th scope="col"> رقم الموبيل 1 </th>
             <th scope="col"> رقم الموبيل 2</th>
             <th scope="col">عنوان العيادة</th>
@@ -103,10 +103,10 @@ export const Table = () => {
             return <>
 
               <tr className='position-relative  ' >
-                <td className=' text-end'>{doctor.name}</td>
+                <td className=' text-end pe-4'title={doctor.name}>{doctor.name}</td>
                 <td>{doctor.phone}</td>
                 <td>{doctor.phone2}</td>
-                <td>{doctor.address}</td>
+                <td className=' text-end pe-4'title={doctor.address}>{doctor.address}</td>
                 <td>{doctor.clinicphone}</td>
                 <td>
                   <Options

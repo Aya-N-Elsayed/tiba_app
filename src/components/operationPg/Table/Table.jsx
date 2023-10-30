@@ -161,13 +161,13 @@ export const Table = ({ data, refetchOperation }) => {
 
             return (
               <tr className={`position-relative ${reserv.caseType?.name === 'جديد' ? 'bgNew' : (reserv.caseType?.name === 'حالة طبيب' ? 'bgDoctor' : '')}`}>
-                <td>{reserv.patient?.name}</td>
+                <td title={reserv.patient?.name}>{reserv.patient?.name}</td>
                 <td>{reserv.patient?.age}</td>
                 <td>{reserv.patient?.phone}</td>
                 <td> {reserv.patient?.city.name}</td>
                 <td>{reserv.operationType?.name}</td>
-                <td>{reserv.surgeon?.name}</td>
-                <td>{reserv.transferDoctor?.name}</td>
+                <td title={reserv.surgeon?.name}>{reserv.surgeon?.name}</td>
+                <td title={reserv.transferDoctor?.name}>{reserv.transferDoctor?.name}</td>
                 <td className="">
                   <div className="d-flex justify-content-center">
                     <p className="m-0  " role="button" onClick={() => handleTimeBooking({ reserv, updateMutation,setTimeState,timeState })} >{reserv?.time}</p>

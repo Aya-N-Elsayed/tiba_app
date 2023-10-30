@@ -21,7 +21,7 @@ export function handleTimeBooking({ reserv, updateMutation, setTimeState, timeSt
     MySwal.fire(
       {
         title: 'حدد الوقت المناسب',
-        html: <TimeWidget reserv={reserv}  updateMutation={updateMutation} />,
+        html: <TimeWidget reserv={reserv}  updateMutation={updateMutation} timeState={timeState} setTimeState={setTimeState}/>,
         heightAuto: false,
         confirmButtonText: 'تم',
         cancelButtonText: 'إلغاء',
@@ -65,10 +65,13 @@ export const TimeWidget = ({ reserv,updateMutation,setTimeState,timeState }) => 
     const {hour,min, period}  = timeState;
  
     const updateState = (newState) => {
+        console.log({newState})
         setTimeState({ ...timeState, ...newState });
+        console.log({timeState})
     };
 
     function handlePeriodClick() {
+        console.log("updating the period ")
         updateState({ period: period === 'ص' ? 'م' : 'ص' });
     }
 
@@ -111,6 +114,7 @@ export const TimeWidget = ({ reserv,updateMutation,setTimeState,timeState }) => 
     }
 
     function handlePeriodScroll(e) {
+        console.log("period scroll")
         e.stopPropagation();
         e.preventDefault();
         if (e.deltaY < 0) {
@@ -126,7 +130,7 @@ export const TimeWidget = ({ reserv,updateMutation,setTimeState,timeState }) => 
                 <div className="text-center" onWheel={handleHourScroll} >
                     <h6 className='mb-3'>ساعات</h6>
                     <h3 onClick={handleHourPre} className={`${timeStyle.pre}`}>{hour === 0 ? 12 : hour - 1}</h3>
-                    <h3 className={`${timeStyle.current}`}>{hour}</h3>
+                    <h3 className={`${timeStyle.current}`}>{timeState.hour}</h3>
                     <h3 onClick={handleHourPost} className={`${timeStyle.post}`}>{hour === 12 ? 0 : hour + 1} </h3>
                 </div>
                 <div className="text-center" onWheel={handleMinScroll} >
