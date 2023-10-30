@@ -30,6 +30,9 @@ export const MonthCalender = () => {
 
   useEffect(() => {
     refetch(); // Manually refetch when month changes
+    console.log({ isFetching })
+    console.log({ month })
+    console.log({data})
   }, [month]); // Dependency array
 
   const calendarData = Object.values(data?.data || {});

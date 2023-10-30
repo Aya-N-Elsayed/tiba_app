@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import timeStyle from './TimeWidget.module.css'
 import withReactContent from 'sweetalert2-react-content';
@@ -15,12 +15,15 @@ function extractTime(timeString) {
 export function handleTimeBooking({ reserv, updateMutation, setTimeState, timeState }) {
 
     // setTimeState({ ...timeState, hour: Number(h), min: Number(m), period: p });
+    let timeValue = {};
+
+
 
 
     MySwal.fire(
         {
             title: 'حدد الوقت المناسب',
-            html: <TimeWidget reserv={reserv} updateMutation={updateMutation} timeState={timeState} setTimeState={setTimeState} />,
+            html: <TimeWidget reserv={reserv}  timeState={timeState} setTimeState={setTimeState}  onTimeChange={(time) => { timeValue = time; }}/>,
             heightAuto: false,
             confirmButtonText: 'تم',
             cancelButtonText: 'إلغاء',
@@ -42,8 +45,10 @@ export function handleTimeBooking({ reserv, updateMutation, setTimeState, timeSt
 
         }).then((result) => {
             if (result.isConfirmed) {
+                const { hour, min, period } = timeValue;
+
                 try {
-                    updateMutation.mutate({ id: reserv?.id, data: { time: `${timeState.hour}:${timeState.min} ${timeState.period}` } });
+                    updateMutation.mutate({ id: reserv?.id, data: { time: `${hour}:${min} ${period}` } });
                     console.log("++++++")
                 } catch (error) {
                     console.error("Mutation failed", error);
@@ -58,7 +63,7 @@ export function handleTimeBooking({ reserv, updateMutation, setTimeState, timeSt
 
 
 
-export const TimeWidget = ({ reserv, updateMutation, setTimeState, timeState }) => {
+export const TimeWidget = ({ reserv, setTimeState, timeState, onTimeChange}) => {
 
 
 
@@ -68,31 +73,43 @@ export const TimeWidget = ({ reserv, updateMutation, setTimeState, timeState }) 
     const [period, setperiod] = useState(p)
 
     useEffect(() => {
-        setTimeState({...timeState, "hour": hour})
-        console.log({ timeState })
-        console.log({hour})
-      }, [hour]); // Dependency array
-
-    function handlePeriodClick() {
-        setperiod(period === 'ص' ? "م" : "ص")
-
-    }
-
-    function handleMinPre() {
-        setmin(min === 0 ? 59 : min - 1);
-    }
-
-    function handleMinPost() {
-        setmin(min === 59 ? 0 : min + 1)
-    }
+        // ... existing code
+        if (typeof onTimeChange === 'function') {
+            onTimeChange({ hour, min, period });
+        }
+    }, [hour, min, period]);
+    
 
     function handleHourPre() {
-        sethour(hour === 0 ? 12 : hour - 1);
-    }
+        const newHour = hour === 0 ? 12 : hour - 1;
+        sethour(newHour);
 
-    function handleHourPost() {
-        sethour(hour === 12 ? 0 : hour + 1)
     }
+    
+    function handleMinPost() {
+        const newMin = min === 59 ? 0 : min + 1;
+        setmin(newMin);
+    }
+    
+    function handlePeriodClick() {
+        const newPeriod = period === 'ص' ? "م" : "ص";
+        setperiod(newPeriod);
+
+    }
+    
+
+    function handleMinPre() {
+        const newMin = min === 0 ? 59 : min - 1;
+        setmin(newMin);
+      
+    }
+    
+    function handleHourPost() {
+        const newHour = hour === 12 ? 0 : hour + 1;
+        sethour(newHour);
+
+    }
+    
 
 
     function handleHourScroll(e) {
