@@ -7,88 +7,91 @@ import Swal from 'sweetalert2';
 
 const MySwal = withReactContent(Swal);
 
+function extractTime(timeString) {
+    const [time, p] = timeString.split(' ');
+    const [h, m] = time.split(':');
+    return { h, m, p };
+}
+export function handleTimeBooking({ reserv, updateMutation, setTimeState, timeState }) {
 
-export function handleTimeBooking({ reserv, updateMutation, setTimeState, timeState }) { 
-    function extractTime(timeString) {
-        const [time, p] = timeString.split(' ');
-        const [h, m] = time.split(':');
-        return { h, m, p };
-      }
-      const { h, m, p } = extractTime(reserv.time);
-      setTimeState({ ...timeState, hour: Number(h), min:Number(m), period:p });
+    // setTimeState({ ...timeState, hour: Number(h), min: Number(m), period: p });
 
 
     MySwal.fire(
-      {
-        title: 'حدد الوقت المناسب',
-        html: <TimeWidget reserv={reserv}  updateMutation={updateMutation} timeState={timeState} setTimeState={setTimeState}/>,
-        heightAuto: false,
-        confirmButtonText: 'تم',
-        cancelButtonText: 'إلغاء',
-        showCancelButton: true,
-        customClass: {
-          confirmButton: ` ${timeStyle.bookBtn}`
-          ,
-          title: `${timeStyle.title}`
-        },
+        {
+            title: 'حدد الوقت المناسب',
+            html: <TimeWidget reserv={reserv} updateMutation={updateMutation} timeState={timeState} setTimeState={setTimeState} />,
+            heightAuto: false,
+            confirmButtonText: 'تم',
+            cancelButtonText: 'إلغاء',
+            showCancelButton: true,
+            customClass: {
+                confirmButton: ` ${timeStyle.bookBtn}`
+                ,
+                title: `${timeStyle.title}`
+            },
 
-        willOpen: () => {
-          document.body.style.overflow = 'hidden';  // Prevents scrolling
+            willOpen: () => {
+                document.body.style.overflow = 'hidden';  // Prevents scrolling
 
-        },
-        didClose: () => {
-          document.body.style.overflow = 'auto';  // Allows scrolling again
-        }
-
-
-      }).then((result) => {
-        if (result.isConfirmed) {
-          try {
-            updateMutation.mutate({ id: reserv?.id, data: { time: `${timeState.hour}:${timeState.min} ${timeState.period}` } });
-            console.log("++++++")
-        } catch (error) {
-          console.error("Mutation failed", error);
-        }
-        }
-      
-      })
-    
+            },
+            didClose: () => {
+                document.body.style.overflow = 'auto';  // Allows scrolling again
+            }
 
 
-  };
+        }).then((result) => {
+            if (result.isConfirmed) {
+                try {
+                    updateMutation.mutate({ id: reserv?.id, data: { time: `${timeState.hour}:${timeState.min} ${timeState.period}` } });
+                    console.log("++++++")
+                } catch (error) {
+                    console.error("Mutation failed", error);
+                }
+            }
+
+        })
 
 
 
-export const TimeWidget = ({ reserv,updateMutation,setTimeState,timeState }) => {
+};
 
 
-    const {hour,min, period}  = timeState;
- 
-    const updateState = (newState) => {
-        console.log({newState})
-        setTimeState({ ...timeState, ...newState });
-        console.log({timeState})
-    };
+
+export const TimeWidget = ({ reserv, updateMutation, setTimeState, timeState }) => {
+
+
+
+    const { h, m, p } = extractTime(reserv.time);
+    const [hour, sethour] = useState(Number(h));
+    const [min, setmin] = useState(Number(m));
+    const [period, setperiod] = useState(p)
+
+    useEffect(() => {
+        setTimeState({...timeState, "hour": hour})
+        console.log({ timeState })
+        console.log({hour})
+      }, [hour]); // Dependency array
 
     function handlePeriodClick() {
-        console.log("updating the period ")
-        updateState({ period: period === 'ص' ? 'م' : 'ص' });
+        setperiod(period === 'ص' ? "م" : "ص")
+
     }
 
     function handleMinPre() {
-        updateState({ min: min === 0 ? 59 : min - 1 });
+        setmin(min === 0 ? 59 : min - 1);
     }
 
     function handleMinPost() {
-        updateState({ min: min === 59 ? 0 : min + 1 });
+        setmin(min === 59 ? 0 : min + 1)
     }
 
     function handleHourPre() {
-        updateState({ hour: hour === 0 ? 12 : hour - 1 });
+        sethour(hour === 0 ? 12 : hour - 1);
     }
 
     function handleHourPost() {
-        updateState({ hour: hour === 12 ? 0 : hour + 1 });
+        sethour(hour === 12 ? 0 : hour + 1)
     }
 
 
@@ -130,7 +133,7 @@ export const TimeWidget = ({ reserv,updateMutation,setTimeState,timeState }) => 
                 <div className="text-center" onWheel={handleHourScroll} >
                     <h6 className='mb-3'>ساعات</h6>
                     <h3 onClick={handleHourPre} className={`${timeStyle.pre}`}>{hour === 0 ? 12 : hour - 1}</h3>
-                    <h3 className={`${timeStyle.current}`}>{timeState.hour}</h3>
+                    <h3 className={`${timeStyle.current}`}>{hour}</h3>
                     <h3 onClick={handleHourPost} className={`${timeStyle.post}`}>{hour === 12 ? 0 : hour + 1} </h3>
                 </div>
                 <div className="text-center" onWheel={handleMinScroll} >

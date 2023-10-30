@@ -17,7 +17,6 @@ export const OperationPg = () => {
   const { setShowPopup, showPopup } = useContext(PopupContext);
 
   const { month, year, day } = useParams();
-  console.log(month, year, day)
 
   // ? Geting All doctor
 

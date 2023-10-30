@@ -34,3 +34,7 @@ export const useCaseTypes = () => {
 export const useAllEmployees = () => {
     return useQuery("getAllEmployees", () => fetchData('employees'));
 }
+
+export const useAllCity = () => {
+    return useQuery("getAllCity", () => fetchData('city'));
+}

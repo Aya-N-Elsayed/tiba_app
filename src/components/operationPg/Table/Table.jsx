@@ -58,7 +58,6 @@ export const Table = ({ data, refetchOperation }) => {
 
   });
 
-  console.log(patchMutation.status)
 
   const updateReservation = (id, updatedData) => {
     patchMutation.mutate({ id, updatedData }, {
@@ -171,7 +170,6 @@ export const Table = ({ data, refetchOperation }) => {
                 <td className="">
                   <div className="d-flex justify-content-center">
                     <p className="m-0  " role="button" onClick={() => handleTimeBooking({ reserv, updateMutation,setTimeState,timeState })} >{reserv?.time}</p>
-                    {console.log("timeee ", reserv["time"][0])}
                     <Switch confirmed={reserv?.status} handleOnChange={() => handleOnChangeSwitch(reserv)} />
                   </div>
 

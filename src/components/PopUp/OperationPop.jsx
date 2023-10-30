@@ -21,14 +21,7 @@ export const OperationPop = () => {
     // Use the mutation hook from the separated file
     const updateMutation = useUpdateOperation("refetchOperation");
 
-    function handleUpdate({ formik }) {
-        try {
-            updateMutation.mutate({ id: formik?.id, data: formik });
 
-        } catch (error) {
-            toast.error("خطأ فى تعديل الحجز", error);
-        }
-    }
 
 
 
@@ -39,7 +32,6 @@ export const OperationPop = () => {
     const { data: { data: employees } = {} } = useAllEmployees();    //  Get employee Api
 
 
-console.log({formik})
 
 const selectConfigs = [
     {

@@ -444,3 +444,16 @@ nav{
 .card{
   height: 100%;
 }
+
+input[type="date" i] {
+  font-family: monospace;
+  padding-inline-start: 1px;
+  cursor: default;
+  align-items: center;
+  display: inline-flex;
+  overflow: hidden;
+  padding: 0px;
+  color: red;
+  /* flex-direction: row-reverse; */
+  justify-content: space-between;
+}
