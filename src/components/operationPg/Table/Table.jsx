@@ -9,7 +9,7 @@ import axios from "axios";
 import { baseURL } from "../../../App";
 import { useUpdateOperation } from "../../Utilities/Operation/DataMutating";
 import { handleTimeBooking } from "../../TimeWidget/TimeWidget";
-
+import { ClipLoader } from "react-spinners";
 
 
 
@@ -58,6 +58,9 @@ export const Table = ({ data, refetchOperation }) => {
 
   });
 
+  const switchLoading = patchMutation.isLoading;
+
+  console.log({patchMutation})
 
   const updateReservation = (id, updatedData) => {
     patchMutation.mutate({ id, updatedData }, {
@@ -169,8 +172,8 @@ export const Table = ({ data, refetchOperation }) => {
                 <td title={reserv.transferDoctor?.name}>{reserv.transferDoctor?.name}</td>
                 <td className="">
                   <div className="d-flex justify-content-center">
-                    <p className="m-0  " role="button" onClick={() => handleTimeBooking({ reserv, updateMutation,setTimeState,timeState })} >{reserv?.time}</p>
-                    <Switch confirmed={reserv?.status} handleOnChange={() => handleOnChangeSwitch(reserv)} />
+                    <p className="m-0 ms-2 " role="button" onClick={() => handleTimeBooking({ reserv, updateMutation,setTimeState,timeState })} >{reserv?.time}</p>
+                   {switchLoading && patchMutation.variables.id === reserv.id?     <ClipLoader color="var(--logo-colortypap-lightnesscolor)" size={25} />: <Switch confirmed={reserv?.status} handleOnChange={() => handleOnChangeSwitch(reserv)} />}
                   </div>
 
                 </td>
