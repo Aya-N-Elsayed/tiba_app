@@ -4,36 +4,24 @@ import { Dates } from "./Dates";
 
 import { monthArr } from "./Dates";
 import axios from "axios";
-
 import { baseURL } from "../../App";
 import { useQuery } from "react-query";
 import { ThreeDots } from "react-loader-spinner";
+import { useMonthsReservations } from "../Utilities/Operation/DataFetching";
 
 export const MonthCalender = () => {
-  let dayCount = 0; // Counter for days
 
   const [month, setmonth] = useState(new Date().getMonth() + 1);
   const [year, setyear] = useState(new Date().getFullYear());
 
   // ? Getting reservations for current month
 
-  // # axios
-  function getMonthReservations() {
-    return axios.get(`${baseURL}calendar/?month=${month}&year=${year}`, {});
-  }
 
-  const { isError, isFetching, isLoading, data, refetch } =  useQuery("MonthReservations",   getMonthReservations,
-    {
-      enabled: true,
-    }
-  );
+  const { isError, isFetching, isLoading, data, refetch } =  useMonthsReservations({month,year})
 
-  useEffect(() => {
-    refetch(); // Manually refetch when month changes
-    console.log({ isFetching })
-    console.log({ month })
-    console.log({data})
-  }, [month]); // Dependency array
+  // useEffect(() => {
+  //   refetch(); // Manually refetch when month changes
+  // }, [month]); // Dependency array
 
   const calendarData = Object.values(data?.data || {});
 

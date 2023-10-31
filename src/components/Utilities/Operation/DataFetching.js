@@ -6,9 +6,10 @@ import { baseURL } from '../../../App';
 import toast from 'react-hot-toast';
 
 
-const fetchData = async (endpoint) => {
+const fetchData = async (endpoint, params = {}) => {
     try {
-        const response = await axios.get(`${baseURL}${endpoint}/`);
+        const response = await axios.get(`${baseURL}${endpoint}/`, { params });
+        console.log({response});
         return response;
     } catch (error) {
         toast.error(`خطأ فى السيرفر  ${endpoint}: ${error.message}`);
@@ -38,3 +39,9 @@ export const useAllEmployees = () => {
 export const useAllCity = () => {
     return useQuery("getAllCity", () => fetchData('city'));
 }
+
+  
+export const useMonthsReservations = ({month, year}) => {
+   return  useQuery(["MonthReservations", month, year], ()=> fetchData('calendar', { month, year }));
+}
+  
