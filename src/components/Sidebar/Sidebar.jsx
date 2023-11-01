@@ -1,10 +1,20 @@
+import { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 
 export const Sidebar = () => {
   const location = useLocation();
+  const [showSidebar, setShowSidebar] = useState(false);
 
-  return (
-    <div className="sidebar">
+const toggleSidebar = () => {
+  setShowSidebar(!showSidebar);
+}
+
+
+  return (  <>
+<button id="sidebarToggle" onClick={toggleSidebar} className="d-md-none">Toggle Sidebar</button>
+<div className={`sidebar ${showSidebar ?'d-none':  'd-block d-md-none' }d-block`}>
+  
+
       <img className="logoimg" alt="tiba logo" src="/images/image-1.png" />
       <ul className="nav navbar-nav flex-column text-end p-0">
         <li className={`nav-item home d-flex align-items-center ${location.pathname === '/' ? 'activeLink' : ''} ${location.pathname === '/dashboard' ? 'activeLink' : ''}`}>
@@ -28,5 +38,6 @@ export const Sidebar = () => {
       </ul>
 
     </div>
+    </>
   );
 };

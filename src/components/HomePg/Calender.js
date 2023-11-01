@@ -17,19 +17,13 @@ export const MonthCalender = () => {
   // ? Getting reservations for current month
 
 
-  const { isError, isFetching, isLoading, data, refetch } =  useMonthsReservations({month,year})
-
-  // useEffect(() => {
-  //   refetch(); // Manually refetch when month changes
-  // }, [month]); // Dependency array
+  const { isError, isLoading, data, refetch } =  useMonthsReservations({month,year})
 
   const calendarData = Object.values(data?.data || {});
-
 
   let startIndex = 7 - calendarData.findIndex((item) => item.Weekday === "السبت");
   
   startIndex = startIndex === 7 ? 0 : startIndex;
-    console.log({ startIndex })
 
 
   // ?  //
