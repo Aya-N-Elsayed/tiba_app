@@ -33,7 +33,8 @@ export const Card = ({month , day, year,apiData, monthNum, refetchReserve}) => {
 
   return (
     <div className="card h-100 " >
-      <div className="card-body text-end p-0" onClick={() =>showDayReservation({monthNum,year,day})}>
+      <div className="card-body text-end p-0" onClick={year === '-' ? undefined : () => showDayReservation({monthNum, year, day})}
+>
         <h6 className="weekday text-center">{ apiData?.Weekday??day}</h6>
         <div className="date text-center d-flex justify-content-center">
         <h5 className="day ms-1"> {day} </h5>
