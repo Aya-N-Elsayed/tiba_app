@@ -11,8 +11,8 @@ const toggleSidebar = () => {
 
 
   return (  <>
-<button id="sidebarToggle" onClick={toggleSidebar} className="d-md-none">Toggle Sidebar</button>
-<div className={`sidebar ${showSidebar ?'d-none':  'd-block d-md-none' }d-block`}>
+<button id="sidebarToggle" onClick={toggleSidebar} className="d-md-none btn btn-outline-primary"><img src="./images/bars-solid.svg" alt="" /></button>
+<div className={`sidebar ${showSidebar || window.innerWidth >= 768 ? 'd-block' : 'd-none d-md-block'}`}>
   
 
       <img className="logoimg" alt="tiba logo" src="/images/image-1.png" />

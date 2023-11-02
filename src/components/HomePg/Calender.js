@@ -1,11 +1,7 @@
 import { useEffect, useState } from "react";
 import { Card } from "./Card";
 import { Dates } from "./Dates";
-
 import { monthArr } from "./Dates";
-import axios from "axios";
-import { baseURL } from "../../App";
-import { useQuery } from "react-query";
 import { ThreeDots } from "react-loader-spinner";
 import { useMonthsReservations } from "../Utilities/Operation/DataFetching";
 
@@ -13,6 +9,8 @@ export const MonthCalender = () => {
 
   const [month, setmonth] = useState(new Date().getMonth() + 1);
   const [year, setyear] = useState(new Date().getFullYear());
+  const daysOfWeek = ["السبت","الأحد", "الاثنين","الثلاثاء", "الأربعاء", "الخميس", "الجمعة"];
+  
 
   // ? Getting reservations for current month
 
@@ -30,6 +28,7 @@ export const MonthCalender = () => {
 
   function handleStartday() {
     let cards = [];
+    const nDisableCards = startIndex
     
     while (startIndex > 0) {
       cards.push(
@@ -37,9 +36,9 @@ export const MonthCalender = () => {
           <Card
             month={''}
             day={''}
-            year={''}
-            monthNum={''}
-            apiData={''}
+            year={'-'}
+            monthNum={'-'}
+            apiData={{ 'Weekday': daysOfWeek[nDisableCards - startIndex] }}
             refetchReserve={''}
           />
         </div>
@@ -51,15 +50,7 @@ export const MonthCalender = () => {
 }
 
 
-  // # Loading screen
 
-  if (isLoading && !isError) {
-    return (
-      <div className=" d-flex justify-content-center">
-        <ThreeDots color="var(--logo-colortypap-lightnesscolor)" />
-      </div>
-    );
-  }
 
   return (
     <div className="calender container">
@@ -71,7 +62,14 @@ export const MonthCalender = () => {
           setyear={setyear}
         />
       </div>
-      <div className="row gx-2 gy-1 col-md-auto">
+      
+
+{ (isLoading && !isError) ?
+  
+    <div className=" d-flex justify-content-center">
+      <ThreeDots color="var(--logo-colortypap-lightnesscolor)" />
+        </div>
+        :       <div className="row gx-2 gy-1 col-md-auto">
         {handleStartday()}
         {Array.isArray(calendarData) &&
           calendarData.map((card, index) => {
@@ -92,6 +90,9 @@ export const MonthCalender = () => {
             );
           })}
       </div>
+  
+}
+
     </div>
   );
 };
