@@ -43,7 +43,7 @@ export const Card = ({month , day, year,apiData, monthNum, refetchReserve}) => {
 
 
         <div className={year==='-'?'d-none':'d-flex'}>
-          <div className="cardText ms-4">
+          <div className="cardText ms-3">
 
             <div className="d-flex  justify-content-start">
 
@@ -53,7 +53,7 @@ export const Card = ({month , day, year,apiData, monthNum, refetchReserve}) => {
               </div>
 
         </div>
-          <div className="cardText ms-4 ">
+          <div className="cardText ms-3 ">
             <div className="d-flex  justify-content-start">
               <img className="icons " alt="Image" src="/images/Checkbox.svg" />
               <p className="confirmed numbers  me-2"> { apiData?.Confirmed??'-'}</p>
