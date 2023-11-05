@@ -1,31 +1,22 @@
 import React from 'react';
 import style from './Options.module.css';  // Create a new CSS module for styling
 
-const Options = ({ show, onUpdate, onDelete, setShow }) => {
-
-    // console.log("operation ",{show})
+const Options = ({  onUpdate, onDelete }) => {
 
 
   return (
     <>
-      <img 
-        role='button' 
-        src="/images/vector.svg" 
-        alt="Options Icon" 
-        onClick={setShow}  // Toggle show state
-      />
-      {show && 
-        <div className={`${style.options} d-flex flex-column justify-content-between align-items-center`}>
+
+  
+        <div className={` d-flex align-items-center justify-content-center`}>
           <button type='button' className={style.editBtn} onClick={onUpdate}>
-            <img role='button' src="/images/edit-2.svg" className='ms-2' />
-            تعديل
+            <img role='button' src="/images/edit-2.svg" className='' />
           </button>
           <button type='button' className={style.deleteBtn} onClick={onDelete}>
-            <img role='button' src="/images/trash.svg" className='ms-2' />
-            حذف
+            <img role='button' src="/images/trash.svg" className='' />
           </button>
         </div>
-      }
+      
     </>
   );
 };

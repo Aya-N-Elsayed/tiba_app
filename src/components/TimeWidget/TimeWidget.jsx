@@ -63,7 +63,7 @@ export function handleTimeBooking({ reserv, updateMutation, setTimeState, timeSt
 
 
 
-export const TimeWidget = ({ reserv, setTimeState, timeState, onTimeChange}) => {
+export const TimeWidget = ({ reserv, onTimeChange}) => {
 
 
 

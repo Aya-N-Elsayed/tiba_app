@@ -15,7 +15,6 @@ import { ClipLoader } from "react-spinners";
 
 
 export const Table = ({ data, refetchOperation }) => {
-  const [showOptions, setshowOptions] = useState(new Array(data?.length).fill(false));
   const { setShowPopup, showPopup } = useContext(PopupContext);
 
 
@@ -101,33 +100,17 @@ export const Table = ({ data, refetchOperation }) => {
     mutation.mutate(reserv.id, {
 
     });
-
-    const tempArr = [...showOptions];
-    tempArr[idx] = false;
-    setshowOptions(tempArr);
   }
 
 
 
 
-  function optionsHandleClick(idx) { //Handling showing the option lists
-
-    const tempArr = [...showOptions];
-    tempArr[idx] = !tempArr[idx];
-
-
-
-
-    setshowOptions(tempArr);
-
-  }
+ 
 
 
 
   function handlingUpdate(reserv, idx) {
-    const tempArr = [...showOptions];
-    tempArr[idx] = false;
-    setshowOptions(tempArr);
+
     setShowPopup({
       ...showPopup,
       "option": 'o', "data": { ...showPopup.data, "reserv": reserv, "refetchOperation": refetchOperation }
@@ -162,7 +145,7 @@ export const Table = ({ data, refetchOperation }) => {
           {data?.map((reserv, idx) => {
 
             return (
-              <tr className={`position-relative ${reserv.caseType?.name === 'جديد' ? 'bgNew' : (reserv.caseType?.name === 'حالة طبيب' ? 'bgDoctor' : '')}`}>
+              <tr className={` ${reserv.caseType?.name === 'جديد' ? 'bgNew' : (reserv.caseType?.name === 'حالة طبيب' ? 'bgDoctor' : '')}`}>
                 <td title={reserv.patient?.name}>{reserv.patient?.name}</td>
                 <td>{reserv.patient?.age}</td>
                 <td>{reserv.patient?.phone}</td>
@@ -187,8 +170,7 @@ export const Table = ({ data, refetchOperation }) => {
 
                 <td>
                   <Options
-                    show={showOptions[idx]}
-                    setShow={() => optionsHandleClick(idx)}
+   
                     onUpdate={() => handlingUpdate(reserv, idx)}
                     onDelete={() => handlingDelete(reserv, idx)}
                   />

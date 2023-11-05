@@ -23,31 +23,14 @@ export const Table = () => {
 
   function handlingDelete(doctor, idx) {
     x.mutate(doctor.id);
-    const tempArr = [...showOptions];
-    tempArr[idx] = false;
-    setshowOptions(tempArr);
-  }
-
-
-  const [showOptions, setshowOptions] = useState(new Array(data?.data?.length).fill(false));
-
-
-  // # Handling onclicking buttons
-
-  function optionsHandleClick(idx) { //Handling showing the option lists
-
-    const tempArr = [...showOptions];
-    tempArr[idx] = !tempArr[idx];
-
-    setshowOptions(tempArr);
 
   }
+
+
 
 
   function handlingUpdate(doctor, idx) {
-    const tempArr = [...showOptions];
-    tempArr[idx] = false;
-    setshowOptions(tempArr);
+
     setShowPopup({ ...showPopup, "option": 'd', doctor, "data": refetch })
 
 
@@ -102,16 +85,14 @@ export const Table = () => {
           {data?.data?.map(function (doctor, idx) {
             return <>
 
-              <tr className='position-relative  ' >
+              <tr className=' ' >
                 <td className=' text-end pe-4'title={doctor.name}>{doctor.name}</td>
                 <td>{doctor.phone}</td>
                 <td>{doctor.phone2}</td>
                 <td className=' text-end pe-4'title={doctor.address}>{doctor.address}</td>
                 <td>{doctor.clinicphone}</td>
-                <td>
+                <td className=''>
                   <Options
-                    show={showOptions[idx]}
-                    setShow = {()=>optionsHandleClick(idx)}
                     onUpdate={() => handlingUpdate(doctor, idx)}
                     onDelete={() => handlingDelete(doctor, idx)}
                   />
