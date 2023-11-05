@@ -58,7 +58,6 @@ export const DoctorPop = () => {
             </div>
             <BookBtn txt={showPopup?.data  === null ?   "إضافة طبيب" : "تحديث طبيب "}
                 handleSubmit={formik.handleSubmit} />
-            <CancelBtn />
         </div>
     )
 }

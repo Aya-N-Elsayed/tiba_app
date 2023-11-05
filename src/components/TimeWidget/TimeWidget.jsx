@@ -87,7 +87,7 @@ export const TimeWidget = ({ reserv, setTimeState, timeState, onTimeChange}) => 
     }
     
     function handleMinPost() {
-        const newMin = min === 59 ? 0 : min + 1;
+        const newMin = min === 55 ? 0 : min + 5;
         setmin(newMin);
     }
     
@@ -99,7 +99,7 @@ export const TimeWidget = ({ reserv, setTimeState, timeState, onTimeChange}) => 
     
 
     function handleMinPre() {
-        const newMin = min === 0 ? 59 : min - 1;
+        const newMin = min === 0 ? 55 : min - 5;
         setmin(newMin);
       
     }

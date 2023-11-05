@@ -44,7 +44,7 @@ export const PatientPop = () => {
                 <button className={style.backBtn}
                     type='button'
                     onClick={() => {
-                        setShowPopup({ "option": 'o' })
+                        setShowPopup({ ...showPopup, "option": 'o' });
                     }}
                 >
                     <div className="d-flex align-items-center">
@@ -72,7 +72,6 @@ export const PatientPop = () => {
 
 
             <BookBtn txt={"حفظ مريض"} handleSubmit={formik.handleSubmit} />
-            <CancelBtn />
 
         </div>
     )

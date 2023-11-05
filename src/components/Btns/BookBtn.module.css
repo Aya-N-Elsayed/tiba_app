@@ -16,12 +16,9 @@
 }
 
 .newPatientBtn {
- display: flex;
- justify-content: center;
- align-items: center ;
+
   border-radius: 12.5px;
-  /* box-shadow: var(--btn-lightness); */
-  padding: 10px 8px;
+  padding: 5px 8px;
   border: 1px solid;
   color: white;
   margin-top: 10px;
@@ -30,6 +27,7 @@
   color: var(--logo-colortypap-lightnesscolor);
   background-color: transparent;
   border-color: var(--logo-colortypap-lightnesscolor);
+  width: 100%;
 }
 
 
