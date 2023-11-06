@@ -23,7 +23,7 @@ export function handleTimeBooking({ reserv, updateMutation, setTimeState, timeSt
     MySwal.fire(
         {
             title: 'حدد الوقت المناسب',
-            html: <TimeWidget reserv={reserv}  timeState={timeState} setTimeState={setTimeState}  onTimeChange={(time) => { timeValue = time; }}/>,
+            html: <TimeWidget reserv={reserv} timeState={timeState} setTimeState={setTimeState} onTimeChange={(time) => { timeValue = time; }} />,
             heightAuto: false,
             confirmButtonText: 'تم',
             cancelButtonText: 'إلغاء',
@@ -63,7 +63,7 @@ export function handleTimeBooking({ reserv, updateMutation, setTimeState, timeSt
 
 
 
-export const TimeWidget = ({ reserv, onTimeChange}) => {
+export const TimeWidget = ({ reserv, onTimeChange }) => {
 
 
 
@@ -78,38 +78,38 @@ export const TimeWidget = ({ reserv, onTimeChange}) => {
             onTimeChange({ hour, min, period });
         }
     }, [hour, min, period]);
-    
+
 
     function handleHourPre() {
         const newHour = hour === 0 ? 12 : hour - 1;
         sethour(newHour);
 
     }
-    
+
     function handleMinPost() {
         const newMin = min === 55 ? 0 : min + 5;
         setmin(newMin);
     }
-    
+
     function handlePeriodClick() {
         const newPeriod = period === 'ص' ? "م" : "ص";
         setperiod(newPeriod);
 
     }
-    
+
 
     function handleMinPre() {
         const newMin = min === 0 ? 55 : min - 5;
         setmin(newMin);
-      
+
     }
-    
+
     function handleHourPost() {
         const newHour = hour === 12 ? 0 : hour + 1;
         sethour(newHour);
 
     }
-    
+
 
 
     function handleHourScroll(e) {
@@ -147,20 +147,22 @@ export const TimeWidget = ({ reserv, onTimeChange}) => {
     return (
         <div className={timeStyle.widget}>
             <div className={`${timeStyle.time} d-flex align-items-center justify-content-evenly my-5`}>
+                <div className="text-center" onWheel={handleMinScroll} >
+                    <h6 className='mb-0'>دقائق</h6>
+                    <h3 onClick={handleMinPre} className={`${timeStyle.pre}`}>{min === 0 ? 55 : min - 5}</h3>
+                    <h3 className={`${timeStyle.current}`}>{min}</h3>
+                    <h3 onClick={handleMinPost} className={`${timeStyle.post}`}>{min === 55 ? 0 : min + 5}</h3>
+                </div>
                 <div className="text-center" onWheel={handleHourScroll} >
-                    <h6 className='mb-3'>ساعات</h6>
+                    <h6 className='mb-0'>ساعات</h6>
                     <h3 onClick={handleHourPre} className={`${timeStyle.pre}`}>{hour === 0 ? 12 : hour - 1}</h3>
                     <h3 className={`${timeStyle.current}`}>{hour}</h3>
                     <h3 onClick={handleHourPost} className={`${timeStyle.post}`}>{hour === 12 ? 0 : hour + 1} </h3>
                 </div>
-                <div className="text-center" onWheel={handleMinScroll} >
-                    <h6 className='mb-3'>دقائق</h6>
-                    <h3 onClick={handleMinPre} className={`${timeStyle.pre}`}>{min === 0 ? 59 : min - 1}</h3>
-                    <h3 className={`${timeStyle.current}`}>{min}</h3>
-                    <h3 onClick={handleMinPost} className={`${timeStyle.post}`}>{min === 59 ? 0 : min + 1}</h3>
-                </div>
-                <div className="text-center" onWheel={handlePeriodScroll} >
-                    <h3 onClick={handlePeriodClick} className={`${timeStyle.pre}`}>{period === 'ص' ? "م" : "ص"}</h3>
+
+                <div className={`text-center ${timeStyle.period}`} onWheel={handlePeriodScroll} >
+
+                    <h3 onClick={handlePeriodClick} className={`${timeStyle.pre} `}>{period === 'ص' ? "م" : "ص"}</h3>
                     <h3 onClick={handlePeriodClick} className={`${timeStyle.current}`}>{period}</h3>
                 </div>
             </div>

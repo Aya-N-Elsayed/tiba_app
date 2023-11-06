@@ -1,8 +1,19 @@
 .time h6{
-    font-size: 12px;
+    font-size: 16px;
     font-weight: 500;
     color: var(--primary-greygreyscale700);
+    line-height: 0;
     
+}
+
+.time h3{
+    font-size: larger;
+}
+
+
+.pre{
+    margin-top: 30px;
+
 }
 
 .current{
@@ -16,8 +27,11 @@
 
 }
 
+.period{
+    transform: translateY(-19px);
+}
 .pre , .post{
-    font-size: 12.5px;
+    font-size: 14px;
     font-weight: 500;
     color: var(--logo-greylogo-grey400);
     cursor: pointer;
