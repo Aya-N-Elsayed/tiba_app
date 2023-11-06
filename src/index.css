@@ -444,6 +444,10 @@ nav{
   width: fit-content;
 }
 
+.w-10{
+  width: 10%;
+}
+
 .card{
   height: 100%;
 }

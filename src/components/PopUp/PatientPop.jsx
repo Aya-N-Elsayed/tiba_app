@@ -41,10 +41,15 @@ export const PatientPop = () => {
             <div className="d-flex justify-content-between align-items-center">
 
                 <h4>معلومات المريض</h4>
-                <button className={style.backBtn}
-                    type='button'
+                <button className={style.backBtn} type='button'
                     onClick={() => {
-                        setShowPopup({ ...showPopup, "option": 'o' });
+                        console.log({ showPopup })
+                        if (showPopup?.data?.date) {
+                            setShowPopup({ ...showPopup, "option": 'o' });
+                        }
+
+                        else setShowPopup({"option":null})
+                        
                     }}
                 >
                     <div className="d-flex align-items-center">

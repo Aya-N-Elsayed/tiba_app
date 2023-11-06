@@ -47,7 +47,7 @@ export const Card = ({month , day, year,apiData, monthNum, refetchReserve}) => {
 
             <div className="d-flex  justify-content-start">
 
-              <img className="icons " alt="Image" src="/images/eye-laser.svg" />
+              <img className="icons " alt="Image" src="/images/EllipseCirle.svg"/>
               <p className="operations numbers me-2">{ apiData?.Reservations??'-'}</p>
 
               </div>

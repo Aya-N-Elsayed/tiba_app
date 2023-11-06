@@ -145,7 +145,7 @@ export const OperationPop = () => {
 
 
             <BookBtn
-                txt={showPopup.data.reserv === null ? "حجز" : "تحديث"}
+                txt={showPopup?.data?.reserv === null ? "حجز" : "تحديث"}
                 handleSubmit={formik.handleSubmit}
             />
 
