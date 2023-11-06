@@ -5,30 +5,45 @@ import { PatientPop } from "./PatientPop";
 import { OperationPop } from "./OperationPop";
 import { PopupContext } from "../../context/PopUpContext";
 
-export const PopUp = ({
-    title,
-}) => {
+export const PopUp = ({ title }) => {
     const { showPopup, setShowPopup } = useContext(PopupContext);
 
     const handleSubmit = (e) => {
-        // e.preventDefault();
         console.log("submitted");
         setShowPopup({ "option": null });
-        // Handle form submission logic (API call) later
+    };
+
+    const handleOutsideClick = (e) => {
+        console.log({e})
+        // Ensure that it's not a click inside the popup
+        if (!e.target.closest(`.${style.popupContainer}`)) {
+            setShowPopup({ "option": null });
+        }
+    };
+
+    const handleEscapePress = (e) => {
+        if (e.key === 'Escape') {
+            setShowPopup({ "option": null });
+        }
     };
 
     useEffect(() => {
         if (showPopup.option !== null) {
             document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = 'auto';
+            document.addEventListener('mousedown', handleOutsideClick);
+            document.addEventListener('keydown', handleEscapePress);
         }
 
-        // Cleanup function: In case the component is unmounted while the popup is still visible
         return () => {
             document.body.style.overflow = 'auto';
+            document.removeEventListener('mousedown', handleOutsideClick);
+            document.removeEventListener('keydown', handleEscapePress);
         };
     }, [showPopup]);
+
+    // ... rest of your component
+
+
 
     return (
         <>
