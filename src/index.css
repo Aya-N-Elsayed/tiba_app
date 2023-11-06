@@ -275,9 +275,7 @@ nav{
 
 }
 
-.card button img{
-  margin-left: 8px;
-}
+
 
 .detailsBtn{
   color: var(--logo-colortypap-color);
@@ -385,6 +383,11 @@ nav{
   max-height: 16px;
 
   /* display: none; */
+}
+
+.btnicons{
+  margin-left: 8px;
+
 }
 
 /* # dates controller */

@@ -11,23 +11,31 @@ import { PopupContext } from '../../../context/PopUpContext';
 import { useRefetech } from '../RefectchingQueries';
 
 
-export function getInitialFormData(data) {
+function formatDateString(dateString) {
+    if (!dateString) return '';
+    
+    const [year, month, day] = dateString.split('-');
+    return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+  }
+  
+  export function getInitialFormData(data) {
     return {
-        fileNumber: data?.reserv?.fileNumber || '',
-        operationNumber: data?.reserv?.operationNumber || '',
-        patient: data?.reserv?.patient?.id || '',
-        surgeon: data?.reserv?.surgeon?.id || '',
-        transferDoctor: data?.reserv?.transferDoctor?.id || '',
-        date: data?.date || data?.reserv?.date,
-        time: data?.reserv?.time || `10:10 ص`,
-        operationType: data?.reserv?.operationType?.id || '',
-        caseType: data?.reserv?.caseType?.id || '',
-        employee: data?.reserv?.employee?.phone || '',
-        notes: data?.reserv?.notes || '',
-        id: data?.reserv?.id || '',
-        // any other fields...
+      fileNumber: data?.reserv?.fileNumber || '',
+      operationNumber: data?.reserv?.operationNumber || '',
+      patient: data?.reserv?.patient?.id || '',
+      surgeon: data?.reserv?.surgeon?.id || '',
+      transferDoctor: data?.reserv?.transferDoctor?.id || '',
+      date: formatDateString(data?.date) || formatDateString(data?.reserv?.date)|| "",
+      time: data?.reserv?.time || `10:10 ص`,
+      operationType: data?.reserv?.operationType?.id || '',
+      caseType: data?.reserv?.caseType?.id || '',
+      employee: data?.reserv?.employee?.phone || '',
+      notes: data?.reserv?.notes || '',
+      id: data?.reserv?.id || '',
+      // any other fields...
     }
-};
+  };
+  
 
 const validationSchema = Yup.object({
     fileNumber: Yup.string().notRequired(),
@@ -35,7 +43,7 @@ const validationSchema = Yup.object({
     patient: Yup.number().required('المريض مطلوب'),
     surgeon: Yup.number().required('الجراح مطلوب'),
     transferDoctor: Yup.number().notRequired(),
-    // date: Yup.date().required('تاريخ العملية مطلوب'),
+    date: Yup.date().required('تاريخ العملية مطلوب'),
     operationType: Yup.number().required('نوع العملية مطلوب'),
     caseType: Yup.number().required('نوع الحالة مطلوب'),
     employee: Yup.string().required(' الموظف مطلوب'),
@@ -66,7 +74,7 @@ export function useFormikOperation() {
                     url: endpoint,
                     data: values
                 });
-                toast.success(showPopup.data.reserv? "تم تحديث العملية" : "تم إضافة العملية", { autoClose: 500 });
+                toast.success(showPopup?.data?.reserv? "تم تحديث العملية" : "تم إضافة العملية", { autoClose: 500 });
                
                 try {
                     qOperation.refetchQueries('allReservation');
@@ -84,7 +92,11 @@ export function useFormikOperation() {
             } catch (error) {
                 toast.error(showPopup.data.reserv? "خطأ في تحديث العملية" : "خطأ في إضافة العملية");
             }
+
+            console.log({showPopup})
+
         }
+
     });
     return formik;
 }

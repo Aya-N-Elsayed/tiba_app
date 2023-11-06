@@ -6,6 +6,7 @@ import { useAllDoctors, useAllEmployees, useAllPatients, useCaseTypes, useOperat
 import { NewPatientBtn } from '../Btns/NewPatientBtn';
 import { submitOperation, useUpdateOperation } from '../Utilities/Operation/DataMutating';
 import { getInitialformik, useformik, useFormikOperation } from '../Utilities/Operation/OperationForm';
+import { InputComponent } from '../Utilities/Patient/RenderingInputs';
 
 
 export const OperationPop = () => {
@@ -74,6 +75,9 @@ export const OperationPop = () => {
         }
     ];
 
+    const dateConfig =         { label: 'تاريخ العملية', name: 'date', type: 'date', placeholder: 'ادخل تاريخ العملية' }
+
+
     const renderMySelect = (config, optionsData, formik) => {
         const options = config.optionTransform
             ? optionsData[config.optionsKey]?.map(config.optionTransform)
@@ -97,7 +101,7 @@ export const OperationPop = () => {
         )
     }
 
-
+  console.log({showPopup})
     return (
         <div>
 
@@ -127,6 +131,9 @@ export const OperationPop = () => {
 
 
             </div>
+
+            <InputComponent config={dateConfig} formik={formik} />
+
             <div className="d-flex flex-column">
                 <label>ملاحظات</label>
                 <textarea placeholder="ادخل الملاحظات"
@@ -143,9 +150,9 @@ export const OperationPop = () => {
             <h4>حدد الوقت المناسب</h4>
 
 
-
+         {console.log({formik})}
             <BookBtn
-                txt={showPopup?.data?.reserv === null ? "حجز" : "تحديث"}
+                txt={showPopup?.data?.reserv != null ? "تحديث" :"حجز" }
                 handleSubmit={formik.handleSubmit}
             />
 

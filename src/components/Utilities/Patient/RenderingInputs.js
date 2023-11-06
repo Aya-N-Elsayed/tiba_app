@@ -3,9 +3,12 @@ import genderStyle from '../../PopUp/PopUp.module.css'
 
 // InputComponent.jsx
 export const InputComponent = ({ config, formik }) => (
+
     <div className={config.name === 'name'? "col-md-12" : "col-md-6"}>
         <div className="d-flex flex-column">
-    <label>{config.label}</label>
+      <label>{config.label}</label>
+      {console.log(formik.values.date)}
+
     <input
       className="w-100"
       type={config.type}

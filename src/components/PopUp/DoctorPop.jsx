@@ -56,8 +56,8 @@ export const DoctorPop = () => {
                     </div>
                 ))}
             </div>
-            <BookBtn txt={showPopup?.data  === null ?   "إضافة طبيب" : "تحديث طبيب "}
-                handleSubmit={formik.handleSubmit} />
+            <div className="mt-4">   <BookBtn txt={showPopup?.data  === null ?   "إضافة طبيب" : "تحديث طبيب "}
+                handleSubmit={formik.handleSubmit} /> </div>
         </div>
     )
 }

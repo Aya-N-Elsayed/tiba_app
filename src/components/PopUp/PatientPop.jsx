@@ -48,8 +48,9 @@ export const PatientPop = () => {
                             setShowPopup({ ...showPopup, "option": 'o' });
                         }
 
-                        else setShowPopup({"option":null})
-                        
+                        else setShowPopup({ "option": null })
+                        console.log({ showPopup })
+
                     }}
                 >
                     <div className="d-flex align-items-center">
@@ -69,15 +70,15 @@ export const PatientPop = () => {
                         {config.type === 'select' && <SelectComponent config={config} formik={formik} />}
                         {config.type === 'textarea' && <TextareaComponent config={config} formik={formik} />}
                         {config.type === 'gender' && <GenderComponent config={config} formik={formik} />}
-                        {(config.type ==='tel' || config.type === 'text' || config.type ==='date') && <InputComponent config={config} formik={formik} />}
+                        {(config.type === 'tel' || config.type === 'text' || config.type === 'date') && <InputComponent config={config} formik={formik} />}
                     </>
                 ))}
             </div>
 
 
 
-            <BookBtn txt={"حفظ مريض"} handleSubmit={formik.handleSubmit} />
-
+            <div className="mt-4">            <BookBtn txt={"حفظ مريض"} handleSubmit={formik.handleSubmit} />
+            </div>
         </div>
     )
 }

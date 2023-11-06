@@ -57,17 +57,15 @@ export const OperationPg = () => {
   
         <div className="d-flex align-items-center ">
           <BackBtn />
-          <button
-            type="button" onClick={() => {
+          <button   type="button" onClick={() => {
 
               setShowPopup({
                 ...showPopup, "option": 'o', "data": {
                   "date": `${year}-${month}-${day}`,
                   "refetchOperation": refetch,
-                  "reserv": null
-                }
-})
-            }}
+                  "reserv": null  }})
+          
+          }}
             className={`${style.bookBtn}  me-2  d-flex flex-row-reverse justify-content-center align-items-center `}
           >
             <p className='m-0'>حجز عملية</p>
