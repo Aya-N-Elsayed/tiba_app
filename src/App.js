@@ -22,7 +22,7 @@ const queryClient = new QueryClient();
 
 
 
-export const baseURL = 'http://tiba-prod-lb-1257743901.eu-north-1.elb.amazonaws.com/';
+export const baseURL = 'http://tiba-prod-lb-1257743901.eu-north-1.elb.amazonaws.com/api/';
 
 
 function App() {
