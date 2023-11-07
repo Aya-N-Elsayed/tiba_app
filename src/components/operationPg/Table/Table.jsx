@@ -96,7 +96,7 @@ export const Table = ({ data, refetchOperation }) => {
     }
   });
 
-  function handlingDelete(reserv, idx) {
+  function handlingDelete(reserv) {
     mutation.mutate(reserv.id, {
 
     });
@@ -109,7 +109,7 @@ export const Table = ({ data, refetchOperation }) => {
 
 
 
-  function handlingUpdate(reserv, idx) {
+  function handlingUpdate(reserv) {
 
     setShowPopup({
       ...showPopup,
@@ -171,8 +171,8 @@ export const Table = ({ data, refetchOperation }) => {
                 <td>
                   <Options
    
-                    onUpdate={() => handlingUpdate(reserv, idx)}
-                    onDelete={() => handlingDelete(reserv, idx)}
+                    onUpdate={() => handlingUpdate(reserv)}
+                    onDelete={() => handlingDelete(reserv)}
                   />
                 </td>
 

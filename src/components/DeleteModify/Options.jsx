@@ -1,5 +1,6 @@
 import React from 'react';
 import style from './Options.module.css';  // Create a new CSS module for styling
+import { handelDelete } from '../ConfirmDelete/ConfirmDelete';
 
 const Options = ({  onUpdate, onDelete }) => {
 
@@ -12,7 +13,10 @@ const Options = ({  onUpdate, onDelete }) => {
           <button type='button' className={style.editBtn} onClick={onUpdate}>
             <img role='button' src="/images/edit-2.svg" className='' />
           </button>
-          <button type='button' className={style.deleteBtn} onClick={onDelete}>
+        <button type='button' className={style.deleteBtn}
+          onClick={() => handelDelete({ onDelete })}
+          // {onDelete}
+        >
             <img role='button' src="/images/trash.svg" className='' />
           </button>
         </div>
