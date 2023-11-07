@@ -1,0 +1,63 @@
+
+.filterPg {
+    padding: 33.7px 21px;
+    border-radius: 14px;
+    margin-block: 22px 24px;
+}
+.dropdown_toggle::after {
+    display: inline-block;
+    margin-right: 95%;
+    vertical-align: 0.255em;
+    content: "";
+    border-top: 0.3em solid;
+    border-right: 0.3em solid transparent;
+    border-bottom: 0;
+    border-left: 0.3em solid transparent;
+    color: inherit;
+}
+
+
+.filter li:nth-child(3){
+    color: #F1E941;
+}
+
+.filter li:nth-child(2){
+    color: #328BCD;
+}
+
+.fitlerBtns h6, .fitlerBtns h4{
+    color: var(--logo-greylogo-grey800) ;
+    font-size: 14px;
+    font-weight: 400;
+    word-wrap: break-word;
+}
+
+.fitlerBtns button{
+    
+    border: 0.7px solid var(--logo-greylogo-grey400) ;
+    padding: 16.8px;
+    border-radius: 16.8px ;
+    background-color: transparent;
+    width: 116px;
+}
+
+.fitlerBtns div{
+    margin-left: 41px;
+}
+
+.fitlerBtns h4{
+    margin-bottom: 19px;
+}
+
+.fitlerBtns {
+    margin-top: 45px ;
+}
+
+button{
+    background-color: #F1E941;
+    color: red;
+}
+.aybtn{
+    background-color: #e541f1;
+    color: rgb(138, 156, 38);
+}

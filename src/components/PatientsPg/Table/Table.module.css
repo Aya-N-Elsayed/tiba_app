@@ -1,0 +1,77 @@
+
+
+.mytable {
+    margin-bottom: 23px;
+    border:  transparent;
+    border-radius: 16.8px;
+    border-collapse: separate;
+    overflow: hidden;
+    border-spacing: 0 ;
+    box-shadow:  0px 4px 12px 0px rgba(0, 0, 0, 0.1);
+
+
+
+}
+
+
+
+.mytable thead tr{
+    background-color: transparent;
+    border-radius: 16.8px;
+    padding-inline: 0px;
+    overflow: hidden;
+    
+
+    
+    
+}
+
+.mytable thead {
+    background-color: #00000008;
+    border-radius: 16.8px;
+    padding-inline: 0px;
+    overflow: hidden;
+    
+
+    
+    
+}
+
+
+
+.mytable tr th {
+    color: var(--logo-greylogo-grey800);
+    font-size: 13px;
+    word-wrap: break-word;
+    text-align: center;
+    background-color: transparent;
+    padding-block: 32px;
+    width: fit-content ;
+    padding-inline: 0px;
+    /* border-radius: 16.8px; */
+
+    
+}
+
+
+
+.mytable tr td{
+    color: var(--logo-colortypap-darkcolor);
+    font-size: 13px;
+    text-align: center;
+    font-weight: 400;
+    background-color: inherit; 
+    margin-block: 20px;
+    padding-block: 20px;
+    max-width: 150px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+
+
+
+
+

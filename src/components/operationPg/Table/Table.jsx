@@ -126,6 +126,7 @@ export const Table = ({ data, refetchOperation }) => {
       <table className={`${style.mytable} table align-middle`}>
         <thead className="">
           <tr className="">
+            <th>م</th>
             <th scope="col">الاسم</th>
             <th scope="col">العمر</th>
             <th scope="col">التليفون</th>
@@ -146,6 +147,7 @@ export const Table = ({ data, refetchOperation }) => {
 
             return (
               <tr className={` ${reserv.caseType?.name === 'جديد' ? 'bgNew' : (reserv.caseType?.name === 'حالة طبيب' ? 'bgDoctor' : '')}`}>
+                <td>{reserv?.id }</td>
                 <td title={reserv.patient?.name}>{reserv.patient?.name}</td>
                 <td>{reserv.patient?.age}</td>
                 <td>{reserv.patient?.phone}</td>
