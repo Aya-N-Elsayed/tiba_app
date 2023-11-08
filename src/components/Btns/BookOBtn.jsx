@@ -1,7 +1,8 @@
 import React from 'react'
 import styles from './BookBtn.module.css'
 
-export const BookBtn = ({txt ,handleSubmit}) => {
+export const BookBtn = ({ txt, handleSubmit }) => {
+
   return (
     <button
     type="submit" onClick={handleSubmit}

@@ -1,18 +1,14 @@
 import React from 'react';
 import Select from 'react-select';
 
-import selectStyle from './PopUp.module.css'
-
-
-
-
-
-export const MySelect = ({ label, options, placeholder, onChange, selectedValue, selLabel, styleClass }) => {
+export const MySelect = ({ label, options, placeholder, onChange, selectedValue, selLabel, styleClass , onMenuClose}) => {
 
     // Handling the change event from react-select
     const handleChange = selectedOption => {
         onChange(selectedOption.value);
     };
+
+
 
     // Formatting the options for react-select
     const formattedOptions = options?.map(option => ({
@@ -31,7 +27,8 @@ export const MySelect = ({ label, options, placeholder, onChange, selectedValue,
                 options={formattedOptions}
                 placeholder={placeholder}
           onChange={handleChange}
-          styles={customStyles(styleClass)}
+                styles={customStyles(styleClass)}
+                onMenuClose={onMenuClose}
 
             />
         </div>
@@ -53,7 +50,7 @@ control: (base) => ({
   border: '0.52px solid var(--primary-greygreyscale400main)',
   backgroundColor: 'var(--bg-color)',
   padding: 0,
-  marginBottom: styleClass?.includes('m-0') ? 0 : 27
+  marginBottom: styleClass?.includes('m-0') ? 0 : 1
 }),
 // Add other style customizations if needed
 });

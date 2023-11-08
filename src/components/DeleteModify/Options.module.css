@@ -1,43 +1,29 @@
 
 
 .editBtn{
-    color: var(--logo-greylogo-grey800) ;
-    background-color: var(--logo-greylogo-grey200);
-    font-size: 11px;
-    font-weight: 400;
-    border-radius: 3.5px;
+    background-color: #00000008;
+
     border: 1px solid transparent;
-    padding: 5.61px 8.42px;
+    padding: 8px;
+    border-radius: 20px;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
-    margin-bottom: 10px;
+    margin-left: 10px;
+ 
+ 
 }
 
 .deleteBtn{
-    color: #F50404;
-    background-color: var(--logo-greylogo-grey200);
-    font-size: 11px;
-    font-weight: 400;
-    border-radius: 3.5px;
+    background-color: #F504041A;
     border: 1px solid transparent;
-    padding: 5.61px 8.42px;
+    padding: 8px;
+    border-radius: 20px;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
+ 
+
 }
 
-.options{
-    /* left: 0px; */
 
-    width: fit-content ;
-    padding: 5px 8.42px;
-    background-color: rgb(252, 252, 252);
-    border-radius: 7px;
-    border: 1px solid transparent;
-    box-shadow: 1px 1px 16px 10px #0000000d !important;
-    position:absolute;
-    left: 55px;
-    top: 20px;
-    z-index: 99999;
-}

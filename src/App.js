@@ -12,6 +12,7 @@ import { PopupProvider, PopupContext } from "./context/PopUpContext";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Toaster } from "react-hot-toast";
 import { ReactQueryDevtools } from 'react-query/devtools';
+import { Patients } from "./components/PatientsPg/Patients";
 
 
 
@@ -22,7 +23,10 @@ const queryClient = new QueryClient();
 
 
 
-export const baseURL = 'https://tiba-backend.vercel.app/api/';
+// export const baseURL = 'https://tiba-backend.vercel.app/api/';
+// export const baseURL = 'http://tiba-prod-lb-1257743901.eu-north-1.elb.amazonaws.com/api/';
+export const baseURL = process.env.REACT_APP_BASEURL;
+
 
 
 function App() {
@@ -45,7 +49,8 @@ function App() {
         { path: '/home', element: <HomePg /> },
         { path: '/login', element: <LoginPg /> },
         { path: '/operations/:month/:year/:day', element: <OperationPg /> },
-        { path: '/doctors', element: <Doctors />}
+        { path: '/doctors', element: <Doctors /> },
+        { path: '/patients', element: <Patients />}
       ]
     },
   ]
@@ -65,8 +70,9 @@ function App() {
 
   return (
     <div className="App">
+       <QueryClientProvider client={queryClient}>
       <Toaster />
-     <QueryClientProvider client={queryClient}>
+
         {flag ? <LoginPg toggleFlag={toggleFlag} /> : <RouterProvider router={router} />} 
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>

@@ -3,14 +3,10 @@ import { BookBtn } from "../Btns/BookOBtn"
 import { CancelBtn } from "../Btns/CancelBtn";
 import { PopupContext } from '../../context/PopUpContext';
 import style from '../Btns/BookBtn.module.css'
-import { BackBtn } from '../Btns/BackBtn';
-
-import genderStyle from './PopUp.module.css'
-import axios from 'axios';
-import toast from 'react-hot-toast';
-import { baseURL } from '../../App';
-import { MySelect } from './MySelect';
-import { useQuery } from 'react-query';
+import { useFormicPatient } from '../Utilities/Patient/FormHandling';
+import { useAllCity } from '../Utilities/Operation/DataFetching';
+import { GenderComponent, InputComponent, SelectComponent, TextareaComponent } from '../Utilities/Patient/RenderingInputs';
+import { useQueryClient } from 'react-query';
 
 
 
@@ -18,55 +14,26 @@ export const PatientPop = () => {
 
 
     const { setShowPopup, showPopup } = useContext(PopupContext);
+    const qClient = useQueryClient()
 
-    function getAllCities() {
-        return axios.get(`${baseURL}city/`);
-    }
+    const { data: { data: city } = {} } = useAllCity();
 
-    const { data: { data: city } = {}, isLoading, isError } = useQuery("getAllCities", getAllCities);
+    const inputConfigs = [
+        { label: 'اسم المريض', name: 'name', type: 'text', placeholder: 'ادخل اسم المريض' },
+        { label: 'العمر', name: 'age', type: 'text', inputmode: 'number', placeholder: 'ادخل العمر' },
+        { label: 'المدينة', name: 'city', type: 'select', placeholder: 'اختار المدينة', options: city, fieldName: 'city' },
 
-    const [formData, setFormData] = useState({
-        name: "",
-        age: "",
-        gender: "F",
-        phone: "",
-        phone2: "",
-        birth_date: "",
-        medicalHistory: "سكر",
-        notes: "",
-        city: '',
-    });
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData(prevState => ({
-            ...prevState,
-            [name]: value
-        }));
-    };
-    async function handleSubmit() {
-
-        console.log({ formData });
-
-        try {
-            await axios.post(`${baseURL}patients/`, formData);
-            setShowPopup({ "option": null });
-            console.log({ showPopup })
-            toast.success("تم إضافة مريض",
-                { autoClose: 500 }
-            );
+        { label: 'النوع', name: 'gender', type: 'gender' },
+        { label: 'رقم الهاتف', name: 'phone', type: 'tel', placeholder: 'ادخل رقم الهاتف' },
+        { label: 'رقم الهاتف ٢', name: 'phone2', type: 'tel', placeholder: 'ادخل رقم الهاتف الثاني' },
+        { label: 'تاريخ الميلاد', name: 'birth_date', type: 'date', placeholder: 'ادخل تاريخ الميلاد' },
+        { label: 'التاريخ المرضى', name: 'medicalHistory', type: 'text', placeholder: 'ادخل التاريخ المرضى' },
+        { label: 'ملاحظات', name: 'notes', type: 'textarea', placeholder: 'ادخل الملاحظات' }
+    ];
 
 
+    const formik = useFormicPatient({qClient});
 
-
-
-
-
-        } catch (error) {
-
-
-        }
-    };
 
     return (
         <div>
@@ -74,10 +41,16 @@ export const PatientPop = () => {
             <div className="d-flex justify-content-between align-items-center">
 
                 <h4>معلومات المريض</h4>
-                <button className={style.backBtn}
-                    type='button'
+                <button className={style.backBtn} type='button'
                     onClick={() => {
-                        setShowPopup({ "option": 'o' })
+                        console.log({ showPopup })
+                        if (showPopup?.data?.date) {
+                            setShowPopup({ ...showPopup, "option": 'o' });
+                        }
+
+                        else setShowPopup({ "option": null })
+                        console.log({ showPopup })
+
                     }}
                 >
                     <div className="d-flex align-items-center">
@@ -91,134 +64,22 @@ export const PatientPop = () => {
             </div>
 
 
-
-
-            <div className="d-flex flex-column">
-                <label> اسم المريض </label>
-                <input
-                    className="w-100"
-                    type="text"
-                    placeholder="ادخل اسم المريض"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                />
-            </div>
-
-            <div className="d-flex flex-column">
-                <label>العمر </label>
-                <input
-                    className="w-100"
-                    type="number"
-                    placeholder="ادخل العمر"
-                    name="age"
-                    value={formData.age}
-                    onChange={handleChange}
-                />
-            </div>
-
-            <div className={`${genderStyle.genderSection} d-flex flex-column`}>
-
-                <label>النوع</label>
-                <div className={`d-flex justify-content-start ${genderStyle.genderOptions}`}>
-
-                    <div className="formCheckReverse p-1">
-                        <input
-                            className="formCheckInput"
-                            type="radio"
-                            name="gender"
-                            value="M"
-                            id="male"
-                        />
-                        <label className="formCheckLabel me-1" htmlFor="male">ذكر  </label>
-                    </div>
-
-                    <div className="formCheckReverse p-1">
-                        <input
-                            className="formCheckInput"
-                            type="radio"
-                            name="gender"
-                            value="F"
-                            id="female"
-                        />
-                        <label className="formCheckLabel me-1" htmlFor="female">أنثى</label>
-                    </div>
-                </div>
-            </div>
-
-
-            <div className="d-flex flex-column">
-                <label>رقم الهاتف </label>
-                <input
-                    className="w-100"
-                    type="tel"
-                    placeholder="ادخل رقم الهاتف"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                />
-            </div>
-
-            <div className="d-flex flex-column">
-                <label>رقم الهاتف ٢ </label>
-                <input
-                    className="w-100"
-                    type="tel"
-                    placeholder="ادخل رقم الهاتف الثاني"
-                    name="phone2"
-                    value={formData.phone2}
-                    onChange={handleChange}
-                />
-            </div>
-
-            <div className="d-flex flex-column">
-                <label>تاريخ الميلاد </label>
-                <input
-                    className="w-100"
-                    type="text"
-                    placeholder="ادخل تاريخ الميلاد"
-                    name="birth_date"
-                    value={formData.birth_date}
-                    onChange={handleChange}
-                />
-            </div>
-
-            <MySelect
-                label="المدينة"
-                placeholder="اختار المدينة"
-                options={city?.map(city => ({ value: city.id, label: city.name }))}
-                onChange={(value) => setFormData({ ...formData, "city": Number(value) })}
-            />
-
-            <div className="d-flex flex-column">
-                <label>التاريخ المرضى</label>
-                <input
-                    className="w-100"
-                    type="text"
-                    placeholder="اختر التاريخ"
-                    name='medicalHistory'
-
-                    value={formData.medicalHistory}
-                    onChange={handleChange}
-                />
-            </div>
-
-
-            <div className="d-flex flex-column">
-                <label>ملاحظات </label>
-                <textarea
-                    placeholder="ادخل الملاحظات"
-                    name="notes"
-                    value={formData.notes}
-                    onChange={handleChange}
-                />
+            <div className="row">
+                {inputConfigs.map((config, index) => (
+                    <>
+                        {config.type === 'select' && <SelectComponent config={config} formik={formik} />}
+                        {config.type === 'textarea' && <TextareaComponent config={config} formik={formik} />}
+                        {config.type === 'gender' && <GenderComponent config={config} formik={formik} />}
+                        {(config.type === 'tel' || config.type === 'text' || config.type === 'date') && <InputComponent config={config} formik={formik} />}
+                    </>
+                ))}
             </div>
 
 
 
-            <BookBtn txt={"حفظ مريض"} handleSubmit={handleSubmit} />
-            <CancelBtn />
-
+            <div className="mt-4">            <BookBtn txt={showPopup?.patient?.id ?   "تحديث مريض" : "إضافة مريض"}
+ handleSubmit={formik.handleSubmit} />
+            </div>
         </div>
     )
 }

@@ -1,407 +1,165 @@
 import React, { useContext, useState } from 'react'
 import { BookBtn } from '../Btns/BookOBtn'
-import styles from '../Btns/BookBtn.module.css'
 import { PopupContext } from '../../context/PopUpContext';
-import timeStyle from './OperationPop.module.css';
-import selectStyle from './PopUp.module.css'
-
-
-import { baseURL } from "../../App";
-import { useMutation, useQuery, useQueryClient } from "react-query";
-import axios from "axios";
-
 import { MySelect } from './MySelect'
-import { CancelBtn } from '../Btns/CancelBtn';
-import toast from 'react-hot-toast';
+import { useAllDoctors, useAllEmployees, useAllPatients, useCaseTypes, useOperationTypes } from '../Utilities/Operation/DataFetching';
+import { NewPatientBtn } from '../Btns/NewPatientBtn';
+import { submitOperation, useUpdateOperation } from '../Utilities/Operation/DataMutating';
+import { getInitialformik, useformik, useFormikOperation } from '../Utilities/Operation/OperationForm';
+import { InputComponent } from '../Utilities/Patient/RenderingInputs';
 
 
 export const OperationPop = () => {
 
     const { setShowPopup, showPopup } = useContext(PopupContext);
-    const queryClient = useQueryClient();
-    
-
-    const [hour, sethour] = useState(10);
-    const [min, setmin] = useState(59);
-    const [period, setperiod] = useState("ص")
 
     //    ?   set up form data 
-
-    const refetchReserve = showPopup.data?.refetchReserve;
-    const refetchOperation = showPopup.data?.refetchOperation;
-    
-    console.log({showPopup})
-    console.log("reserv",showPopup.data.reserv )
-
-    const [formData, setformData] = useState({
-        "fileNumber": showPopup.data.reserv?.fileNumber || '', // <-- use showPopup.data reserv if available, otherwise default to empty.
-        "operationNumber": showPopup.data.reserv?.operationNumber || '',
-        "patient": showPopup.data.reserv?.patient?.id || '',
-        "surgeon": showPopup.data.reserv?.surgeon?.id || '',
-        "transferDoctor": showPopup.data.reserv?.transferDoctor?.id || '',
-        "date": showPopup.data?.date || showPopup.data?.reserv?.date ,
-        "time": showPopup.data.reserv?.time || `${hour}:${min} ${period}`,
-        "operationType": showPopup.data.reserv?.operationType?.id || '',
-        "caseType": showPopup.data.reserv?.caseType?.id || '',
-        "employee": showPopup.data.reserv?.employee?.phone || '',
-        "notes": showPopup.data.reserv?.notes || '',
-        // any other fields...
-    });
-
-    function updateOperation(id) {
-        return axios.patch(`${baseURL}reservations/${id}/`, formData);
-    
-    }
-    
-    const reserv = showPopup?.data.reserv;
-
-    const y = useMutation('updateOperation', async (id) => { await updateOperation(id) }, {
-        onSuccess: () => {
+    const formik = useFormikOperation();
 
 
-            toast.success("تم تعديل عملية بنجاح");
-                refetchOperation()
-
-  
-        },      onError: (error) => {
-            toast.error("خطأ فى تعديل الحجز");
-          },
-  }
-);
-
-
-    // # Handling onclicking buttons
-    function handleUpdate() {
-        const operation = reserv;
-        console.log("in updeate ",{formData})
+    // Use the mutation hook from the separated file
+    const updateMutation = useUpdateOperation("refetchOperation");
 
 
 
-        y.mutate(operation.id, {
-
-        })
-    
-        // y.mutate(doc?.id);
-      
-  
-  }
-
-    // ? Functions Handling time period selection 
-    function handlePeriodClick() {
-        setperiod(period === 'ص' ? "م" : "ص")
-
-    }
-
-    function handleMinPre() {
-        setmin(min === 0 ? 59 : min - 1);
-    }
-
-    function handleMinPost() {
-        setmin(min === 59 ? 0 : min + 1)
-    }
 
 
-    function handleHourPre() {
-        sethour(hour === 0 ? 12 : hour - 1);
-    }
-
-    function handleHourPost() {
-        sethour(hour === 12 ? 0 : hour + 1)
-    }
+    const { data: { data: patients } = {} } = useAllPatients() //  Get patients Api
+    const { data: { data: doctors } = {} } = useAllDoctors();    //  Get doctors Api
+    const { data: { data: operationTypes } = {} } = useOperationTypes();     //  operations type 
+    const { data: { data: caseTypes } = {} } = useCaseTypes();     //  Get caseType Api
+    const { data: { data: employees } = {} } = useAllEmployees();    //  Get employee Api
 
 
-    function handleHourScroll(e) {
-        e.stopPropagation();
-        e.preventDefault();
-        if (e.deltaY < 0) {
-            handleHourPre();
-        } else if (e.deltaY > 0) {
-            handleHourPost();
+
+    const selectConfigs = [
+        {
+            label: "اسم المريض",
+            placeholder: "اختار اسم المريض",
+            optionsKey: 'patients',
+            fieldName: 'patient',
+            customOption: <NewPatientBtn setShowPopup={setShowPopup} showPopup={showPopup} />
+
+        },
+        {
+            label: "نوع العملية",
+            placeholder: "اختر نوع العملية",
+            optionsKey: 'operationTypes',
+            fieldName: 'operationType'
+        },
+        {
+            label: "نوع الحالة",
+            placeholder: "اختر نوع الحالة",
+            optionsKey: 'caseTypes',
+            fieldName: 'caseType'
+        },
+        {
+            label: "اسم الطبيب المحول",
+            placeholder: "اختر الطبيب المحول",
+            optionsKey: 'doctors',
+            fieldName: 'transferDoctor'
+        },
+        {
+            label: "اسم الجراح",
+            placeholder: "اختار اسم الجراح",
+            optionsKey: 'doctors',
+            fieldName: 'surgeon'
+        },
+
+        {
+            label: "موظف الاستقبال",
+            placeholder: "اختار موظف الاستقبال",
+            optionsKey: 'employees',
+            fieldName: 'employee',
+            optionTransform: (employee) => ({ value: employee.phone, label: `${employee.first_name} ${employee.last_name}` })
         }
+    ];
 
-    }
-
-    function handleMinScroll(e) {
-        e.stopPropagation();
-        e.preventDefault();
-        if (e.deltaY < 0) {
-            handleMinPre();
-        } else if (e.deltaY > 0) {
-            handleMinPost();
-        }
-    }
-
-    function handlePeriodScroll(e) {
-        e.stopPropagation();
-        e.preventDefault();
-        if (e.deltaY < 0) {
-            handlePeriodClick();
-        } else if (e.deltaY > 0) {
-            handlePeriodClick();
-        }
-    }
-    // ? //
-
-    // ? Get patients Api
-
-    function getAllPatients() {
-        return axios.get(`${baseURL}patients/`);
-    }
-
-    const { data: { data: patients } = {} } = useQuery("getAllPatients", getAllPatients, { // nested destruction
-
-    });
-    // console.log(patients);
-
-    // ?
+    const dateConfig =         { label: 'تاريخ العملية', name: 'date', type: 'date', placeholder: 'ادخل تاريخ العملية' }
 
 
-    async function handleSubmitOperation() {
-        console.log({formData})
-        try {
-            await axios.post(`${baseURL}reservations/`, formData);
-      
-            setShowPopup({ ...showPopup, "option": null });
-            toast.success("تم إضافة عملية",
-                { autoClose: 500 }
-            );
-            try{
-                refetchReserve()
+    const renderMySelect = (config, optionsData, formik) => {
+        const options = config.optionTransform
+            ? optionsData[config.optionsKey]?.map(config.optionTransform)
+            : optionsData[config.optionsKey]?.map(item => ({ value: item.id, label: item.name }));
+        
+            if (config.customOption) {
+                options?.unshift({ value: 'customOption', label: config.customOption, isDisabled: true });
             }
-            catch(err){
-                console.log("REFETCH RESERVE FAIL======>", err);
-            }
-            try{
-                refetchOperation()
-            }
-            catch(err){
-                console.log("REFETCH OPERATION FAIL======>", err);
-            }
-        } catch (error) {
-            console.log("ERROR======>", error);
 
-        }
+        return (
+            <MySelect
+                label={config.label}
+                placeholder={config.placeholder}
+                options={options}
+                onChange={(selectedOption) => {
+                    formik.setFieldValue(config.fieldName, selectedOption);
+                }}
+                onMenuClose={() => formik.setFieldTouched(config.fieldName)}
+                selectedValue={formik.values[config.fieldName]}
+            />
+        )
     }
 
-
-    // ? Get doctors Api
-    function getAllDoctors() {
-        return axios.get(`${baseURL}doctors/`);
-    }
-
-    const { data: { data: doctors } = {} } = useQuery("getAllDoctors", getAllDoctors, { // nested destruction
-
-    });
-
-
-
-
-
-    // # operations type 
-
-    // ? Get caseType Api
-    function getAlloperationType() {
-        return axios.get(`${baseURL}operationtypes/`);
-    }
-
-    const { data: { data: operationTypes } = {} } = useQuery("getAlloperationType", getAlloperationType, { // nested destruction
-
-    });
-
-
-
-    // # case type 
-
-    // ? Get caseType Api
-    function getAllcaseType() {
-        return axios.get(`${baseURL}casetypes/`);
-    }
-
-    const { data: { data: caseTypes } = {} } = useQuery("getAllcaseType", getAllcaseType, { // nested destruction
-
-    });
-    // console.log({ caseTypes });
-
-
-    // ? Get employee Api
-    function getAllEmployees() {
-        return axios.get(`${baseURL}employees/`);
-    }
-
-    const { data: { data: employees } = {} } = useQuery("getAllEmployees", getAllEmployees);
-
-    // console.log({ employees });
-
-
-
+  console.log({showPopup})
     return (
         <div>
-            <div className="row pt-5">
+
+            <div className="row pt-3">
                 <div className="col-md-6">
                     <div className="d-flex flex-column">
-                        <label>رقم العملية</label>
-                        <input className="" type="tel" placeholder="ادخل رقم العملية"
-                            onChange={(e) => setformData({ ...formData, "operationNumber": e.target.value })}
-                            value={formData.operationNumber} />
-                    </div>
-                </div>
-
-                <div className="col-md-6">
-
-                    <div className="d-flex flex-column">
-                        <label>رقم الملف  </label>
+                        <label>رقم الملف</label>
                         <input className="" type="tel" placeholder="ادخل رقم الملف"
-                            onChange={(e) => setformData({ ...formData, "fileNumber": e.target.value })}
-                            value={formData.fileNumber} />
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.fileNumber}
+                            name="fileNumber" />
+                        {formik.errors.fileNumber && formik.touched.fileNumber &&
+                            <p className="text-danger mt-1">{formik.errors.fileNumber}</p>}
+
                     </div>
                 </div>
 
 
-
-                <div className="col-md-6">
-                    <MySelect
-                        label="نوع العملية"
-                        options={operationTypes?.map(operation => ({ value: operation.id, label: operation.name }))} placeholder="اختر نوع العملية"
-                        onChange={(value) => setformData({ ...formData, "operationType": Number(value) })}
-                        selectedValue={formData.operationType}
-
-                    />
-                </div>
-
-
-                <div className="col-md-6">
-
-
-
-                    <MySelect
-                        label="نوع الحالة"
-                        options={caseTypes?.map(type => ({ value: type.id, label: type.name }))}
-                        placeholder="اختر نوع الحالة"
-                        onChange={(value) => setformData({ ...formData, "caseType": Number(value) })}
-                        selectedValue={formData.caseType}
-
-
-                    />
-
-                </div>
-
-
-
-                <div className="col-md-6">
-
-
-
-
-                    <MySelect
-                        label="اسم الطبيب المحول  "
-                        placeholder="اختر الطبيب المحول"
-                        options={doctors?.map(doctor => ({ value: doctor.id, label: doctor.name }))}
-                        onChange={(value) => setformData({ ...formData, "transferDoctor": Number(value) })}
-                        selectedValue={formData.transferDoctor}
-
-
-                    />
-                    {/* {console.log({ formData })} */}
-
-
-                </div>
-
-
-                <div className="col-md-6">
-
-
-                    <MySelect
-                        label="اسم الجراح"
-                        placeholder="اختار اسم الجراح"
-                        options={doctors?.map(doctor => ({ value: doctor.id, label: doctor.name }))}
-                        onChange={(value) => setformData({ ...formData, "surgeon": Number(value) })}
-                        selectedValue={formData.surgeon}
-
-
-                    />
-                </div>
+                {selectConfigs.map(config => (
+                    <div className="col-md-6">
+                        {renderMySelect(config, { operationTypes, caseTypes, doctors, patients, employees }, formik)}
+                        {formik.errors[config.fieldName] && formik.touched[config.fieldName] &&
+                            <p className="text-danger mt-1">{formik.errors[config.fieldName]}</p>}
+                    </div>
+                ))}
 
 
             </div>
 
-
-
-
-            <MySelect
-                label="اسم المريض"
-                placeholder="اختار اسم المريض"
-                options={patients?.map(patient => ({ value: patient.id, label: patient.name }))}
-                onChange={(value) => setformData({ ...formData, "patient": Number(value) })}
-                selectedValue={formData.patient}
-
-
-            />
-
-
-
-            <MySelect
-                label="موظف الاستقبال"
-                options={employees?.map(employee => ({ value: employee.phone, label: `${employee.first_name} ${employee.last_name}` }))}
-                placeholder="اختار موظف الاستقبال "
-                onChange={(value) => setformData({ ...formData, "employee": value })}
-                selectedValue={formData.employee}
-
-            />
+            <InputComponent config={dateConfig} formik={formik} />
 
             <div className="d-flex flex-column">
-                <label>ملاحظات </label>
-                <textarea placeholder="ادخل الملاحظات" value={formData.notes} onChange={(e) => setformData({ ...formData, "notes": e.target.value })} />
+                <label>ملاحظات</label>
+                <textarea placeholder="ادخل الملاحظات"
+                    value={formik.values.notes}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    name="notes"></textarea>
+                {formik.errors.notes && formik.touched.notes &&
+                    <p className="text-danger mt-1">{formik.errors.notes}</p>}
             </div>
+
 
 
             <h4>حدد الوقت المناسب</h4>
-            <div className={`${timeStyle.time} d-flex align-items-center justify-content-evenly my-5`}>
-                <div className="text-center" onWheel={handleHourScroll} >
-                    <h6 className='mb-3'>ساعات</h6>
-                    <h3 onClick={handleHourPre} className={`${timeStyle.pre}`}>{hour === 0 ? 12 : hour - 1}</h3>
-                    <h3 className={`${timeStyle.current}`}>{hour}</h3>
-                    <h3 onClick={handleHourPost} className={`${timeStyle.post}`}>{hour === 12 ? 0 : hour + 1} </h3>
-                </div>
-                <div className="text-center" onWheel={handleMinScroll} >
-                    <h6 className='mb-3'>دقائق</h6>
-                    <h3 onClick={handleMinPre} className={`${timeStyle.pre}`}>{min === 0 ? 59 : min - 1}</h3>
-                    <h3 className={`${timeStyle.current}`}>{min}</h3>
-                    <h3 onClick={handleMinPost} className={`${timeStyle.post}`}>{min === 59 ? 0 : min + 1}</h3>
-                </div>
-                <div className="text-center" onWheel={handlePeriodScroll} >
-                    <h3 onClick={handlePeriodClick} className={`${timeStyle.pre}`}>{period === 'ص' ? "م" : "ص"}</h3>
-                    <h3 onClick={handlePeriodClick} className={`${timeStyle.current}`}>{period}</h3>
-                </div>
-            </div>
 
 
-            <BookBtn txt={"حجز"} handleSubmit={showPopup.data.reserv === null ?handleSubmitOperation:handleUpdate} />
+         {console.log({formik})}
+            <BookBtn
+                txt={showPopup?.data?.reserv != null ? "تحديث" :"حجز" }
+                handleSubmit={formik.handleSubmit}
+            />
 
-            <button
-                type="button"
-                className={`btn ${styles.signBtn}   d-flex justify-content-center mt-3  align-items-center`}
-                id="Btn"
-                style={{
-                    color: 'var(--logo-colortypap-lightnesscolor)',
-                    backgroundColor: 'transparent',
-                    borderColor: 'var(--logo-colortypap-lightnesscolor)'
-                }}
-                onClick={() => {
-                    setShowPopup({ ...showPopup, "option": 'p' });
 
-                }}
-
-            >
-
-                <h6 className='m-0 p-0'>اضافة مريض جديد
-
-                </h6>
-
-            </button>
-
-            <CancelBtn />
 
 
         </div>
     )
 }
+

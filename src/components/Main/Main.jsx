@@ -1,5 +1,5 @@
 import React from 'react'
-import { Navbar } from "../Navbar/Navbar"
+import { Navbar } from "../LoginPg/Navbar/Navbar"
 import { Sidebar } from "../Sidebar/Sidebar"
 import { Outlet } from 'react-router-dom'
 import { PopUp } from '../PopUp/PopUp'
@@ -16,7 +16,7 @@ export const Main = () => {
            <header className="container-fluid d-flex main h-100 justify-content-stretch px-0 m-0 ">
               <Sidebar />
               <section className="leftSection">
-                  <Navbar />
+                  {/* <Navbar /> */}
 
           
 

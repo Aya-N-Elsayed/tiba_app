@@ -1,104 +1,36 @@
-import axios from 'axios';
 import style from './Table.module.css'
-
-import { baseURL } from '../../../App'
 import { useContext, useEffect, useState } from 'react';
 import { ThreeDots } from 'react-loader-spinner'
-import { useQueryClient, useMutation, useQueries, useQuery } from 'react-query';
 import { PopupContext } from '../../../context/PopUpContext';
-import toast from 'react-hot-toast';
-
 import Options from '../../DeleteModify/Options';
-
-
+import { useAllDoctors } from '../../Utilities/Operation/DataFetching';
+import { useMutationDelete } from '../../Utilities/DataDeleting';
 
 
 export const Table = () => {
   const { setShowPopup, showPopup } = useContext(PopupContext);
 
 
-
-
-
   // ? Geting All doctor
-
-  // # Functions Using Axios to call APIs //
-  function getAllDoctors() {
-    return axios.get(`${baseURL}doctors/`);
-  }
-
-  // # query for getAllDoctors 
-  const { isError, isFetching, error, isLoading, data, refetch } = useQuery("allDoctors", getAllDoctors, {
-  });
-
-
-
-  
-  // ? //
-
+  const { isError, isLoading, data, refetch } = useAllDoctors();
 
   // ? Deleting a doctor 
-
-  function deleteDoctor(id) {
-    return axios.delete(`${baseURL}doctors/${id}/`);
-  }
-
 
 
   // # query for Deleting Doctor
 
-  const x = useMutation('deleteDoc', (id) =>
-    deleteDoctor(id), {
-    
-    onSuccess: async () => {
-
-      try {
-        await refetch({ force: true })
-
-      } catch (error) {
-        console.log("errrorrrrrrrrrrrrrrrr", error)
-          
-      }
-      toast.success(`تم حذف الطبيب `, { autoClose: 500 });
-    }
-    
-
-    
-  });
-
+  const x =  useMutationDelete('doctors');
 
   function handlingDelete(doctor, idx) {
     x.mutate(doctor.id);
-    const tempArr = [...showOptions];
-    tempArr[idx] = false;
-    setshowOptions(tempArr);
-  }
-
-
-  const [showOptions, setshowOptions] = useState(new Array(data?.data?.length).fill(false));
-
-
-  // # Handling onclicking buttons
-
-  function optionsHandleClick(idx) { //Handling showing the option lists
-
-    const tempArr = [...showOptions];
-    tempArr[idx] = !tempArr[idx];
-
-    setshowOptions(tempArr);
 
   }
-
-
-
 
 
 
 
   function handlingUpdate(doctor, idx) {
-    const tempArr = [...showOptions];
-    tempArr[idx] = false;
-    setshowOptions(tempArr);
+
     setShowPopup({ ...showPopup, "option": 'd', doctor, "data": refetch })
 
 
@@ -120,14 +52,11 @@ export const Table = () => {
 
     return <>
       <h2>
-        Errorrrrrrrrrrrrrrrr
+        Error
       </h2>
     </>
 
   }
-
-
-  
 
   // ? //
 
@@ -140,7 +69,8 @@ export const Table = () => {
       <table class={`${style.mytable} table align-middle `}>
         <thead>
           <tr className="">
-            <th scope="col">الاسم</th>
+            <th>م</th>
+            <th className="text-end pe-4" scope="col">الاسم</th>
             <th scope="col"> رقم الموبيل 1 </th>
             <th scope="col"> رقم الموبيل 2</th>
             <th scope="col">عنوان العيادة</th>
@@ -156,30 +86,19 @@ export const Table = () => {
           {data?.data?.map(function (doctor, idx) {
             return <>
 
-              <tr className='position-relative  ' >
-                <td className=' '>{doctor.name}</td>
+              <tr className=' ' >
+                <td>{doctor?.id }</td>
+                <td className=' text-end pe-4' title={doctor.name}>{doctor.name}</td>
                 <td>{doctor.phone}</td>
                 <td>{doctor.phone2}</td>
-                <td>{doctor.address}
-                </td>
-                <td className="">
-
-                  <p className={` m-0`}>{doctor.clinicphone}</p>
-                </td>
-
-                <td>
+                <td className=' text-end pe-4' title={doctor.address}>{doctor.address}</td>
+                <td>{doctor.clinicphone}</td>
+                <td className=''>
                   <Options
-                    show={showOptions[idx]}
-                    setShow = {()=>optionsHandleClick(idx)}
                     onUpdate={() => handlingUpdate(doctor, idx)}
                     onDelete={() => handlingDelete(doctor, idx)}
                   />
                 </td>
-
-
-
-
-
               </tr>
             </>
 

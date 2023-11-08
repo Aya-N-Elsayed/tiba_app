@@ -257,6 +257,7 @@ nav{
   box-shadow: 0px 3px 9.01px #0000001a !important;
   border-radius: 8px;
   transition: all 0.3s ease;
+  min-width: 155.719px;
 
 
 }
@@ -274,9 +275,7 @@ nav{
 
 }
 
-.card button img{
-  margin-left: 8px;
-}
+
 
 .detailsBtn{
   color: var(--logo-colortypap-color);
@@ -371,10 +370,11 @@ nav{
   word-wrap: break-word;
 }
 
-.calender .row{
+.calender{
   /* row-gap:18.03px; */
   /* max-width: 100%; */
   /* column-gap:15.02px; */
+  /* padding: 0; */
 }
 
 .detailsBtn .btnicons{
@@ -385,9 +385,15 @@ nav{
   /* display: none; */
 }
 
+.btnicons{
+  margin-left: 8px;
+
+}
+
 /* # dates controller */
 .datesControler {
-  margin-block: 50px;
+  margin-top: 25px;
+  margin-bottom: 10px;
   margin-inline: auto;
 }
 
@@ -441,6 +447,29 @@ nav{
   width: fit-content;
 }
 
+.w-10{
+  width: 10%;
+}
+
 .card{
   height: 100%;
+}
+
+input[type="date" i] {
+  font-family: monospace;
+  padding-inline-start: 1px;
+  cursor: default;
+  align-items: center;
+  display: inline-flex;
+  overflow: hidden;
+  padding: 0px;
+  color: red;
+  /* flex-direction: row-reverse; */
+  justify-content: space-between;
+}
+
+
+#sidebarToggle{
+   height: 25%;
+   width: 5%;
 }
