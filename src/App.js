@@ -23,7 +23,10 @@ const queryClient = new QueryClient();
 
 
 
-export const baseURL = 'https://tiba-backend.vercel.app/api/';
+// export const baseURL = 'https://tiba-backend.vercel.app/api/';
+// export const baseURL = 'http://tiba-prod-lb-1257743901.eu-north-1.elb.amazonaws.com/api/';
+export const baseURL = process.env.REACT_APP_BASEURL;
+
 
 
 function App() {
