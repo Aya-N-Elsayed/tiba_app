@@ -3,11 +3,10 @@ import { BookBtn } from "../Btns/BookOBtn"
 import { CancelBtn } from "../Btns/CancelBtn";
 import { PopupContext } from '../../context/PopUpContext';
 import style from '../Btns/BookBtn.module.css'
-import genderStyle from './PopUp.module.css'
-
 import { useFormicPatient } from '../Utilities/Patient/FormHandling';
 import { useAllCity } from '../Utilities/Operation/DataFetching';
 import { GenderComponent, InputComponent, SelectComponent, TextareaComponent } from '../Utilities/Patient/RenderingInputs';
+import { useQueryClient } from 'react-query';
 
 
 
@@ -15,6 +14,7 @@ export const PatientPop = () => {
 
 
     const { setShowPopup, showPopup } = useContext(PopupContext);
+    const qClient = useQueryClient()
 
     const { data: { data: city } = {} } = useAllCity();
 
@@ -32,7 +32,7 @@ export const PatientPop = () => {
     ];
 
 
-    const formik = useFormicPatient();
+    const formik = useFormicPatient({qClient});
 
 
     return (
@@ -77,7 +77,8 @@ export const PatientPop = () => {
 
 
 
-            <div className="mt-4">            <BookBtn txt={"حفظ مريض"} handleSubmit={formik.handleSubmit} />
+            <div className="mt-4">            <BookBtn txt={showPopup?.patient?.id ?   "تحديث مريض" : "إضافة مريض"}
+ handleSubmit={formik.handleSubmit} />
             </div>
         </div>
     )

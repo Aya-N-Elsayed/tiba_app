@@ -42,42 +42,46 @@ const validationSchema = Yup.object({
 
 
 
-export function useFormicPatient() {
+export function useFormicPatient({qClient}) {
     const { setShowPopup, showPopup } = useContext(PopupContext);
+    console.log({showPopup})
 
     const formik = useFormik({
         initialValues: {
-            name: "",
-            age: "",
-            gender: "F",
-            phone: "",
-            phone2: "",
-            birth_date: "",
-            medicalHistory: "",
-            notes: "",
-            city: '',
-        },
+            name: showPopup.patient?.name || "",
+            age: showPopup.patient?.age || "",
+            gender: showPopup.patient?.gender || "F",
+            phone: showPopup.patient?.phone || "",
+            phone2: showPopup.patient?.phone2 || "",
+            birth_date: showPopup.patient?.birth_date || "",
+            medicalHistory: showPopup.patient?.medicalHistory || "",
+            notes: showPopup.patient?.notes || "",
+            city: showPopup.patient?.city.id || "",
+          },
 
         validationSchema,
 
-
-        onSubmit: async(values) => {
-            console.log({values})
+        onSubmit: async (values) => {
+            const endpoint = showPopup.patient?.id 
+                ? `${baseURL}patients/${showPopup.patient.id}/`  // update endpoint
+                : `${baseURL}patients/`;                         // create endpoint
+          
+            const httpMethod = showPopup.patient?.id ? 'PUT' : 'POST';
+          
             try {
-                await axios.post(`${baseURL}patients/`, values);
+                await axios({
+                    method: httpMethod,
+                    url: endpoint,
+                    data: values
+                });
+                toast.success(showPopup.patient?.id ? "تم تحديث المريض" : "تم إضافة مريض", { autoClose: 500 });
+                qClient.refetchQueries('getAllPatients');
                 setShowPopup({ "option": null });
-                console.log({ showPopup })
-                toast.success("تم إضافة مريض",
-                    { autoClose: 500 }
-                );
-    
-    
             } catch (error) {
-                toast.error(error.message)
-                console.log(error.message)
-    
+                toast.error(showPopup.patient?.id ? "خطأ في تحديث المريض" : "خطأ في إضافة المريض", error.message);
             }
-        }
+          }
+          
 });
     return      formik
         

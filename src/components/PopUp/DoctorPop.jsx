@@ -11,7 +11,6 @@ export const DoctorPop = () => {
 
     const { setShowPopup, showPopup } = useContext(PopupContext);
 
-    const doctor = showPopup.doctor;
 
     const qClient = useQueryClient()
 

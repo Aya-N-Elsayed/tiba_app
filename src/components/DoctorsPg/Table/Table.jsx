@@ -19,7 +19,7 @@ export const Table = () => {
 
   // # query for Deleting Doctor
 
-  const x = useMutationDelete()
+  const x =  useMutationDelete('doctors');
 
   function handlingDelete(doctor, idx) {
     x.mutate(doctor.id);

@@ -23,16 +23,23 @@ const toggleSidebar = () => {
             الرئيسة
           </NavLink>
         </li>
-        <li className={`nav-item operations d-flex align-items-center ${location.pathname === '/home' ? 'activeLink' : ''}`}>
+        <li className={`nav-item operations d-flex align-items-center ${location.pathname === '/home' || location.pathname.startsWith('/operations') ? 'activeLink' : ''}`}>
           <img className="icons" alt="Image" src="/images/receipt-2.svg" />
           <NavLink exact activeClassName="active" to="/home">
             حجوزات
           </NavLink>
         </li>
         <li className={`nav-item doctors d-flex align-items-center ${location.pathname === '/doctors' ? 'activeLink' : ''}`}>
-          <img className="icons" alt="Image" src="/images/profile-2user.svg" />
+          <img className="icons" alt="Image" src="/images/doctorIcon.svg" />
           <NavLink exact activeClassName="active" to="/doctors">
             الأطباء
+          </NavLink>
+        </li>
+
+        <li className={`nav-item patients d-flex align-items-center ${location.pathname === '/patients' ? 'activeLink' : ''}`}>
+          <img className="icons" alt="Image" src="/images/profile-2user.svg" />
+          <NavLink exact activeClassName="active" to="/patients">
+            المرضى
           </NavLink>
         </li>
       </ul>
