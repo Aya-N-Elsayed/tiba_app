@@ -16,7 +16,7 @@
 .mytable td{
     color: var(--logo-colortypap-darkcolor);
     font-size: 13px;
-    max-width: 150px;
+    max-width: 100px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;

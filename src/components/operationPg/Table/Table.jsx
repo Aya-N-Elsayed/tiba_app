@@ -126,7 +126,7 @@ export const Table = ({ data, refetchOperation }) => {
       <table className={`${style.mytable} table align-middle`}>
         <thead className="">
           <tr className="">
-            <th>م</th>
+            <th></th>
             <th scope="col">الاسم</th>
             <th scope="col">العمر</th>
             <th scope="col">التليفون</th>
@@ -164,10 +164,7 @@ export const Table = ({ data, refetchOperation }) => {
                 </td>
 
                 <td>{reserv?.employee?.first_name}  {reserv?.employee?.last_name}</td>
-                <td className="d-flex justify-content-around">
-
-                  <p className={`${style.note} m-0`}>{reserv.notes}</p>
-                </td>
+                <td className="" title={reserv.notes} >{reserv.notes}</td>
 
 
                 <td>
