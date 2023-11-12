@@ -7,7 +7,7 @@ export const BookBtn = ( {handleClick , classDisable}) => {
     className={`btn bookBtn d-flex flex-row-reverse justify-content-center w-100 ${classDisable}`}
   >
     
-    حجز عملية
+    حجز
     <img className="btnicons" alt="Image" src="/images/add.svg" />
   </button>
   )

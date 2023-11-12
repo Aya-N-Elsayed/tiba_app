@@ -1,9 +1,6 @@
 import { useContext, useState } from "react";
-import { useQueryClient } from "react-query";
 import { MySelect } from "../PopUp/MySelect";
-import { NewPatientBtn } from "../Btns/NewPatientBtn";
 import { PopupContext } from "../../context/PopUpContext";
-import { NewOperationBtn } from "../Btns/NewOperationBtn";
 
 
 
@@ -56,23 +53,12 @@ export const Dates = ({ month, setmonth, year, setyear }) => {
   }
 
 
-  function handleClick() {
-    setShowPopup({
-      ...showPopup, "option": 'o'
-      // , "data": {
-      //   "refetchReserve": refetchReserve,
-      //   "reserv": null
-
-      // }
-    });
-  }
 
 
 
   return (
     <div className="datesControler d-flex  justify-content-evenly align-items-center">
-      <div className="w-10">
-        <NewOperationBtn handleClick={handleClick} /> </div>
+
       <div onClick={handlePre} className="prev">
         <button type="button" className="  d-flex   align-items-center " >
           <img className="btnicons " alt="Image" src="/images/arrow-right.svg" />
@@ -101,9 +87,7 @@ export const Dates = ({ month, setmonth, year, setyear }) => {
         </button>
       </div>
 
-      <div className="w-10">
-        <NewPatientBtn setShowPopup={setShowPopup} showPopup={showPopup} />
-      </div>
+
     </div>
   );
 }

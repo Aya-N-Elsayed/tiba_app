@@ -259,8 +259,12 @@ nav{
   transition: all 0.3s ease;
   min-width: 155.719px;
 
-
 }
+
+.calenderCard{
+  padding: 24px 12px;
+}
+
 
 .card:hover{
   z-index: 1;
@@ -336,18 +340,22 @@ nav{
 .cardText .numbers {
   color: var(--logo-greylogo-grey1200);
   font-family: "Noto Naskh Arabic-Medium", Helvetica;
-  font-size: 16px;
+  font-size: 12px;
   font-weight: 500;
   line-height: 16px;
   word-wrap: break-word;
 }
 
 .icons{
-  margin-bottom: 12px;
+  margin-bottom: 15px;
 }
 
 .date{
-  margin-bottom: 28px;
+  margin-bottom: 24px;
+}
+
+.cardText .numbers{
+  margin-right: 6px;
 }
 
 .month{

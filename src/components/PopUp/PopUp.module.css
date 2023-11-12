@@ -116,9 +116,9 @@ select{
 .popupContainer {
   width: 100%; /* or any preferred width */
   max-width: 600px; /* maximum width */
- height: 80vh;
-  border-radius: 10px; /* rounded corners */
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* shadow effect */
+ height: fit-content;
+  border-radius: 15px; /* rounded corners */
+  /* box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); shadow effect */
 }
 
 
@@ -151,9 +151,13 @@ select, option {
   direction: rtl; /* This will make label appear on the left */
 }
 
-.formCheckInput {
-  /* Style the radio buttons to match the design */
-}
+
+  .formCheckLabel {
+    display: flex;
+    align-items: center; /* This ensures vertical centering */
+    gap: 8px; /* Adjust the gap as needed */
+  }
+  
 
 .formCheckLabel {
   /* Style the label text */

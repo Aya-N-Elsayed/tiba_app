@@ -70,9 +70,6 @@ export const MonthCalender = () => {
         />
         </div>
 
-        {/* <div className="w-25">
-          <NewPatientBtn />
-        </div> */}
       </div>
 
       {isLoading && !isError ? (

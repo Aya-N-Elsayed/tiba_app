@@ -29,7 +29,7 @@ function formatDateString(dateString) {
       time: data?.reserv?.time || `10:10 ص`,
       operationType: data?.reserv?.operationType?.id || '',
       caseType: data?.reserv?.caseType?.id || '',
-      employee: data?.reserv?.employee?.phone || '',
+      employee: data?.reserv?.employee?.id || '',
       notes: data?.reserv?.notes || '',
       id: data?.reserv?.id || '',
       // any other fields...

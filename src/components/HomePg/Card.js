@@ -32,38 +32,38 @@ export const Card = ({month , day, year,apiData, monthNum, refetchReserve}) => {
 
 
   return (
-    <div className="card h-100 " >
-      <div className="card-body text-end p-0" onClick={year === '-' ? undefined : () => showDayReservation({monthNum, year, day})}
+    <div className="card h-100 calenderCard" >
+      <div className="card-body  p-0" onClick={year === '-' ? undefined : () => showDayReservation({monthNum, year, day})}
 >
         <h6 className="weekday text-center">{ apiData?.Weekday??day}</h6>
         <div className="date text-center d-flex justify-content-center">
-        <h5 className="day ms-1"> {day} </h5>
+        <h5 className="day ms-1 mb-0 month"> {day} </h5>
           <h5 className="month">{month}</h5>
         </div>
 
 
         <div className={year==='-'?'d-none':'d-flex justify-content-between'}>
-          <div className="cardText m">
+          <div className="cardText ms-4">
 
-            <div className="d-flex  justify-content-start">
+            <div className="d-flex  ">
 
               <img className="icons " alt="Image" src="/images/EllipseCirle.svg"/>
-              <p className="operations numbers me-2">{ apiData?.Reservations??'-'}</p>
+              <p className="operations numbers ">{ apiData?.Reservations??'-'}</p>
 
               </div>
 
         </div>
-          <div className="cardText m ">
-            <div className="d-flex  justify-content-start">
+          <div className="cardText ms-4 ">
+            <div className="d-flex  ">
               <img className="icons " alt="Image" src="/images/Checkbox.svg" />
-              <p className="confirmed numbers  me-2"> { apiData?.Confirmed??'-'}</p>
+              <p className="confirmed numbers  "> { apiData?.Confirmed??'-'}</p>
             </div>
           </div>
 
           <div className="cardText ">
-            <div className="d-flex  justify-content-start">
+            <div className="d-flex  ">
               <img className="icons" alt="Image" src="/images/close.svg" />
-              <p className="notConfirmed numbers me-2">{apiData?.Unconfirmed??'-'}</p>
+              <p className="notConfirmed numbers ">{apiData?.Unconfirmed??'-'}</p>
             </div>
           </div>
         </div>
