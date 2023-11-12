@@ -33,7 +33,7 @@ export const OperationPop = () => {
             fieldName: 'patient',
             customOption: <NewPatientBtn setShowPopup={setShowPopup} showPopup={showPopup} />
             , required: true
-
+  
         },
         {
             label: "نوع العملية",

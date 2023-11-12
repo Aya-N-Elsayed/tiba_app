@@ -28,32 +28,42 @@ export const InputComponent = ({ config, formik }) => (
 );
 
 // SelectComponent.jsx
-export const SelectComponent = ({ config, formik }) => (
-  <div className="col-md-6">
-    <MySelect
-      label={
-        <>
-          {config.label}
-          {config.required && <span className="required"> *</span>}
-        </>
-      }
-      placeholder={config.placeholder}
-      options={config.options?.map((item) => ({
-        value: item.id,
-        label: item.name,
-      }))}
-      onChange={(selectedOption) => {
-        formik.setFieldValue(config.fieldName, selectedOption);
-      }}
-      onMenuClose={() => formik.setFieldTouched(config.fieldName)}
-      selectedValue={formik.values[config.fieldName]}
-    />
+export const SelectComponent = ({ config, formik }) => {
+  // Prepare options with the custom option if necessary
+  const options = config?.options?.map(item => ({ value: item.id, label: item.name }));
+  if (config.customOption) {
+    options?.unshift({ value: 'customOption', label: config.customOption, isDisabled: true });
+  }
 
-    {formik.errors[config.fieldName] && formik.touched[config.fieldName] && (
-      <p className="text-danger mt-1">{formik.errors[config.fieldName]}</p>
-    )}
-  </div>
-);
+  return (
+    <div className="col-md-6">
+      <MySelect
+        label={
+          <>
+            {config.label}
+            {config.required && <span className="required"> *</span>}
+          </>
+        }
+        placeholder={config.placeholder}
+        options={ options  }
+        onChange={(selectedOption) => {
+          if (selectedOption.value !== 'customOption') {
+            formik.setFieldValue(config.fieldName, selectedOption);
+          } else {
+            // Handle the custom option selection, like opening a modal
+          }
+        }}
+        onMenuClose={() => formik.setFieldTouched(config.fieldName)}
+        selectedValue={formik.values[config.fieldName]}
+      />
+
+      {formik.errors[config.fieldName] && formik.touched[config.fieldName] && (
+        <p className="text-danger mt-1">{formik.errors[config.fieldName]}</p>
+      )}
+    </div>
+  );
+};
+
 
 // TextareaComponent.jsx
 export const TextareaComponent = ({ config, formik }) => (
