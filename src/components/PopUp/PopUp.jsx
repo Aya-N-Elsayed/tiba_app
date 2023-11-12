@@ -57,7 +57,7 @@ export const PopUp = ({ title }) => {
                     <button
                             type="button" className={`${style.closeBtn} btn-close  `} aria-label="إغلاق" onClick={() => setShowPopup({ "option": null })} >
                     </button>
-                        {showPopup.option === 'd' && <h2 className="text-center">إضافة طبيب
+                        {showPopup.option === 'd' && <h2 className="text-center mt-0">إضافة طبيب
                         </h2>}
                         {showPopup.option === 'p' && <h2 className="text-center">إضافة مريض</h2>}
                         {showPopup.option === 'o' && <h2 className="text-center">إضافة عملية</h2>}

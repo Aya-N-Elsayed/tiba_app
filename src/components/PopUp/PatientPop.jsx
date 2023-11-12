@@ -19,12 +19,11 @@ export const PatientPop = () => {
     const { data: { data: city } = {} } = useAllCity();
 
     const inputConfigs = [
-        { label: 'اسم المريض', name: 'name', type: 'text', placeholder: 'ادخل اسم المريض' },
-        { label: 'العمر', name: 'age', type: 'text', inputmode: 'number', placeholder: 'ادخل العمر' },
-        { label: 'المدينة', name: 'city', type: 'select', placeholder: 'اختار المدينة', options: city, fieldName: 'city' },
-
-        { label: 'النوع', name: 'gender', type: 'gender' },
-        { label: 'رقم الهاتف', name: 'phone', type: 'tel', placeholder: 'ادخل رقم الهاتف' },
+        { label: 'اسم المريض', name: 'name', type: 'text', placeholder: 'ادخل اسم المريض', required: true  },
+        { label: 'العمر', name: 'age', type: 'text', inputmode: 'number', placeholder: 'ادخل العمر', required: true  },
+        { label: 'المدينة', name: 'city', type: 'select', placeholder: 'اختار المدينة', options: city, fieldName: 'city' , required: true },
+        { label: 'النوع', name: 'gender', type: 'gender', required: true  },
+        { label: 'رقم الهاتف', name: 'phone', type: 'tel', placeholder: 'ادخل رقم الهاتف', required: true  },
         { label: 'رقم الهاتف ٢', name: 'phone2', type: 'tel', placeholder: 'ادخل رقم الهاتف الثاني' },
         { label: 'تاريخ الميلاد', name: 'birth_date', type: 'date', placeholder: 'ادخل تاريخ الميلاد' },
         { label: 'التاريخ المرضى', name: 'medicalHistory', type: 'text', placeholder: 'ادخل التاريخ المرضى' },

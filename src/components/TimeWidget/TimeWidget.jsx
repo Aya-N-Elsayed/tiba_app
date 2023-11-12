@@ -12,18 +12,14 @@ function extractTime(timeString) {
     const [h, m] = time.split(':');
     return { h, m, p };
 }
-export function handleTimeBooking({ reserv, updateMutation, setTimeState, timeState }) {
+export function handleTimeBooking({ reserv, updateMutation }) {
 
-    // setTimeState({ ...timeState, hour: Number(h), min: Number(m), period: p });
     let timeValue = {};
-
-
-
 
     MySwal.fire(
         {
             title: 'حدد الوقت المناسب',
-            html: <TimeWidget reserv={reserv} timeState={timeState} setTimeState={setTimeState} onTimeChange={(time) => { timeValue = time; }} />,
+            html: <TimeWidget reserv={reserv}  onTimeChange={(time) => { timeValue = time; }} />,
             heightAuto: false,
             confirmButtonText: 'تم',
             cancelButtonText: 'إلغاء',

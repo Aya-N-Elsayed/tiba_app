@@ -5,6 +5,7 @@ import { CancelBtn } from "../Btns/CancelBtn";
 import { PopupContext } from '../../context/PopUpContext';
 import { useMutation, useQueryClient } from 'react-query';
 import { useFormikDoctor } from '../Utilities/Doctor/FormHandling';
+import { InputComponent } from '../Utilities/Patient/RenderingInputs';
 
 
 export const DoctorPop = () => {
@@ -15,11 +16,11 @@ export const DoctorPop = () => {
     const qClient = useQueryClient()
 
     const inputConfigs = [
-        { label: 'الاسم', name: 'name', type: 'text', placeholder: 'ادخل الاسم' },
-        { label: 'رقم الهاتف', name: 'phone', type: 'tel', placeholder: 'ادخل رقم الهاتف' },
+        { label: 'الاسم', name: 'name', type: 'text', placeholder: 'ادخل الاسم', required: true  },
+        { label: 'رقم الهاتف', name: 'phone', type: 'tel', placeholder: 'ادخل رقم الهاتف', required: true  },
         { label: 'رقم الهاتف ٢', name: 'phone2', type: 'tel', placeholder: 'ادخل رقم الهاتف الثاني' },
-        { label: 'عنوان العيادة', name: 'address', type: 'text', placeholder: 'ادخل عنوان العيادة' },
-        { label: 'رقم العيادة', name: 'clinicphone', type: 'text', placeholder: 'ادخل رقم العيادة' }
+        { label: 'عنوان العيادة', name: 'address', type: 'text', placeholder: 'ادخل عنوان العيادة', required: true  },
+        { label: 'رقم العيادة', name: 'clinicphone', type: 'text', placeholder: 'ادخل رقم العيادة' , required: true }
     ];
 
     //? Formik
@@ -34,25 +35,8 @@ export const DoctorPop = () => {
             <h4>معلومات الطبيب</h4>
             <div className="row">
                 {inputConfigs.map((config, index) => (
-                    <div className={config.type == 'tel' ? "col-md-6" : "col-md-12"}>
-                        <div className="d-flex flex-column" key={index}>
-                            <label className='mt-4'>{config.label}</label>
-                            <input
-                                className='mb-0'
-                                name={config.name}
-                                type={config.type}
-                                value={formik.values[config.name]}
-                                placeholder={config.placeholder}
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                            />
-                            {formik.errors[config.name] && formik.touched[config.name] ? (
-                                <p className="text-danger mt-1">{formik.errors[config.name]}</p>
-                            ) : (
-                                ""
-                            )}
-                        </div>
-                    </div>
+                    <InputComponent config={config} formik={formik}/>
+
                 ))}
             </div>
             <div className="mt-4">   <BookBtn txt={showPopup?.data  === null ?   "إضافة طبيب" : "تحديث طبيب "}

@@ -44,9 +44,9 @@ export const Table = () => {
             <th scope="col">العمر</th>
             <th scope="col"> النوع</th>
             <th scope="col">رقم الهاتف 1</th>
-            <th scope="col">رقم الهاتف 2</th>
-            <th scope="col">تاريخ الميلاد</th>
-            <th scope="col">التاريخ الطبي</th>
+            {/* <th scope="col">رقم الهاتف 2</th> */}
+            {/* <th scope="col">تاريخ الميلاد</th>
+            <th scope="col">التاريخ الطبي</th> */}
             <th scope="col">ملاحظات</th>
             <th scope="col">المدينة</th>
             <th scope='col'></th>
@@ -60,9 +60,9 @@ export const Table = () => {
               <td>{patient.age}</td>
               <td>{patient.gender}</td>
               <td>{patient.phone}</td>
-              <td>{patient.phone2}</td>
-              <td>{patient.birth_date}</td>
-              <td>{patient.medicalHistory}</td>
+              {/* <td>{patient.phone2}</td> */}
+              {/* <td>{patient.birth_date}</td>
+              <td>{patient.medicalHistory}</td> */}
               <td>{patient.notes}</td>
               <td>{patient.city.name}</td>
               <td>

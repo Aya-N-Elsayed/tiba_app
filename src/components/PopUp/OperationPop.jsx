@@ -1,12 +1,12 @@
 import React, { useContext, useState } from 'react'
 import { BookBtn } from '../Btns/BookOBtn'
 import { PopupContext } from '../../context/PopUpContext';
-import { MySelect } from './MySelect'
 import { useAllDoctors, useAllEmployees, useAllPatients, useCaseTypes, useOperationTypes } from '../Utilities/Operation/DataFetching';
 import { NewPatientBtn } from '../Btns/NewPatientBtn';
-import { submitOperation, useUpdateOperation } from '../Utilities/Operation/DataMutating';
 import { getInitialformik, useformik, useFormikOperation } from '../Utilities/Operation/OperationForm';
-import { InputComponent } from '../Utilities/Patient/RenderingInputs';
+import { InputComponent, SelectComponent, TextareaComponent } from '../Utilities/Patient/RenderingInputs';
+import { handleTimeBooking } from '../TimeWidget/TimeWidget';
+import { MySelect } from './MySelect';
 
 
 export const OperationPop = () => {
@@ -15,13 +15,6 @@ export const OperationPop = () => {
 
     //    ?   set up form data 
     const formik = useFormikOperation();
-
-
-    // Use the mutation hook from the separated file
-    const updateMutation = useUpdateOperation("refetchOperation");
-
-
-
 
 
     const { data: { data: patients } = {} } = useAllPatients() //  Get patients Api
@@ -36,123 +29,81 @@ export const OperationPop = () => {
         {
             label: "اسم المريض",
             placeholder: "اختار اسم المريض",
-            optionsKey: 'patients',
+            options: patients,
             fieldName: 'patient',
             customOption: <NewPatientBtn setShowPopup={setShowPopup} showPopup={showPopup} />
+            , required: true
 
         },
         {
             label: "نوع العملية",
             placeholder: "اختر نوع العملية",
-            optionsKey: 'operationTypes',
+            options: operationTypes,
             fieldName: 'operationType'
+            , required: true
         },
         {
             label: "نوع الحالة",
             placeholder: "اختر نوع الحالة",
-            optionsKey: 'caseTypes',
+            options: caseTypes,
             fieldName: 'caseType'
+            , required: true
         },
         {
             label: "اسم الطبيب المحول",
             placeholder: "اختر الطبيب المحول",
-            optionsKey: 'doctors',
+            options: doctors,
             fieldName: 'transferDoctor'
         },
         {
             label: "اسم الجراح",
             placeholder: "اختار اسم الجراح",
-            optionsKey: 'doctors',
-            fieldName: 'surgeon'
+            options: doctors,
+            fieldName: 'surgeon', required: true
         },
 
         {
             label: "موظف الاستقبال",
             placeholder: "اختار موظف الاستقبال",
-            optionsKey: 'employees',
+            options: employees,
             fieldName: 'employee',
-            optionTransform: (employee) => ({ value: employee.phone, label: `${employee.first_name} ${employee.last_name}` })
+            required: true
         }
     ];
 
-    const dateConfig =         { label: 'تاريخ العملية', name: 'date', type: 'date', placeholder: 'ادخل تاريخ العملية' }
+    const dateConfig = { label: 'تاريخ العملية', name: 'date', type: 'date', placeholder: 'ادخل تاريخ العملية' }
+    const notesConfig = { label: 'ملاحظات', name: 'notes', placeholder: 'ادخل الملاحظات' };
+    const fileNumberConfig = { label: 'رقم الملف', name: 'fileNumber', type: 'tel', placeholder: 'ادخل رقم الملف' };
 
 
-    const renderMySelect = (config, optionsData, formik) => {
-        const options = config.optionTransform
-            ? optionsData[config.optionsKey]?.map(config.optionTransform)
-            : optionsData[config.optionsKey]?.map(item => ({ value: item.id, label: item.name }));
-        
-            if (config.customOption) {
-                options?.unshift({ value: 'customOption', label: config.customOption, isDisabled: true });
-            }
-
-        return (
-            <MySelect
-                label={config.label}
-                placeholder={config.placeholder}
-                options={options}
-                onChange={(selectedOption) => {
-                    formik.setFieldValue(config.fieldName, selectedOption);
-                }}
-                onMenuClose={() => formik.setFieldTouched(config.fieldName)}
-                selectedValue={formik.values[config.fieldName]}
-            />
-        )
-    }
-
-  console.log({showPopup})
     return (
         <div>
 
             <div className="row pt-3">
-                <div className="col-md-6">
-                    <div className="d-flex flex-column">
-                        <label>رقم الملف</label>
-                        <input className="" type="tel" placeholder="ادخل رقم الملف"
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            value={formik.values.fileNumber}
-                            name="fileNumber" />
-                        {formik.errors.fileNumber && formik.touched.fileNumber &&
-                            <p className="text-danger mt-1">{formik.errors.fileNumber}</p>}
-
-                    </div>
-                </div>
+                <InputComponent config={fileNumberConfig} formik={formik} />
 
 
-                {selectConfigs.map(config => (
-                    <div className="col-md-6">
-                        {renderMySelect(config, { operationTypes, caseTypes, doctors, patients, employees }, formik)}
-                        {formik.errors[config.fieldName] && formik.touched[config.fieldName] &&
-                            <p className="text-danger mt-1">{formik.errors[config.fieldName]}</p>}
-                    </div>
+                {selectConfigs.map((config) => (
+                    <SelectComponent config={config} formik={formik} />
                 ))}
 
 
-            </div>
+                <InputComponent config={dateConfig} formik={formik} />
+                <TextareaComponent config={notesConfig} formik={formik} />
 
-            <InputComponent config={dateConfig} formik={formik} />
 
-            <div className="d-flex flex-column">
-                <label>ملاحظات</label>
-                <textarea placeholder="ادخل الملاحظات"
-                    value={formik.values.notes}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    name="notes"></textarea>
-                {formik.errors.notes && formik.touched.notes &&
-                    <p className="text-danger mt-1">{formik.errors.notes}</p>}
             </div>
 
 
 
-            <h4>حدد الوقت المناسب</h4>
 
 
-         {console.log({formik})}
+
+            {/* <h4  onClick={() => handleTimeBooking({ reserv, updateMutation,setTimeState,timeState })}>حدد الوقت المناسب</h4> */}
+
+
             <BookBtn
-                txt={showPopup?.data?.reserv != null ? "تحديث" :"حجز" }
+                txt={showPopup?.data?.reserv != null ? "تحديث" : "حجز"}
                 handleSubmit={formik.handleSubmit}
             />
 

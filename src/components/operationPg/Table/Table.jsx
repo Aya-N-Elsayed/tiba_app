@@ -15,13 +15,7 @@ import { ClipLoader } from "react-spinners";
 
 
 export const Table = ({ data, refetchOperation }) => {
-  const { setShowPopup, showPopup } = useContext(PopupContext);
-
-
-
-
-  const [timeState, setTimeState] = useState({ hour: 6, min: 30, period: "ص" });
-
+  const { setShowPopup, showPopup } = useContext(PopupContext)
 
   const updateMutation = useUpdateOperation();
 
@@ -157,7 +151,7 @@ export const Table = ({ data, refetchOperation }) => {
                 <td title={reserv.transferDoctor?.name}>{reserv.transferDoctor?.name}</td>
                 <td className="">
                   <div className="d-flex justify-content-center">
-                    <p className="m-0 ms-2 " role="button" onClick={() => handleTimeBooking({ reserv, updateMutation,setTimeState,timeState })} >{reserv?.time}</p>
+                    <p className="m-0 ms-2 " role="button" onClick={() => handleTimeBooking({ reserv, updateMutation })} >{reserv?.time}</p>
                    {switchLoading && patchMutation.variables.id === reserv.id?     <ClipLoader color="var(--logo-colortypap-lightnesscolor)" size={25} />: <Switch confirmed={reserv?.status} handleOnChange={() => handleOnChangeSwitch(reserv)} />}
                   </div>
 
@@ -165,15 +159,7 @@ export const Table = ({ data, refetchOperation }) => {
 
                 <td>{reserv?.employee?.first_name}  {reserv?.employee?.last_name}</td>
                 <td className="" title={reserv.notes} >{reserv.notes}</td>
-
-
-                <td>
-                  <Options
-   
-                    onUpdate={() => handlingUpdate(reserv)}
-                    onDelete={() => handlingDelete(reserv)}
-                  />
-                </td>
+                <td> <Options onUpdate={() => handlingUpdate(reserv)} onDelete={() => handlingDelete(reserv)} /></td>
 
               </tr>
 

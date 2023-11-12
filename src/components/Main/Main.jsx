@@ -16,7 +16,7 @@ export const Main = () => {
            <header className="container-fluid d-flex main h-100 justify-content-stretch px-0 m-0 ">
               <Sidebar />
               <section className="leftSection">
-                  {/* <Navbar /> */}
+                  <Navbar />
 
           
 
