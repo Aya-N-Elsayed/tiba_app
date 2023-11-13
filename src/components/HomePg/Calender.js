@@ -41,7 +41,7 @@ export const MonthCalender = () => {
 
     while (startIndex > 0) {
       cards.push(
-        <div className="col gy-4 col-auto" key={startIndex}>
+        <div className="col gy-4 col-auto opacity-0" key={startIndex}>
           <Card
             month={""}
             day={""}
