@@ -105,9 +105,8 @@ export const GenderComponent = ({ config, formik }) => (
             checked={formik.values[config.name] === "M"}
           />
           <label className="formCheckLabel me-1 " htmlFor="male">
-            <img src="./images/person-solid.svg"/>
-            <p>            ذكر
-</p>
+            <img src="./images/male.svg"/>
+                 ذكر  
           </label>
         </div>
         {/* Female Radio Input */}
@@ -123,8 +122,8 @@ export const GenderComponent = ({ config, formik }) => (
             checked={formik.values[config.name] === "F"}
           />
           <label className="formCheckLabel me-1" htmlFor="female">
-            <img src="./images/person-dress-solid.svg"/>
-            أنثى
+            <img src="./images/female.svg"/>
+              أنثى
           </label>
         </div>
         {formik.errors[config.name] && formik.touched[config.name] && (

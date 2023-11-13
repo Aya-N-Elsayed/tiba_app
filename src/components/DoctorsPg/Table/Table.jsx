@@ -66,7 +66,7 @@ export const Table = () => {
     <div className="my-5">
 
 
-      <table class={`${style.mytable} table align-middle `}>
+      <table className={`${style.mytable} table align-middle `}>
         <thead>
           <tr className="">
             <th>م</th>
