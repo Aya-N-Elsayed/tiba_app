@@ -157,9 +157,8 @@ nav{
 }
 
 .navbar{
-  padding: 17.3px 18px 18px 71.4px;
-  /* margin-bottom: 1061px; */
-  --bs-navbar-brand-hover-color: red;
+  padding: 12px 40px ;
+  min-height: 74px;
 }
 
 /* # notification button */
@@ -376,13 +375,6 @@ nav{
   font-weight: 500;
   line-height: 14px;
   word-wrap: break-word;
-}
-
-.calender{
-  /* row-gap:18.03px; */
-  /* max-width: 100%; */
-  /* column-gap:15.02px; */
-  /* padding: 0; */
 }
 
 .detailsBtn .btnicons{
