@@ -417,9 +417,8 @@ nav{
 
 .datesControler p{
   color: var(--logo-colortypap-lightnesscolor);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
-  line-height: 12px;
   word-wrap: break-word;
   margin-block: 0;
   
