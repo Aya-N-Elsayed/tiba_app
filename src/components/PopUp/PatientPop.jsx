@@ -25,7 +25,6 @@ export const PatientPop = () => {
         { label: 'النوع', name: 'gender', type: 'gender', required: true  },
         { label: 'رقم الهاتف', name: 'phone', type: 'tel', placeholder: 'ادخل رقم الهاتف', required: true  },
         { label: 'رقم الهاتف ٢', name: 'phone2', type: 'tel', placeholder: 'ادخل رقم الهاتف الثاني' },
-        { label: 'تاريخ الميلاد', name: 'birth_date', type: 'date', placeholder: 'ادخل تاريخ الميلاد' },
         { label: 'التاريخ المرضى', name: 'medicalHistory', type: 'text', placeholder: 'ادخل التاريخ المرضى' },
         { label: 'ملاحظات', name: 'notes', type: 'textarea', placeholder: 'ادخل الملاحظات' }
     ];
