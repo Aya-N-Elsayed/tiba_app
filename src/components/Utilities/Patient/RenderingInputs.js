@@ -85,51 +85,42 @@ export const TextareaComponent = ({ config, formik }) => (
 );
 
 // GenderComponent.jsx
-export const GenderComponent = ({ config, formik }) => (
-  <div className="col-md-12">
-    <div className="d-flex flex-column">
-      <label>{config.label}</label>
-      <div
-        className={`d-flex justify-content-start ${genderStyle.genderOptions}`}
-      >
-        {/* Male Radio Input */}
-        <div className="formCheckReverse p-1">
-          <input
-            id="male"
-            className="formCheckInput"
-            type="radio"
-            name={config.name}
-            value="M"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            checked={formik.values[config.name] === "M"}
-          />
-          <label className="formCheckLabel me-1 " htmlFor="male">
-            <img src="./images/male.svg"/>
-                 ذكر  
-          </label>
-        </div>
-        {/* Female Radio Input */}
-        <div className="formCheckReverse p-1">
-          <input
-            id="female"
-            className="formCheckInput"
-            type="radio"
-            name={config.name}
-            value="F"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            checked={formik.values[config.name] === "F"}
-          />
-          <label className="formCheckLabel me-1" htmlFor="female">
-            <img src="./images/female.svg"/>
-              أنثى
-          </label>
+export const GenderComponent = ({ config, formik }) => {
+  const renderRadioOption = (id, value, label, imageSrc) => (
+    <>
+      <input
+        id={id}
+        className={`${genderStyle.formCheckInput} opacity-0 position-absolute`}
+        type="radio"
+        name={config.name}
+        value={value}
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
+        checked={formik.values[config.name] === value}
+      />
+      <label htmlFor={id} className={genderStyle.formCheckReverse}>
+        <span className={genderStyle.genderLabel}>
+          <img src={imageSrc} alt={label} className="ms-2"/>
+          {label}
+        </span>
+      </label>
+    </>
+  );
+  
+
+  return (
+    <div className="col-md-12">
+      <div className="d-flex flex-column">
+        <label>{config.label}</label>
+        <div className={`d-flex justify-content-between ${genderStyle.genderOptions}`}>
+          {renderRadioOption("male", "M", "ذكر", "./images/male.svg")}
+          {renderRadioOption("female", "F", "أنثى", "./images/female.svg")}
         </div>
         {formik.errors[config.name] && formik.touched[config.name] && (
           <p className="text-danger m-0">{formik.errors[config.name]}</p>
         )}
       </div>
     </div>
-  </div>
-);
+  );
+};
+

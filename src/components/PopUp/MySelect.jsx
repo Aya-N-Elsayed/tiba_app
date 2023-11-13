@@ -41,7 +41,7 @@ control: (base) => ({
   ...base,
   borderColor: 'black',
   boxShadow: 'none',
-  fontSize: styleClass?.includes('fs-5') ? 20 : 12,
+  fontSize: styleClass?.includes('fs-5') ? 20 : 14,
   fontWeight: styleClass?.includes('fw-medium') ? 500 : 400,
   wordWrap: 'break-word',
   color: 'black',
