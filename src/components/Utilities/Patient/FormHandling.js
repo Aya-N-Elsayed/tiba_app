@@ -35,9 +35,7 @@ const validationSchema = Yup.object({
     medicalHistory: Yup.string().notRequired(),
     birth_date: Yup.string().required("تاريخ الميلاد مطلوب "    ),
     
-    gender: Yup.string()
-        .oneOf(['M', 'F'], 'نوع غير صحيح')
-        .required('النوع مطلوب'),
+    gender: Yup.string().required('النوع مطلوب'),
 });
 
 
@@ -75,8 +73,11 @@ export function useFormicPatient({qClient}) {
                 });
                 toast.success(showPopup.patient?.id ? "تم تحديث المريض" : "تم إضافة مريض", { autoClose: 500 });
                 qClient.refetchQueries('getAllPatients');
-                setShowPopup({ "option": null });
-            } catch (error) {
+                if (showPopup?.data?.date) {
+                    setShowPopup({ ...showPopup, "option": 'o' });
+                }
+
+                else setShowPopup({ "option": null })            } catch (error) {
                 toast.error(showPopup.patient?.id ? "خطأ في تحديث المريض" : "خطأ في إضافة المريض", error.message);
             }
           }
