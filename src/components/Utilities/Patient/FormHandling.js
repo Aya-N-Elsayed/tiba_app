@@ -50,10 +50,9 @@ export function useFormicPatient({qClient}) {
         initialValues: {
             name: showPopup.patient?.name || "",
             age: showPopup.patient?.age || "",
-            gender: showPopup.patient?.gender || "F",
+            gender: showPopup.patient?.gender || "أنثى",
             phone: showPopup.patient?.phone || "",
             phone2: showPopup.patient?.phone2 || "",
-            birth_date: showPopup.patient?.birth_date || "",
             medicalHistory: showPopup.patient?.medicalHistory || "",
             notes: showPopup.patient?.notes || "",
             city: showPopup.patient?.city.id || "",

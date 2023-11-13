@@ -31,7 +31,7 @@ export const OperationPop = () => {
             placeholder: "اختار اسم المريض",
             options: patients,
             fieldName: 'patient',
-            customOption: <NewPatientBtn setShowPopup={setShowPopup} showPopup={showPopup} />
+            customOption: <NewPatientBtn setShowPopup={setShowPopup} showPopup={showPopup} style='addOption' />
             , required: true
   
         },

@@ -29,6 +29,8 @@ export const MySelect = ({ label, options, placeholder, onChange, selectedValue,
           onChange={handleChange}
                 styles={customStyles(styleClass)}
                 onMenuClose={onMenuClose}
+                // isClearable={true}  // Enable clearable option
+
 
             />
         </div>
