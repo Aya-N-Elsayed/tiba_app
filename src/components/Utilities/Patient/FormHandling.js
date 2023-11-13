@@ -33,7 +33,6 @@ const validationSchema = Yup.object({
     
     notes: Yup.string().notRequired(),
     medicalHistory: Yup.string().notRequired(),
-    birth_date: Yup.string().required("تاريخ الميلاد مطلوب "    ),
     
     gender: Yup.string().required('النوع مطلوب'),
 });
@@ -42,13 +41,12 @@ const validationSchema = Yup.object({
 
 export function useFormicPatient({qClient}) {
     const { setShowPopup, showPopup } = useContext(PopupContext);
-    console.log({showPopup})
 
     const formik = useFormik({
         initialValues: {
             name: showPopup.patient?.name || "",
             age: showPopup.patient?.age || "",
-            gender: showPopup.patient?.gender || "أنثى",
+            gender: showPopup.patient?.gender || "F",
             phone: showPopup.patient?.phone || "",
             phone2: showPopup.patient?.phone2 || "",
             medicalHistory: showPopup.patient?.medicalHistory || "",
@@ -59,6 +57,7 @@ export function useFormicPatient({qClient}) {
         validationSchema,
 
         onSubmit: async (values) => {
+
             const endpoint = showPopup.patient?.id 
                 ? `${baseURL}patients/${showPopup.patient.id}/`  // update endpoint
                 : `${baseURL}patients/`;                         // create endpoint
@@ -66,6 +65,7 @@ export function useFormicPatient({qClient}) {
             const httpMethod = showPopup.patient?.id ? 'PUT' : 'POST';
           
             try {
+
                 await axios({
                     method: httpMethod,
                     url: endpoint,
@@ -77,8 +77,15 @@ export function useFormicPatient({qClient}) {
                     setShowPopup({ ...showPopup, "option": 'o' });
                 }
 
-                else setShowPopup({ "option": null })            } catch (error) {
+                else {
+                    console.log({showPopup})
+
+                    setShowPopup({ ...showPopup, "option": null })
+                }
+            } catch (error) {
                 toast.error(showPopup.patient?.id ? "خطأ في تحديث المريض" : "خطأ في إضافة المريض", error.message);
+                console.log(showPopup.patient?.id ? "خطأ في تحديث المريض" : "خطأ في إضافة المريض", error.message);
+
             }
           }
           

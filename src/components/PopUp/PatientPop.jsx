@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react'
 import { BookBtn } from "../Btns/BookOBtn"
-import { CancelBtn } from "../Btns/CancelBtn";
 import { PopupContext } from '../../context/PopUpContext';
 import style from '../Btns/BookBtn.module.css'
 import { useFormicPatient } from '../Utilities/Patient/FormHandling';
@@ -32,6 +31,7 @@ export const PatientPop = () => {
 
     const formik = useFormicPatient({qClient});
 
+    console.log({formik})
 
     return (
         <div>

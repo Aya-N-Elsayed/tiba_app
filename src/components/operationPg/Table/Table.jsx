@@ -53,7 +53,6 @@ export const Table = ({ data, refetchOperation }) => {
 
   const switchLoading = patchMutation.isLoading;
 
-  console.log({patchMutation})
 
   const updateReservation = (id, updatedData) => {
     patchMutation.mutate({ id, updatedData }, {

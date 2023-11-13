@@ -9,7 +9,6 @@ export const InputComponent = ({ config, formik }) => (
         {config.label}
         {config.required && <span className="required"> *</span>}
       </label>
-      {console.log(formik.values.date)}
 
       <input
         className="w-100"
@@ -113,8 +112,8 @@ export const GenderComponent = ({ config, formik }) => {
       <div className="d-flex flex-column">
         <label>{config.label}</label>
         <div className={`d-flex justify-content-between ${genderStyle.genderOptions}`}>
-          {renderRadioOption("male", "ذكر", "ذكر", "./images/male.svg")}
-          {renderRadioOption("female", "أنثى", "أنثى", "./images/female.svg")}
+          {renderRadioOption("male", "M", "ذكر", "/images/male.svg")}
+          {renderRadioOption("female", "أنثى", "أنثى", "/images/female.svg")}
         </div>
         {formik.errors[config.name] && formik.touched[config.name] && (
           <p className="text-danger m-0">{formik.errors[config.name]}</p>
