@@ -112,7 +112,7 @@ export const GenderComponent = ({ config, formik }) => {
       <div className="d-flex flex-column">
         <label>{config.label}</label>
         <div className={`d-flex justify-content-between ${genderStyle.genderOptions}`}>
-          {renderRadioOption("male", "M", "ذكر", "/images/male.svg")}
+          {renderRadioOption("male", "ذكر", "ذكر", "/images/male.svg")}
           {renderRadioOption("female", "أنثى", "أنثى", "/images/female.svg")}
         </div>
         {formik.errors[config.name] && formik.touched[config.name] && (

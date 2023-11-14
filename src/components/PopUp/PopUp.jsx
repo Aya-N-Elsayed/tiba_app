@@ -14,12 +14,13 @@ export const PopUp = ({ title }) => {
     };
 
     const handleOutsideClick = (e) => {
-        console.log({e})
-        // Ensure that it's not a click inside the popup
-        if (!e.target.closest(`.${style.popupContainer}`)) {
+        // Check if the click is directly on the .layer and not on the .popupContainer
+        console.log(e)
+        if (e.target === document.querySelector(`.${style.layer}`)) {
             setShowPopup({ "option": null });
         }
     };
+    
 
     const handleEscapePress = (e) => {
         if (e.key === 'Escape') {

@@ -105,14 +105,16 @@ h4{
   justify-content: center; /* center content horizontally */
   z-index: 9999;
   overflow: auto;
+  /* padding-inline: 20px; */
 }
 
 .popupContainer {
-  width: 100%; /* or any preferred width */
+  /* width: 100%; or any preferred width */
   max-width: 600px; /* maximum width */
  height: fit-content;
   border-radius: 15px; /* rounded corners */
   /* box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); shadow effect */
+  padding-inline: 20px;
 }
 
 
