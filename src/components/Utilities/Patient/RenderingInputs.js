@@ -123,3 +123,39 @@ export const GenderComponent = ({ config, formik }) => {
   );
 };
 
+export const AgeComponent = ({ config, formik }) => {
+  // Function to handle the change of the age input
+  const handleAgeChange = (e) => {
+    const value = e.target.value;
+    const [year, month] = value.split('/').map(Number);
+    const decimalAge = year + (month / 12);
+
+    formik.setFieldValue(config.name, decimalAge.toFixed(1));
+  };
+
+  // Function to format the decimal age value for display in the input field
+  const formatAgeValue = (decimalAge) => {
+    const years = Math.floor(decimalAge);
+    const months = Math.round((decimalAge - years) * 12);
+    return `${years}/${months}`;
+  };
+
+  return (
+    <InputComponent
+      config={{
+        ...config,
+        name: config.name,
+        placeholder: 'السنة/الشهر',
+        type: 'text',
+        onChange: handleAgeChange,
+        // Convert the decimal age back to the year/month format for display
+        value: formik.values[config.name]
+          ? formatAgeValue(formik.values[config.name])
+          : ''
+      }}
+      formik={formik}
+    />
+  );
+};
+
+

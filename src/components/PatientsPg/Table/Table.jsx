@@ -53,9 +53,9 @@ export const Table = () => {
           </tr>
         </thead>
         <tbody>
-          {data?.data?.map((patient) => (
+          {data?.data?.map((patient,idx) => (
             <tr >
-              <td>{patient.id}</td>
+                <td>{idx+1 }</td>
               <td className='text-end pe-4' title={patient.name}>{patient.name}</td>
               <td>{patient.age}</td>
               <td>{patient.gender}</td>

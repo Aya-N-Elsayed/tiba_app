@@ -140,7 +140,7 @@ export const Table = ({ data, refetchOperation }) => {
 
             return (
               <tr className={` ${reserv.caseType?.name === 'جديد' ? 'bgNew' : (reserv.caseType?.name === 'حالة طبيب' ? 'bgDoctor' : '')}`}>
-                <td>{reserv?.id }</td>
+                <td>{idx+1}</td>
                 <td title={reserv.patient?.name}>{reserv.patient?.name}</td>
                 <td>{reserv.patient?.age}</td>
                 <td>{reserv.patient?.phone}</td>

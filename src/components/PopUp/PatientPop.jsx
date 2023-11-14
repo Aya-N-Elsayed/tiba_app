@@ -4,7 +4,7 @@ import { PopupContext } from '../../context/PopUpContext';
 import style from '../Btns/BookBtn.module.css'
 import { useFormicPatient } from '../Utilities/Patient/FormHandling';
 import { useAllCity } from '../Utilities/Operation/DataFetching';
-import { GenderComponent, InputComponent, SelectComponent, TextareaComponent } from '../Utilities/Patient/RenderingInputs';
+import { AgeComponent, GenderComponent, InputComponent, SelectComponent, TextareaComponent } from '../Utilities/Patient/RenderingInputs';
 import { useQueryClient } from 'react-query';
 
 
@@ -19,7 +19,7 @@ export const PatientPop = () => {
 
     const inputConfigs = [
         { label: 'اسم المريض', name: 'name', type: 'text', placeholder: 'ادخل اسم المريض', required: true  },
-        { label: 'العمر', name: 'age', type: 'text', inputmode: 'number', placeholder: 'ادخل العمر', required: true  },
+        { label: 'العمر', name: 'age', type: 'age', inputmode: 'number', placeholder: 'ادخل العمر', required: true  },
         { label: 'المدينة', name: 'city', type: 'select', placeholder: 'اختار المدينة', options: city, fieldName: 'city' , required: true },
         { label: 'النوع', name: 'gender', type: 'gender', required: true  },
         { label: 'رقم الهاتف', name: 'phone', type: 'tel', placeholder: 'ادخل رقم الهاتف', required: true  },
@@ -63,6 +63,7 @@ export const PatientPop = () => {
                 {inputConfigs.map((config, index) => (
                     <>
                         {config.type === 'select' && <SelectComponent config={config} formik={formik} />}
+                        {config.type === 'age' && <AgeComponent config={config} formik={formik} />}
                         {config.type === 'textarea' && <TextareaComponent config={config} formik={formik} />}
                         {config.type === 'gender' && <GenderComponent config={config} formik={formik} />}
                         {(config.type === 'tel' || config.type === 'text' || config.type === 'date') && <InputComponent config={config} formik={formik} />}

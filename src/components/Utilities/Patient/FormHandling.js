@@ -26,10 +26,10 @@ const validationSchema = Yup.object({
         // .matches(/[a-zA-Z]/, 'العنوان يجب أن يحتوي على حروف')
     ,
 
-        age: Yup.number()
-        .required('العمر مطلوب')
-        .min(1, 'يجب أن تكون على الأقل عامًا واحدًا')
-        .max(99, 'يجب أن تكون أقل من 100 عامًا'),
+        // age: Yup.number()
+        // .required('العمر مطلوب')
+        // .min(1, 'يجب أن تكون على الأقل عامًا واحدًا')
+        // .max(99, 'يجب أن تكون أقل من 100 عامًا'),
     
     notes: Yup.string().notRequired(),
     medicalHistory: Yup.string().notRequired(),
