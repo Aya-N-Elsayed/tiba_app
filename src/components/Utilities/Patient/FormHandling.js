@@ -15,11 +15,11 @@ const validationSchema = Yup.object({
 
     phone: Yup.string()
         .required('رقم الهاتف مطلوب')
-        .matches(/^01[0125][0-9]{8}/, "يرجى إدخال رقم هاتف مصري صحيح"),
+        .matches(/^\d+$/, "يرجى إدخال ارقام فقط"),
 
     phone2: Yup.string()
         .notRequired()
-        .matches(/^01[0125][0-9]{8}/, "يرجى إدخال رقم هاتف مصري صحيح"),
+        .matches(/^\d+$/, "يرجى إدخال ارقام فقط"),
 
     city: Yup.string()
         .required('العنوان مطلوب')
