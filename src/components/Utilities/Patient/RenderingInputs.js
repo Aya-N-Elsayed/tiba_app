@@ -156,9 +156,7 @@ export const AgeComponent = ({ config, formik }) => {
 
   return (
     <InputComponent
-      config={config
-        
-      }
+      config={config}
       formik={formik}
     />
   );

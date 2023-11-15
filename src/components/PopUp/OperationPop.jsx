@@ -6,7 +6,6 @@ import { NewPatientBtn } from '../Btns/NewPatientBtn';
 import { getInitialformik, useformik, useFormikOperation } from '../Utilities/Operation/OperationForm';
 import { InputComponent, SelectComponent, TextareaComponent } from '../Utilities/Patient/RenderingInputs';
 import { handleTimeBooking } from '../TimeWidget/TimeWidget';
-import { MySelect } from './MySelect';
 
 
 export const OperationPop = () => {

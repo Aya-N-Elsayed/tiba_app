@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Select from 'react-select';
+import { PopupContext } from '../../context/PopUpContext';
 
 export const MySelect = ({ label, options, placeholder, onChange, selectedValue, selLabel, styleClass , onMenuClose}) => {
 
+    const { setShowPopup, showPopup } = useContext(PopupContext);
+
     // Handling the change event from react-select
     const handleChange = selectedOption => {
+        console.log({ selectedOption })
+        if (selectedOption.value === '0') { console.log("pppppppp"); setShowPopup({ ...showPopup, option: 'p' })}
         onChange(selectedOption.value);
     };
 
@@ -26,7 +31,7 @@ export const MySelect = ({ label, options, placeholder, onChange, selectedValue,
                 value={selectedOption}
                 options={formattedOptions}
                 placeholder={placeholder}
-          onChange={handleChange}
+                onChange={handleChange}
                 styles={customStyles(styleClass)}
                 onMenuClose={onMenuClose}
                 // isClearable={true}  // Enable clearable option
@@ -47,7 +52,6 @@ control: (base) => ({
   fontWeight: styleClass?.includes('fw-medium') ? 500 : 400,
   wordWrap: 'break-word',
   color: 'black',
-  padding: '10.4px 8.32px',
   borderRadius: '8.31px',
   border: '0.52px solid var(--primary-greygreyscale400main)',
   backgroundColor: 'var(--bg-color)',
