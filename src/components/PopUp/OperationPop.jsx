@@ -71,7 +71,7 @@ export const OperationPop = () => {
         }
     ];
 
-    const dateConfig = { label: 'تاريخ العملية', name: 'date', type: 'date', placeholder: 'ادخل تاريخ العملية' }
+    const dateConfig = { label: 'تاريخ العملية', name: 'date', type: 'date', placeholder: 'ادخل تاريخ العملية' ,required:true}
     const notesConfig = { label: 'ملاحظات', name: 'notes', placeholder: 'ادخل الملاحظات' };
     const fileNumberConfig = { label: 'رقم الملف', name: 'fileNumber', type: 'tel', placeholder: 'ادخل رقم الملف' };
 

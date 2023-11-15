@@ -31,7 +31,7 @@ export const SelectComponent = ({ config, formik }) => {
   // Prepare options with the custom option if necessary
   const options = config?.options?.map(item => ({ value: item.id, label: item.name }));
   if (config.customOption) {
-    options?.unshift({ value: 'customOption', label: config.customOption, isDisabled: true });
+    options?.unshift({ value: '0', label: config.customOption, isDisabled: true });
   }
 
   return (
@@ -124,38 +124,45 @@ export const GenderComponent = ({ config, formik }) => {
 };
 
 export const AgeComponent = ({ config, formik }) => {
-  // Function to handle the change of the age input
-  const handleAgeChange = (e) => {
-    const value = e.target.value;
-    const [year, month] = value.split('/').map(Number);
-    const decimalAge = year + (month / 12);
-
-    formik.setFieldValue(config.name, decimalAge.toFixed(1));
+  const parseAgeInput = (value) => {
+    // Split the input value into year and month parts.
+    const parts = value.split('/');
+    const year = parseInt(parts[0], 10) || 0;
+    const month = parseInt(parts[1], 10) || 0;
+    return { year, month };
   };
 
-  // Function to format the decimal age value for display in the input field
+  const convertToDecimalAge = ({ year, month }) => {
+    // Convert the year and month into a decimal age.
+    return year + (month / 12);
+  };
+
   const formatAgeValue = (decimalAge) => {
+    // Convert the decimal age back to the year/month format.
     const years = Math.floor(decimalAge);
-    const months = Math.round((decimalAge - years) * 12);
+    const months = Math.round((decimalAge % 1) * 12);
     return `${years}/${months}`;
   };
 
+  const handleAgeChange = (e) => {
+    const { year, month } = parseAgeInput(e.target.value);
+    const decimalAge = convertToDecimalAge({ year, month });
+    formik.setFieldValue(config.name, decimalAge.toFixed(1));
+  };
+
+  const displayValue = formik.values[config.name]
+    ? formatAgeValue(formik.values[config.name])
+    : '';
+
   return (
     <InputComponent
-      config={{
-        ...config,
-        name: config.name,
-        placeholder: 'السنة/الشهر',
-        type: 'text',
-        onChange: handleAgeChange,
-        // Convert the decimal age back to the year/month format for display
-        value: formik.values[config.name]
-          ? formatAgeValue(formik.values[config.name])
-          : ''
-      }}
+      config={config
+        
+      }
       formik={formik}
     />
   );
 };
+
 
 

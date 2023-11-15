@@ -9,6 +9,7 @@ import axios from 'axios'
 import { useQuery } from 'react-query'
 import { baseURL } from '../../App'
 import { ThreeDots } from 'react-loader-spinner'
+import { getReservation } from '../Utilities/Operation/DataFetching'
 
 
 
@@ -22,23 +23,12 @@ export const OperationPg = () => {
 
   // # Functions Using Axios to call APIs //
 
- async function getReservation() {
-    return await axios.get(`${baseURL}reservations`, {
-
-      params: {
-        year: year,
-        month: month,
-        day: day
-      }
-    });
-  }
-
-  const { data, isLoading, refetch } = useQuery("allReservation", getReservation, {
+  const { data, isLoading, refetch } = useQuery("allReservation", () => getReservation({year,month,day}), {
   });
 
 
 
-
+  console.log({data})
 
 
 

@@ -42,7 +42,9 @@ function App() {
         { path: '/login', element: <LoginPg /> },
         { path: '/operations/:month/:year/:day', element: <OperationPg /> },
         { path: '/doctors', element: <Doctors /> },
-        { path: '/patients', element: <Patients />}
+        { path: '/patients', element: <Patients /> },
+        { path: '/operations/', element: <OperationPg /> },
+
       ]
     },
   ]

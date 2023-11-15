@@ -19,7 +19,7 @@ export const PatientPop = () => {
 
     const inputConfigs = [
         { label: 'اسم المريض', name: 'name', type: 'text', placeholder: 'ادخل اسم المريض', required: true  },
-        { label: 'العمر', name: 'age', type: 'age', inputmode: 'number', placeholder: 'ادخل العمر', required: true  },
+        { label: 'العمر', name: 'age', type: 'text', inputmode: 'number', placeholder: 'ادخل العمر', required: true  },
         { label: 'المدينة', name: 'city', type: 'select', placeholder: 'اختار المدينة', options: city, fieldName: 'city' , required: true },
         { label: 'النوع', name: 'gender', type: 'gender', required: true  },
         { label: 'رقم الهاتف', name: 'phone', type: 'tel', placeholder: 'ادخل رقم الهاتف', required: true  },

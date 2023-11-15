@@ -44,3 +44,19 @@ export const useMonthsReservations = ({month, year}) => {
    return  useQuery(["MonthReservations", month, year], ()=> fetchData('calendar', { month, year }));
 }
   
+
+// export const useTotalReservations = () => {
+//     return useQuery("totalReservations", () => fetchData('reservations'));
+// }
+
+
+export async function getReservation({year,month,day}) {
+    return await axios.get(`${baseURL}reservations`, {
+
+      params: {
+        year: year,
+        month: month,
+        day: day
+      }
+    });
+  }
