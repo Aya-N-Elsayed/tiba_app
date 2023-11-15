@@ -9,8 +9,8 @@ export const MySelect = ({ label, options, placeholder, onChange, selectedValue,
     // Handling the change event from react-select
     const handleChange = selectedOption => {
         console.log({ selectedOption })
-        if (selectedOption.value === '0') { console.log("pppppppp"); setShowPopup({ ...showPopup, option: 'p' })}
-        onChange(selectedOption.value);
+        if (selectedOption?.value === '0') { console.log("pppppppp"); setShowPopup({ ...showPopup, option: 'p' })}
+        onChange(selectedOption ? selectedOption.value : null);
     };
 
 
@@ -22,7 +22,7 @@ export const MySelect = ({ label, options, placeholder, onChange, selectedValue,
     }));
 
     // Find the currently selected option
-    const selectedOption = formattedOptions?.find(option => option.value === selectedValue);
+    const selectedOption = selectedValue ? formattedOptions.find(option => option.value === selectedValue) : null;
 
     return (
         <div>
@@ -34,7 +34,7 @@ export const MySelect = ({ label, options, placeholder, onChange, selectedValue,
                 onChange={handleChange}
                 styles={customStyles(styleClass)}
                 onMenuClose={onMenuClose}
-                // isClearable={true}  // Enable clearable option
+                isClearable={true}  // Enable clearable option
 
 
             />

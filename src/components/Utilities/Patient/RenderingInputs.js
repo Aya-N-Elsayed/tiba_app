@@ -46,7 +46,7 @@ export const SelectComponent = ({ config, formik }) => {
         placeholder={config.placeholder}
         options={ options  }
         onChange={(selectedOption) => {
-          if (selectedOption.value !== 'customOption') {
+          if (selectedOption?.value !== 'customOption') {
             formik.setFieldValue(config.fieldName, selectedOption);
           } else {
             // Handle the custom option selection, like opening a modal
