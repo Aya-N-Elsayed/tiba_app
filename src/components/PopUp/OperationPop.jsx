@@ -14,6 +14,7 @@ export const OperationPop = () => {
 
     //    ?   set up form data 
     const formik = useFormikOperation();
+    console.log({formik})
 
 
     const { data: { data: patients } = {} } = useAllPatients() //  Get patients Api
@@ -80,13 +81,9 @@ export const OperationPop = () => {
 
             <div className="row pt-3">
                 <InputComponent config={fileNumberConfig} formik={formik} />
-
-
                 {selectConfigs.map((config) => (
                     <SelectComponent config={config} formik={formik} />
                 ))}
-
-
                 <InputComponent config={dateConfig} formik={formik} />
                 <TextareaComponent config={notesConfig} formik={formik} />
 
@@ -98,7 +95,7 @@ export const OperationPop = () => {
 
 
 
-            {/* <h4  onClick={() => handleTimeBooking({ reserv, updateMutation,setTimeState,timeState })}>حدد الوقت المناسب</h4> */}
+            <h4 className='cursor-pointer' onClick={() => handleTimeBooking({ reserv : [], updateMutation :'', formik })}>حدد الوقت المناسب</h4>
 
 
             <BookBtn

@@ -8,18 +8,26 @@ import Swal from 'sweetalert2';
 const MySwal = withReactContent(Swal);
 
 function extractTime(timeString) {
-    const [time, p] = timeString.split(' ');
-    const [h, m] = time.split(':');
-    return { h, m, p };
+    console.log({ timeString });
+
+    if (typeof timeString === 'undefined' || timeString === '') {
+        console.log("default")
+        return { hour: "0", minute: 0, period: "ص" };
+    }
+
+    const [time, period = "ص"] = timeString.split(' ');
+    const [hour = 0, minute = 0] = time.split(':');
+    return { hour, minute, period };
 }
-export function handleTimeBooking({ reserv, updateMutation }) {
+
+export function handleTimeBooking({ reserv, updateMutation, formik }) {
 
     let timeValue = {};
 
     MySwal.fire(
         {
             title: 'حدد الوقت المناسب',
-            html: <TimeWidget reserv={reserv}  onTimeChange={(time) => { timeValue = time; }} />,
+            html: <TimeWidget reserv={reserv} onTimeChange={(time) => { timeValue = time; }} />,
             heightAuto: false,
             confirmButtonText: 'تم',
             cancelButtonText: 'إلغاء',
@@ -42,10 +50,13 @@ export function handleTimeBooking({ reserv, updateMutation }) {
         }).then((result) => {
             if (result.isConfirmed) {
                 const { hour, min, period } = timeValue;
+                formik.setFieldValue('time', `${hour}:${min} ${period}`);
 
                 try {
                     updateMutation.mutate({ id: reserv?.id, data: { time: `${hour}:${min} ${period}` } });
-                    console.log("++++++")
+                    console.log(`${hour}:${min} ${period}`)
+                    console.log({formik})
+ 
                 } catch (error) {
                     console.error("Mutation failed", error);
                 }
@@ -62,8 +73,7 @@ export function handleTimeBooking({ reserv, updateMutation }) {
 export const TimeWidget = ({ reserv, onTimeChange }) => {
 
 
-
-    const { h, m, p } = extractTime(reserv.time);
+    const { hour:h, minute:m, period:p } = extractTime(reserv?.time);
     const [hour, sethour] = useState(Number(h));
     const [min, setmin] = useState(Number(m));
     const [period, setperiod] = useState(p)

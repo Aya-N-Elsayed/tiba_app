@@ -45,7 +45,7 @@ export const OperationPg = () => {
       <div
         className={`${style.booking} d-flex justify-content-between align-items-center`}
       >
-        <h3 className={year?'d-block':'d-none'}>حجز عملية : <span className='text-muted fw-lighter fs-5'>ليوم {year}/{month}/{day}</span></h3> 
+        <h3  className={year?'d-block':'d-none' }>حجز عملية : <span className='text-muted fw-lighter fs-5'>ليوم {year}/{month}/{day}</span></h3> 
   
         <div className="d-flex align-items-center me-auto">
           <BackBtn />

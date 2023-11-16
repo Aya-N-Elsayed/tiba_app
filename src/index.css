@@ -472,3 +472,7 @@ input[type="date" i] {
    height: 25%;
    width: 5%;
 }
+
+.cursor-pointer{
+  cursor: pointer;
+}
