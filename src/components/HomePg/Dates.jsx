@@ -68,7 +68,7 @@ export const Dates = ({ month, setmonth, year, setyear }) => {
       </div>
 
       <MySelect
-        styleClassName=" m-0  fs-5 fw-medium"
+        styleClass=" m-0  fs-5 fw-medium"
         label=""  // If you don't want a label, just pass an empty string or don't pass this prop at all.
         options={monthOptions}
         placeholder={`${monthArr[month]} ${month}/${year}`} // Display the current month/year as the placeholder.

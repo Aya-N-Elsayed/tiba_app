@@ -87,7 +87,7 @@ export const Table = () => {
             return <>
 
               <tr className=' ' >
-                <td>{doctor?.id }</td>
+                <td>{idx+1 }</td>
                 <td className=' text-end pe-4' title={doctor.name}>{doctor.name}</td>
                 <td>{doctor.phone}</td>
                 <td>{doctor.phone2}</td>

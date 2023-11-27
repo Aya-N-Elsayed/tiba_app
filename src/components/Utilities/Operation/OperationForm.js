@@ -43,7 +43,7 @@ const validationSchema = Yup.object({
     patient: Yup.number().required('المريض مطلوب'),
     surgeon: Yup.number().required('الجراح مطلوب'),
     transferDoctor: Yup.number().notRequired(),
-    date: Yup.date().required('تاريخ العملية مطلوب'),
+    date: Yup.date().required('تاريخ العملية مطلوب').typeError('يجب إدخال تاريخ صحيح'),
     operationType: Yup.number().required('نوع العملية مطلوب'),
     caseType: Yup.number().required('نوع الحالة مطلوب'),
     employee: Yup.string().required(' الموظف مطلوب'),

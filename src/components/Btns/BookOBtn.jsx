@@ -3,6 +3,7 @@ import styles from './BookBtn.module.css'
 
 export const BookBtn = ({ txt, handleSubmit }) => {
 
+  console.log({txt})
   return (
     <button
     type="submit" onClick={handleSubmit}

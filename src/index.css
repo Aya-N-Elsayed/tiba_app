@@ -157,9 +157,8 @@ nav{
 }
 
 .navbar{
-  padding: 17.3px 18px 18px 71.4px;
-  /* margin-bottom: 1061px; */
-  --bs-navbar-brand-hover-color: red;
+  padding: 12px 40px ;
+  min-height: 74px;
 }
 
 /* # notification button */
@@ -378,13 +377,6 @@ nav{
   word-wrap: break-word;
 }
 
-.calender{
-  /* row-gap:18.03px; */
-  /* max-width: 100%; */
-  /* column-gap:15.02px; */
-  /* padding: 0; */
-}
-
 .detailsBtn .btnicons{
   /* width: 100%; */
   /* width: 14px; */
@@ -417,9 +409,8 @@ nav{
 
 .datesControler p{
   color: var(--logo-colortypap-lightnesscolor);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
-  line-height: 12px;
   word-wrap: break-word;
   margin-block: 0;
   
@@ -480,4 +471,8 @@ input[type="date" i] {
 #sidebarToggle{
    height: 25%;
    width: 5%;
+}
+
+.cursor-pointer{
+  cursor: pointer;
 }

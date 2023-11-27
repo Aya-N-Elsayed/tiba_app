@@ -14,8 +14,10 @@ export const Sidebar = () => {
     <button id="sidebarToggle" onClick={toggleSidebar} className="d-md-none btn btn-outline-primary"><img src="./images/bars-solid.svg" alt="" /></button>
     <div className={`sidebar ${showSidebar || window.innerWidth >= 768 ? 'd-block' : 'd-none d-md-block'}`}>
 
+    <NavLink exact activeclassname="active" to="/dashboard">
+        <img className="logoimg" alt="tiba logo" src="/images/image-1.png" />
+    </NavLink>
 
-      <img className="logoimg" alt="tiba logo" src="/images/image-1.png" />
       <ul className="nav navbar-nav flex-column text-end p-0">
         <NavLink exact activeclassname="active" to="/dashboard">
 

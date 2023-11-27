@@ -6,7 +6,6 @@ import { NewPatientBtn } from '../Btns/NewPatientBtn';
 import { getInitialformik, useformik, useFormikOperation } from '../Utilities/Operation/OperationForm';
 import { InputComponent, SelectComponent, TextareaComponent } from '../Utilities/Patient/RenderingInputs';
 import { handleTimeBooking } from '../TimeWidget/TimeWidget';
-import { MySelect } from './MySelect';
 
 
 export const OperationPop = () => {
@@ -15,6 +14,7 @@ export const OperationPop = () => {
 
     //    ?   set up form data 
     const formik = useFormikOperation();
+    console.log({formik})
 
 
     const { data: { data: patients } = {} } = useAllPatients() //  Get patients Api
@@ -31,7 +31,7 @@ export const OperationPop = () => {
             placeholder: "اختار اسم المريض",
             options: patients,
             fieldName: 'patient',
-            customOption: <NewPatientBtn setShowPopup={setShowPopup} showPopup={showPopup} />
+            customOption: <NewPatientBtn setShowPopup={setShowPopup} showPopup={showPopup} style='addOption' />
             , required: true
   
         },
@@ -71,7 +71,7 @@ export const OperationPop = () => {
         }
     ];
 
-    const dateConfig = { label: 'تاريخ العملية', name: 'date', type: 'date', placeholder: 'ادخل تاريخ العملية' }
+    const dateConfig = { label: 'تاريخ العملية', name: 'date', type: 'date', placeholder: 'ادخل تاريخ العملية' ,required:true}
     const notesConfig = { label: 'ملاحظات', name: 'notes', placeholder: 'ادخل الملاحظات' };
     const fileNumberConfig = { label: 'رقم الملف', name: 'fileNumber', type: 'tel', placeholder: 'ادخل رقم الملف' };
 
@@ -81,13 +81,9 @@ export const OperationPop = () => {
 
             <div className="row pt-3">
                 <InputComponent config={fileNumberConfig} formik={formik} />
-
-
                 {selectConfigs.map((config) => (
                     <SelectComponent config={config} formik={formik} />
                 ))}
-
-
                 <InputComponent config={dateConfig} formik={formik} />
                 <TextareaComponent config={notesConfig} formik={formik} />
 
@@ -99,7 +95,7 @@ export const OperationPop = () => {
 
 
 
-            {/* <h4  onClick={() => handleTimeBooking({ reserv, updateMutation,setTimeState,timeState })}>حدد الوقت المناسب</h4> */}
+            <h4 className='cursor-pointer' onClick={() => handleTimeBooking({ reserv : [], updateMutation :'', formik })}>حدد الوقت المناسب</h4>
 
 
             <BookBtn

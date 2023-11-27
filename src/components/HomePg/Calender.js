@@ -5,6 +5,7 @@ import { monthArr } from "./Dates";
 import { ThreeDots } from "react-loader-spinner";
 import { useMonthsReservations } from "../Utilities/Operation/DataFetching";
 import { NewPatientBtn } from "../Btns/NewPatientBtn";
+import { AllReservationBtn } from "../Btns/AllReservationBtn";
 
 export const MonthCalender = () => {
   const [month, setmonth] = useState(new Date().getMonth() + 1);
@@ -41,7 +42,7 @@ export const MonthCalender = () => {
 
     while (startIndex > 0) {
       cards.push(
-        <div className="col gy-4 col-auto" key={startIndex}>
+        <div className="col gy-4 col-auto opacity-0" key={startIndex}>
           <Card
             month={""}
             day={""}
@@ -77,7 +78,7 @@ export const MonthCalender = () => {
           <ThreeDots color="var(--logo-colortypap-lightnesscolor)" />
         </div>
       ) : (
-        <div className="row gx-2 gy-1 col-md-auto">
+< >    <div className="row gx-2 gy-1 col-md-auto">
           {handleStartday()}
           {Array.isArray(calendarData) &&
             calendarData.map((card, index) => {
@@ -97,8 +98,12 @@ export const MonthCalender = () => {
                 </>
               );
             })}
-        </div>
+          </div>
+          <AllReservationBtn/>
+
+          </>
       )}
+
     </div>
   );
 };

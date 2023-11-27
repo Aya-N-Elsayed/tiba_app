@@ -9,7 +9,6 @@ import toast from 'react-hot-toast';
 const fetchData = async (endpoint, params = {}) => {
     try {
         const response = await axios.get(`${baseURL}${endpoint}/`, { params });
-        console.log({response});
         return response;
     } catch (error) {
         toast.error(`خطأ فى السيرفر  ${endpoint}: ${error.message}`);
@@ -45,3 +44,19 @@ export const useMonthsReservations = ({month, year}) => {
    return  useQuery(["MonthReservations", month, year], ()=> fetchData('calendar', { month, year }));
 }
   
+
+// export const useTotalReservations = () => {
+//     return useQuery("totalReservations", () => fetchData('reservations'));
+// }
+
+
+export async function getReservation({year,month,day}) {
+    return await axios.get(`${baseURL}reservations`, {
+
+      params: {
+        year: year,
+        month: month,
+        day: day
+      }
+    });
+  }

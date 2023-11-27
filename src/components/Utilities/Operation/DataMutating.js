@@ -28,7 +28,6 @@ export function useUpdateOperation() {
         try {
           qOperation.refetchQueries("allReservation");
         } catch (error) {
-          console.log({ error });
         }
       },
       onError: (error) => {
@@ -47,7 +46,6 @@ export function useUpdateDoctor() {
         try {
           qDoc.refetchQueries("getAllDoctors");
         } catch (error) {
-          console.log({ error });
         }
       },
       onError: (error) => {

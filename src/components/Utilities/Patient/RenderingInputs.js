@@ -9,7 +9,6 @@ export const InputComponent = ({ config, formik }) => (
         {config.label}
         {config.required && <span className="required"> *</span>}
       </label>
-      {console.log(formik.values.date)}
 
       <input
         className="w-100"
@@ -32,7 +31,7 @@ export const SelectComponent = ({ config, formik }) => {
   // Prepare options with the custom option if necessary
   const options = config?.options?.map(item => ({ value: item.id, label: item.name }));
   if (config.customOption) {
-    options?.unshift({ value: 'customOption', label: config.customOption, isDisabled: true });
+    options?.unshift({ value: '0', label: config.customOption, isDisabled: true });
   }
 
   return (
@@ -47,7 +46,7 @@ export const SelectComponent = ({ config, formik }) => {
         placeholder={config.placeholder}
         options={ options  }
         onChange={(selectedOption) => {
-          if (selectedOption.value !== 'customOption') {
+          if (selectedOption?.value !== 'customOption') {
             formik.setFieldValue(config.fieldName, selectedOption);
           } else {
             // Handle the custom option selection, like opening a modal
@@ -85,51 +84,83 @@ export const TextareaComponent = ({ config, formik }) => (
 );
 
 // GenderComponent.jsx
-export const GenderComponent = ({ config, formik }) => (
-  <div className="col-md-12">
-    <div className="d-flex flex-column">
-      <label>{config.label}</label>
-      <div
-        className={`d-flex justify-content-start ${genderStyle.genderOptions}`}
-      >
-        {/* Male Radio Input */}
-        <div className="formCheckReverse p-1">
-          <input
-            id="male"
-            className="formCheckInput"
-            type="radio"
-            name={config.name}
-            value="M"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            checked={formik.values[config.name] === "M"}
-          />
-          <label className="formCheckLabel me-1 " htmlFor="male">
-            <img src="./images/male.svg"/>
-                 ذكر  
-          </label>
-        </div>
-        {/* Female Radio Input */}
-        <div className="formCheckReverse p-1">
-          <input
-            id="female"
-            className="formCheckInput"
-            type="radio"
-            name={config.name}
-            value="F"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            checked={formik.values[config.name] === "F"}
-          />
-          <label className="formCheckLabel me-1" htmlFor="female">
-            <img src="./images/female.svg"/>
-              أنثى
-          </label>
+export const GenderComponent = ({ config, formik }) => {
+  const renderRadioOption = (id, value, label, imageSrc) => (
+    <>
+      <input
+        id={id}
+        className={`${genderStyle.formCheckInput} opacity-0 position-absolute`}
+        type="radio"
+        name={config.name}
+        value={value}
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
+        checked={formik.values[config.name] === value}
+      />
+      <label htmlFor={id} className={genderStyle.formCheckReverse}>
+        <span className={genderStyle.genderLabel}>
+          <img src={imageSrc} alt={label} className="ms-2"/>
+          {label}
+        </span>
+      </label>
+    </>
+  );
+  
+
+  return (
+    <div className="col-md-12">
+      <div className="d-flex flex-column">
+        <label>{config.label}</label>
+        <div className={`d-flex justify-content-between ${genderStyle.genderOptions}`}>
+          {renderRadioOption("male", "ذكر", "ذكر", "/images/male.svg")}
+          {renderRadioOption("female", "أنثى", "أنثى", "/images/female.svg")}
         </div>
         {formik.errors[config.name] && formik.touched[config.name] && (
           <p className="text-danger m-0">{formik.errors[config.name]}</p>
         )}
       </div>
     </div>
-  </div>
-);
+  );
+};
+
+export const AgeComponent = ({ config, formik }) => {
+  const parseAgeInput = (value) => {
+    // Split the input value into year and month parts.
+    const parts = value.split('/');
+    const year = parseInt(parts[0], 10) || 0;
+    const month = parseInt(parts[1], 10) || 0;
+    return { year, month };
+  };
+
+  const convertToDecimalAge = ({ year, month }) => {
+    // Convert the year and month into a decimal age.
+    return year + (month / 12);
+  };
+
+  const formatAgeValue = (decimalAge) => {
+    // Convert the decimal age back to the year/month format.
+    const years = Math.floor(decimalAge);
+    const months = Math.round((decimalAge % 1) * 12);
+    return `${years}/${months}`;
+  };
+
+  const handleAgeChange = (e) => {
+    const { year, month } = parseAgeInput(e.target.value);
+    const decimalAge = convertToDecimalAge({ year, month });
+    formik.setFieldValue(config.name, decimalAge.toFixed(1));
+  };
+
+  const displayValue = formik.values[config.name]
+    ? formatAgeValue(formik.values[config.name])
+    : '';
+
+  return (
+    <InputComponent
+      config={config}
+      formik={formik}
+    />
+  );
+};
+
+
+

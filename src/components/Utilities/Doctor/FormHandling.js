@@ -9,10 +9,11 @@ import { PopupContext } from '../../../context/PopUpContext';
 
 const validationSchema = Yup.object({
     name: Yup.string().required('الاسم مطلوب').min(3, "يجب أن يكون الاسم أكثر من 3 أحرف").max(50, "يجب أن يكون الاسم أقل من 50 حرف"),
-    phone: Yup.string().notRequired().matches(/[0-9]/, "يرجى إدخال رقم هاتف مصري صحيح"),
-    phone2: Yup.string().notRequired().matches(/[0-9]/, "يرجى إدخال رقم هاتف مصري صحيح"),
+    phone: Yup.string().notRequired().matches(/^\d+$/, "يرجى إدخال ارقام فقط"),
+    phone2: Yup.string().notRequired().matches(/^\d+$/, "يرجى إدخال ارقام فقط"),
     address: Yup.string().notRequired().matches(/[\u0600-\u06FFa-zA-Z0-9]/, 'العنوان يجب أن يحتوي على حروف'),
-    clinicphone: Yup.string().notRequired().matches(/[0-9]/, 'يرجى إدخال رقم هاتف ')
+    clinicphone: Yup.string().notRequired().matches(/^\d+$/, "يرجى إدخال ارقام فقط")
+
 });
 
 

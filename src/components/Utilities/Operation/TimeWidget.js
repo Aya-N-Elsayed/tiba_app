@@ -37,7 +37,6 @@ export function handleTimeBooking1({ reserv , updateMutation}) {
         if (result.isConfirmed) {
           try {
              updateMutation.mutate({ id: reserv?.id, data: { time: `7:30 ص` } });
-            console.log("++++++")
         } catch (error) {
           console.error("Mutation failed", error);
         }

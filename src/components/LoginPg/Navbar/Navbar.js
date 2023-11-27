@@ -35,7 +35,8 @@ export const Navbar = () => {
             <li className="nav-item me-3">
                 <NewPatientBtn
                   setShowPopup={setShowPopup}
-                  showPopup={showPopup}
+                showPopup={showPopup}
+                style="newPatientGeneralBtn"
                 />
             </li>
           </ul>

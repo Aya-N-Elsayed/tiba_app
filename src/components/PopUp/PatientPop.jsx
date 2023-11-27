@@ -1,11 +1,10 @@
 import React, { useContext, useState } from 'react'
 import { BookBtn } from "../Btns/BookOBtn"
-import { CancelBtn } from "../Btns/CancelBtn";
 import { PopupContext } from '../../context/PopUpContext';
 import style from '../Btns/BookBtn.module.css'
 import { useFormicPatient } from '../Utilities/Patient/FormHandling';
 import { useAllCity } from '../Utilities/Operation/DataFetching';
-import { GenderComponent, InputComponent, SelectComponent, TextareaComponent } from '../Utilities/Patient/RenderingInputs';
+import { AgeComponent, GenderComponent, InputComponent, SelectComponent, TextareaComponent } from '../Utilities/Patient/RenderingInputs';
 import { useQueryClient } from 'react-query';
 
 
@@ -32,6 +31,7 @@ export const PatientPop = () => {
 
     const formik = useFormicPatient({qClient});
 
+    console.log({formik})
 
     return (
         <div>
@@ -41,14 +41,11 @@ export const PatientPop = () => {
                 <h4>معلومات المريض</h4>
                 <button className={style.backBtn} type='button'
                     onClick={() => {
-                        console.log({ showPopup })
                         if (showPopup?.data?.date) {
                             setShowPopup({ ...showPopup, "option": 'o' });
                         }
 
                         else setShowPopup({ "option": null })
-                        console.log({ showPopup })
-
                     }}
                 >
                     <div className="d-flex align-items-center">
@@ -66,6 +63,7 @@ export const PatientPop = () => {
                 {inputConfigs.map((config, index) => (
                     <>
                         {config.type === 'select' && <SelectComponent config={config} formik={formik} />}
+                        {config.type === 'age' && <AgeComponent config={config} formik={formik} />}
                         {config.type === 'textarea' && <TextareaComponent config={config} formik={formik} />}
                         {config.type === 'gender' && <GenderComponent config={config} formik={formik} />}
                         {(config.type === 'tel' || config.type === 'text' || config.type === 'date') && <InputComponent config={config} formik={formik} />}
@@ -75,8 +73,8 @@ export const PatientPop = () => {
 
 
 
-            <div className="mt-4">            <BookBtn txt={showPopup?.patient?.id ?   "تحديث مريض" : "إضافة مريض"}
- handleSubmit={formik.handleSubmit} />
+            <div className="mt-4">
+                <BookBtn txt={showPopup?.patient?.id ? "تحديث مريض" : "إضافة مريض"} handleSubmit={formik.handleSubmit} />
             </div>
         </div>
     )

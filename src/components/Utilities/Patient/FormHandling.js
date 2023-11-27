@@ -15,45 +15,40 @@ const validationSchema = Yup.object({
 
     phone: Yup.string()
         .required('رقم الهاتف مطلوب')
-        .matches(/^01[0125][0-9]{8}/, "يرجى إدخال رقم هاتف مصري صحيح"),
+        .matches(/^\d+$/, "يرجى إدخال ارقام فقط"),
 
     phone2: Yup.string()
         .notRequired()
-        .matches(/^01[0125][0-9]{8}/, "يرجى إدخال رقم هاتف مصري صحيح"),
+        .matches(/^\d+$/, "يرجى إدخال ارقام فقط"),
 
     city: Yup.string()
         .required('العنوان مطلوب')
         // .matches(/[a-zA-Z]/, 'العنوان يجب أن يحتوي على حروف')
     ,
 
-        age: Yup.number()
-        .required('العمر مطلوب')
-        .min(1, 'يجب أن تكون على الأقل عامًا واحدًا')
-        .max(99, 'يجب أن تكون أقل من 100 عامًا'),
+        // age: Yup.number()
+        // .required('العمر مطلوب')
+        // .min(1, 'يجب أن تكون على الأقل عامًا واحدًا')
+        // .max(99, 'يجب أن تكون أقل من 100 عامًا'),
     
     notes: Yup.string().notRequired(),
     medicalHistory: Yup.string().notRequired(),
-    birth_date: Yup.string().required("تاريخ الميلاد مطلوب "    ),
     
-    gender: Yup.string()
-        .oneOf(['M', 'F'], 'نوع غير صحيح')
-        .required('النوع مطلوب'),
+    gender: Yup.string().required('النوع مطلوب'),
 });
 
 
 
 export function useFormicPatient({qClient}) {
     const { setShowPopup, showPopup } = useContext(PopupContext);
-    console.log({showPopup})
 
     const formik = useFormik({
         initialValues: {
             name: showPopup.patient?.name || "",
             age: showPopup.patient?.age || "",
-            gender: showPopup.patient?.gender || "F",
+            gender: showPopup.patient?.gender || "ذكر",
             phone: showPopup.patient?.phone || "",
             phone2: showPopup.patient?.phone2 || "",
-            birth_date: showPopup.patient?.birth_date || "",
             medicalHistory: showPopup.patient?.medicalHistory || "",
             notes: showPopup.patient?.notes || "",
             city: showPopup.patient?.city.id || "",
@@ -62,6 +57,7 @@ export function useFormicPatient({qClient}) {
         validationSchema,
 
         onSubmit: async (values) => {
+
             const endpoint = showPopup.patient?.id 
                 ? `${baseURL}patients/${showPopup.patient.id}/`  // update endpoint
                 : `${baseURL}patients/`;                         // create endpoint
@@ -69,6 +65,7 @@ export function useFormicPatient({qClient}) {
             const httpMethod = showPopup.patient?.id ? 'PUT' : 'POST';
           
             try {
+
                 await axios({
                     method: httpMethod,
                     url: endpoint,
@@ -76,9 +73,19 @@ export function useFormicPatient({qClient}) {
                 });
                 toast.success(showPopup.patient?.id ? "تم تحديث المريض" : "تم إضافة مريض", { autoClose: 500 });
                 qClient.refetchQueries('getAllPatients');
-                setShowPopup({ "option": null });
+                if (showPopup?.data?.date) {
+                    setShowPopup({ ...showPopup, "option": 'o' });
+                }
+
+                else {
+                    console.log({showPopup})
+
+                    setShowPopup({ ...showPopup, "option": null })
+                }
             } catch (error) {
                 toast.error(showPopup.patient?.id ? "خطأ في تحديث المريض" : "خطأ في إضافة المريض", error.message);
+                console.log(showPopup.patient?.id ? "خطأ في تحديث المريض" : "خطأ في إضافة المريض", error.message);
+
             }
           }
           

@@ -40,9 +40,11 @@ function App() {
         { path: '/dashboard', element: <Dashboard/> },
         { path: '/home', element: <HomePg /> },
         { path: '/login', element: <LoginPg /> },
-        { path: '/operations/:month/:year/:day', element: <OperationPg /> },
+        { path: '/operations/*', element: <OperationPg /> },
         { path: '/doctors', element: <Doctors /> },
-        { path: '/patients', element: <Patients />}
+        { path: '/patients', element: <Patients /> },
+        // { path: '/operations/', element: <OperationPg /> },
+
       ]
     },
   ]

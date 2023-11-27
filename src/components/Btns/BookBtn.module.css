@@ -14,7 +14,7 @@
   color: white !important;
 }
 
-.newPatientBtn {
+.newPatientGeneralBtn , .newOperationBtn {
 
   border-radius: 22px;
   padding: 14px 11px;
@@ -26,13 +26,39 @@
   background-color: transparent;
   border-color: var(--logo-colortypap-lightnesscolor);
   width: 100%;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.newOperationBtn {
+  background: rgba(50, 139, 205, 0.20);
+  border-color:transparent ;
 }
 
 
-.newPatientBtn:hover {
+.newPatientGeneralBtn:hover , .newOperationBtn:hover {
   background-color: rgb(79, 163, 227) !important;
   color: white !important;
 }
+
+
+
+.addOption {
+  color: white;
+  color: var(--logo-colortypap-lightnesscolor); /* This line might be redundant since color is declared twice */
+  background-color:transparent;
+  border-color: var(--logo-colortypap-lightnesscolor);
+  width: 100%; /* Takes the width of the parent minus padding and borders */
+  margin-inline: 0; /* Removes any horizontal margin */
+  font-size: 11px;
+  box-sizing: border-box; /* Includes padding and border in the element's width */
+  border-radius: 22px;
+  padding: 5px 4px;
+}
+
+
+
 .arrowLeft {
   margin-right: 4px;
   /* font-size: 20px; */
@@ -47,4 +73,23 @@
   color: var(--logo-colortypap-lightnesscolor);
   font-size: 10px;
   font-weight: 600;
+}
+
+.allReservationBtn{
+  background-color: white;
+  border-radius: 6px;
+  padding: 16px;
+  border: 1px solid transparent;
+  color: #000000;
+  width: 40%;
+  margin-inline: auto;
+  font-size: 20px;
+  margin-block: 50px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1); /* horizontal offset, vertical offset, blur radius, color */
+
+}
+
+.allReservationBtn:hover{
+  border-color: transparent;
+
 }

@@ -5,10 +5,9 @@ import { useContext } from 'react'
 import { PopupContext } from '../../context/PopUpContext'
 import { BackBtn } from '../Btns/BackBtn'
 import { useParams } from 'react-router-dom'
-import axios from 'axios'
 import { useQuery } from 'react-query'
-import { baseURL } from '../../App'
 import { ThreeDots } from 'react-loader-spinner'
+import { getReservation } from '../Utilities/Operation/DataFetching'
 
 
 
@@ -16,29 +15,22 @@ import { ThreeDots } from 'react-loader-spinner'
 export const OperationPg = () => {
   const { setShowPopup, showPopup } = useContext(PopupContext);
 
-  const { month, year, day } = useParams();
+  const params = useParams();
+  const pathDetails = params['*'].split('/');
 
+  const year = pathDetails[1];
+  const month = pathDetails[0];
+  const day = pathDetails[2];
   // ? Geting All doctor
 
   // # Functions Using Axios to call APIs //
 
- async function getReservation() {
-    return await axios.get(`${baseURL}reservations`, {
-
-      params: {
-        year: year,
-        month: month,
-        day: day
-      }
-    });
-  }
-
-  const { data, isLoading, refetch } = useQuery("allReservation", getReservation, {
+  const { data, isLoading, refetch } = useQuery("allReservation", () => getReservation({year,month,day}), {
   });
 
 
 
-
+  console.log({data})
 
 
 
@@ -53,9 +45,9 @@ export const OperationPg = () => {
       <div
         className={`${style.booking} d-flex justify-content-between align-items-center`}
       >
-        <h3>حجز عملية : <span className='text-muted fw-lighter fs-5'>ليوم {year}/{month}/{day}</span></h3> 
+        <h3  className={year?'d-block':'d-none' }>حجز عملية : <span className='text-muted fw-lighter fs-5'>ليوم {year}/{month}/{day}</span></h3> 
   
-        <div className="d-flex align-items-center ">
+        <div className="d-flex align-items-center me-auto">
           <BackBtn />
           <button   type="button" onClick={() => {
 
